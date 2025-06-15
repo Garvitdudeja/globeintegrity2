@@ -40,3 +40,35 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.darkBlueText{
+  color: #2D3269;
+}
+
+.lightBlueText{
+  color: #1DD3F5;
+}
+.blueButton{
+  background-color: #1DD3F5 !important;
+  padding: 10px 15px !important;
+  border: 0px !important;
+  border-radius: 100px !important;
+}
+.lightButton{
+  color: #2D3269 !important;
+  background-color: #ffffff !important;
+  border-color: #2D3269 !important;
+  padding: 10px 15px !important;
+  border-radius: 100px !important;
+}
+
+.bgHomeBanner{
+  background-color: #EEFCFF !important
+}
+
+.testimonailCard{
+  background-color: #EEFCFF !important;
+  border: 1px solid #1DD3F5;
+
+}
