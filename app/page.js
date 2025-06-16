@@ -135,7 +135,7 @@ const Home = () => {
                 <div className="row">
                   <div className="col-lg-5">
                     <h2 className="heading54">Build tax-free<br /> wealth.<span className="sky"> Protect your<br /> future.</span></h2>
-                    <p className="sub16">Whether you're planning for retirement or protecting your family, Globe Integrity gives you the strategy and security to do both in one policy.</p>
+                    <p className="sub16">Whether you&apos;re planning for retirement or protecting your family, Globe Integrity gives you the strategy and security to do both in one policy.</p>
                     <button type="button" className="commonBtn me-2">See If you Qualify</button>
                     <button type="button" className="blueBtn">Watch Video <Image src={images.videoIcon} alt="icon" className="ms-1 mb-1" /></button>
                   </div>
@@ -255,7 +255,7 @@ const Home = () => {
           <div className="row text-center mb-4">
             <div className="col-12">
               <h2 className="heading54 mb-3">Personalized life insurance designed to grow your money and <span className="sky">protect the people you love.</span></h2>
-              <p className="sub36">You've got options. We help you find them.</p>
+              <p className="sub36">You&apos;ve got options. We help you find them.</p>
             </div>
           </div>
           <div className="loveForm">
