@@ -1,4 +1,4 @@
-import logo from "../public/images/greyLogo.svg";
+import logo from "../public/images/greyLogo 2.jpg";
 import telIcon from "../public/images/telIcon.svg";
 import videoIcon from "../public/images/videoIcon.svg";
 import starsImg from "../public/images/starsImg.svg";
@@ -9,7 +9,7 @@ import tax3 from "../public/images/tax3.svg";
 import steps from "../public/images/steps.svg";
 import agent from "../public/images/agent.svg";
 import telWhite from "../public/images/telWhite.svg";
-import logoWhite from "../public/images/logoWhite.svg";
+import logoWhite from "../public/images/logoWhite.png";
 import facebookIcon from "../public/images/facebookIcon.svg";
 import instaIcon from "../public/images/instaIcon.svg";
 import pIcon from "../public/images/pIcon.svg";

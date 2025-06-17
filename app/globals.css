@@ -98,6 +98,7 @@ nav {
 
 #menu-toggle:checked ~ .menu {
   transform: scale(1, 1);
+  background: #fff;
 }
 
 @media only screen and (max-width: 950px) {
@@ -122,10 +123,16 @@ nav {
     margin-bottom: 10px;
   }
   .menu-icon {
+    border: 1px solid #2d3269;
+    border-radius: 5px;
+    padding: 0 7px;
+    font-size: 16px;
     display: block;
-    font-size: 28px;
-    cursor: pointer;
   }
+}
+.btnToggleOuter {
+  display: flex;
+  flex-direction: row-reverse;
 }
 /* End Header  */
 /* Start Banner */
@@ -164,6 +171,12 @@ nav {
 .customer{
   padding-block: 5rem;
 }
+/* .react-multi-carousel-list{
+  overflow: visible !important;
+} */
+/* .react-multi-carousel-dot-list{
+  bottom:-19px !important
+} */
 .customer .heading54,
 .tax .heading54
 {
@@ -185,7 +198,7 @@ nav {
   background: #44E1FF1A;
   padding: 2.125rem 2.125rem 2.625rem 2.1875rem;
   border-radius: 8px;
-  margin-right: 22px;
+  margin-inline: 11px;
 }
 .sub14{
   font-size: .875rem;
@@ -215,7 +228,9 @@ nav {
   flex-direction: column;
   height: 100%;
 }
-
+.taxCard .sub16{
+  font-weight: 400;
+}
 .steps{
   padding-block: 3.75rem;
   background-color:#F4FDFF;
@@ -416,7 +431,7 @@ nav {
   text-decoration: underline;
 }
 .agent{
-  padding-inline: 1.3125rem;
+  padding-block: 1.3125rem;
   background-color: #F4FDFF;
 }
 .agent .heading54,

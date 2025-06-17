@@ -10,18 +10,14 @@ const Footer = () => {
           <div className='col-lg-6'>
             <div className='row'>
               <div className='col-lg-4'>
-                <h6 className='sub16'>Products</h6>
+                <h6 className='sub16 text-uppercase'>Products</h6>
                 <ul className='ps-0'>
                   <li><Link href="" className='sub16'>All Products</Link></li>
                   <li><Link href="" className='sub16'>Variable Universal Life</Link></li>
-                  <li><Link href="" className='sub16'></Link></li>
-                  <li><Link href="" className='sub16'></Link></li>
-                  <li><Link href="" className='sub16'></Link></li>
-
                 </ul>
               </div>
               <div className='col-lg-4'>
-                <h6 className='sub16'>Learn</h6>
+                <h6 className='sub16 text-uppercase'>Learn</h6>
                 <ul className='ps-0'>
                 <li><Link href="" className='sub16'>Education</Link></li>
                 <li><Link href="" className='sub16'>FAQ</Link></li>
@@ -30,7 +26,7 @@ const Footer = () => {
 
               </div>
               <div className='col-lg-4'>
-                <h6 className='sub16'>Contact</h6>
+                <h6 className='sub16 text-uppercase'>Contact</h6>
                 <ul className='ps-0'>
                 <li><Link href="" className='sub16'>team@getamplifylife.com</Link></li>
                 <li><Link href="" className='sub16'>1-855-687-4300</Link></li>
@@ -41,7 +37,7 @@ const Footer = () => {
           <div className='col-lg-6'>
           <div className='row'>
               <div className='col-lg-4'>
-                <h6 className='sub16'>Company</h6>
+                <h6 className='sub16 text-uppercase'>Company</h6>
                 <ul className='ps-0'>
                   <li><Link href="" className='sub16'>About Us</Link></li>
                   <li><Link href="" className='sub16'>Join the Team</Link></li>
@@ -49,7 +45,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div className='col-lg-4'>
-                <h6 className='sub16'>LEGAL</h6>
+                <h6 className='sub16 text-uppercase'>LEGAL</h6>
                 <ul className='ps-0'>
                 <li><Link href="" className='sub16'>Privacy Policy</Link></li>
                 <li><Link href="" className='sub16'>Terms & Conditions</Link></li>
@@ -57,8 +53,8 @@ const Footer = () => {
                 </ul>
 
               </div>
-              <div className='col-lg-4'>
-                <Link href="" className='mb-3 d-block'><Image src={images.logoWhite} alt='logo' width={241} height={63}/></Link>
+              <div className='col-lg-4 text-uppercase'>
+                <Link href="" className='mb-3 d-block'><Image src={images.logoWhite} alt='logo' className='footerLogo' width={241} height={63}/></Link>
                 <ul className='social'>
                   <li><Link href="" className='sub16'><Image src={images.facebookIcon} alt='icon'/></Link></li>
                   <li><Link href="" className='sub16'><Image src={images.instaIcon} alt='icon'/></Link></li>

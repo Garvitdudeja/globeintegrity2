@@ -133,7 +133,7 @@ const Home = () => {
             <div className="col-12">
               <div className="bannerInner">
                 <div className="row">
-                  <div className="col-lg-5">
+                  <div className="col-lg-6">
                     <h2 className="heading54">Build tax-free<br /> wealth.<span className="sky"> Protect your<br /> future.</span></h2>
                     <p className="sub16">Whether you&apos;re planning for retirement or protecting your family, Globe Integrity gives you the strategy and security to do both in one policy.</p>
                     <button type="button" className="commonBtn me-2">See If you Qualify</button>
@@ -201,7 +201,7 @@ const Home = () => {
           </div>
           <div className="row align-items-strech">
             {taxCards.map((card, index) => (
-              <div className="col-lg-4" key={index}>
+              <div className="col-lg-4 mb-4 mb-lg-0" key={index}>
                 <div className="taxCard">
                   <Image
                     src={card.image}
@@ -209,7 +209,7 @@ const Home = () => {
                     width={183}
                     height={174}
                   />
-                  <h4 className="heading54 mb-3">
+                  <h4 className="heading54 mb-3 taxHeading">
                     <span className="sky">{card.title}</span><br />{card.subtitle}
                   </h4>
                   <p className="sub16">{card.description}</p>
@@ -228,10 +228,10 @@ const Home = () => {
             </div>
           </div>
           <div className="row align-items-center">
-            <div className="col-lg-6">
+            <div className="col-6">
               <Image src={images.steps} alt="image" className="img-fluid" />
             </div>
-            <div className="col-lg-6" >
+            <div className="col-6" >
               {stepsData.map((step, index) => (
                 <div className="stepsCard" key={index}>
                   <div>
@@ -260,13 +260,13 @@ const Home = () => {
           </div>
           <div className="loveForm">
             <div className="row mb-5">
-              <div className="col-lg-6 mb-5">
+              <div className="col-lg-6 mb-4 mb-sm-5">
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-6">
                     <label className="form-label customLabel">Age</label>
                     <input type="number" className="form-control customInput" id="" />
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-6">
                     <label className="form-label customLabel">Zip Code</label>
                     <input type="text" className="form-control customInput" id="" />
                   </div>
@@ -290,6 +290,7 @@ const Home = () => {
                           width: '100%',
                           backgroundColor: '#2D3269',
                         }}
+                        className="rangeBorder"
                       >
                         {children}
                       </div>
@@ -308,8 +309,9 @@ const Home = () => {
                           borderRadius: '50%',
                           border: '1px solid #2D3269'
                         }}
+                        className="rangeRound"
                       >
-                        <div style={{ position: 'absolute', top: '-38px', fontWeight: '600', fontSize: '24px', background: 'transparent', color: '#2F3A4E' }}>
+                        <div style={{ position: 'absolute', top: '-38px', fontWeight: '600', fontSize: '24px', background: 'transparent', color: '#2F3A4E' }} className="rangeCount">
                           ${values[index].toFixed(1)}
                         </div>
                       </div>
@@ -317,7 +319,7 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6 mb-4 mb-lg-0">
                 <label className="form-label customLabel">What are your financial goals?</label>
                 <div className="loveBtnOuter">
                   {["Grow", "Protect", "Both"].map((goal) => (
@@ -333,7 +335,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6 mb-4 mb-lg-0">
                 <label className="form-label customLabel">How would you describe your risk tolerance?</label>
                 <div className="loveBtnOuter">
                   {["Low", "Medium", "High"].map((risk) => (
