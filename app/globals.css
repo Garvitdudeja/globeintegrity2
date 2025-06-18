@@ -40,6 +40,19 @@ p{
   border: none;
   box-shadow: none !important;
 }
+.commonBtnBig{
+  background: #1DD3F5;
+  width: 100%;
+  max-width: 17.5rem;
+  height: 3.5625rem;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  color:#fff;
+  font-family: "Roboto", sans-serif;
+  border: none;
+  box-shadow: none !important;
+}
 .blueBtn{
   background: transparent;
   padding: 8.5px 15px;
@@ -54,6 +67,10 @@ p{
 }
 /* End Common */
 /* Header Css */
+.header .container-fluid{
+  max-width: 120rem;
+  padding: 0 36px;
+ }
 .header {
   position: sticky;
   top: 0;
@@ -168,15 +185,15 @@ nav {
   color: #2F3A4E;
   font-size: 16px;
 }
+.sub18{
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif !important;
+  color: #2F3A4E;
+  font-size: 18px;
+}
 .customer{
   padding-block: 5rem;
 }
-/* .react-multi-carousel-list{
-  overflow: visible !important;
-} */
-/* .react-multi-carousel-dot-list{
-  bottom:-19px !important
-} */
 .customer .heading54,
 .tax .heading54
 {
@@ -264,6 +281,12 @@ nav {
     font-weight: 400;
     color: #2F3A4E;
     line-height: 100%;
+}
+.sub24{
+  font-family: "DM Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #2F3A4E;
 }
 .stepsCard{
   margin-bottom: 4.6875rem;
@@ -477,5 +500,92 @@ nav {
   margin-right: 20px;
 }
 .social li:last-child{
-margin-right: 0;
+  margin-right: 0;
+}
+/* End landing page  */
+/* Start Product Page */
+.productImgOuter img{
+  padding: 40px 0px 40px 40px;
+}
+.universe{
+  padding-bottom: 4.4375rem;
+}
+.heading28{
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2D3269;
+   font-family: "Lora", serif;
+}
+.benifitCard{
+  padding-inline: 1.875rem;
+}
+.benifitCard img{
+  max-height: 18.75rem;
+  max-height: 18.75rem;
+  margin-bottom: 35px;
+}
+.benifit .heading54{
+  margin-bottom: 5rem;
+}
+.stedy{
+  background-color:#F4FDFF;
+  padding-block: 6.25rem;
+}
+.prouctFaq .accordion-button{
+    border-radius: 0 !important;
+    border-bottom: 1px solid #2d3269 !important;
+    margin-block: 12px;
+    font-size: 1.75rem;
+    border-top: none !important;
+    font-family: "Lora", serif;
+    color: #2d3269 !important;
+    font-weight: 500 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.prouctFaq .accordion-item{
+  border-top: 0;
+    border-bottom: 0;
+    border-right: none !important;
+    border-left: none !important;
+}
+.prouctFaq .accordion-body{
+  font-family: "Lora", serif;
+  color: #2d3269 !important;
+}
+.faqList li{
+  list-style: disc;
+  color: red;
+}
+.faqList{
+  padding-left: 16px;
+  margin-top: 10px;
+}
+.faqList li {
+  color: #2d3269;
+  list-style: outside;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.faqList li a{
+  color: #000;
+  text-decoration: underline !important;
+  transition: color 0.2s ease-in-out;
+}
+.faqList li a:hover {
+  color: #2d3269;
+}
+.prouctFaq{
+  padding-block: 6.25rem;
+}
+.prouctFaq .accordion-item:first-child .accordion-button{
+  border-top: 1px solid #2d3269 !important;
+}
+.moreQue img{
+  padding: 32px 100px 24px;
+}
+.moreQueSection{
+  padding-block: 100px;
+  background: linear-gradient(109.57deg, #F8FFFA 21.28%, #f4fdff 89.85%);
 }

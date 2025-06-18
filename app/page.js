@@ -128,9 +128,9 @@ const Home = () => {
   return (
     <>
       <section className="banner">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-xl-10">
               <div className="bannerInner">
                 <div className="row">
                   <div className="col-lg-6">
@@ -146,7 +146,7 @@ const Home = () => {
         </div>
       </section>
       <section className="customer">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row text-center mb-4">
             <div className="col-12">
               <h2 className="heading54">What our customers are <span className="sky">talking about</span></h2>
@@ -168,7 +168,7 @@ const Home = () => {
                 keyBoardControl
                 customTransition="all .5s"
                 transitionDuration={500}
-                containerClass="carousel-container"
+                container-fluidClass="carousel-container-fluid"
                 removeArrowOnDeviceType={['tablet', 'mobile']}
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
@@ -193,212 +193,233 @@ const Home = () => {
         </div>
       </section>
       <section className="tax">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row text-center">
             <div className="col-12">
               <h2 className="heading54">Bundled Protection and  <span className="sky">Tax Savings</span></h2>
             </div>
           </div>
-          <div className="row align-items-strech">
-            {taxCards.map((card, index) => (
-              <div className="col-lg-4 mb-4 mb-lg-0" key={index}>
-                <div className="taxCard">
-                  <Image
-                    src={card.image}
-                    alt={card.alt}
-                    width={183}
-                    height={174}
-                  />
-                  <h4 className="heading54 mb-3 taxHeading">
-                    <span className="sky">{card.title}</span><br />{card.subtitle}
-                  </h4>
-                  <p className="sub16">{card.description}</p>
-                  <button className="blueBtn w-100 mt-auto">{card.buttonText}</button>
-                </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              <div className="row">
+                {taxCards.map((card, index) => (
+                  <div className="col-lg-4 mb-4 mb-lg-0" key={index}>
+                    <div className="taxCard">
+                      <Image
+                        src={card.image}
+                        alt={card.alt}
+                        width={183}
+                        height={174}
+                      />
+                      <h4 className="heading54 mb-3 taxHeading">
+                        <span className="sky">{card.title}</span><br />{card.subtitle}
+                      </h4>
+                      <p className="sub16">{card.description}</p>
+                      <button className="blueBtn w-100 mt-auto">{card.buttonText}</button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
       <section className="steps">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row text-center mb-4">
             <div className="col-12">
               <h2 className="heading54">Done in 3 Easy <span className="sky">Steps </span></h2>
             </div>
           </div>
-          <div className="row align-items-center">
-            <div className="col-6">
-              <Image src={images.steps} alt="image" className="img-fluid" />
-            </div>
-            <div className="col-6" >
-              {stepsData.map((step, index) => (
-                <div className="stepsCard" key={index}>
-                  <div>
-                    <div className="stepNum">
-                      {step.number}
-                    </div>
-                  </div>
-                  <div className="stepDes">
-                    <h6 className="heading36">{step.title}</h6>
-                    <p className="sub36">{step.description}</p>
-                  </div>
+          <div className="row justify-content-center">
+            <div className="col-xl-8">
+              <div className="row align-items-center">
+                <div className="col-6">
+                  <Image src={images.steps} alt="image" className="img-fluid" />
                 </div>
-              ))}
-              <button className="commonBtn">Get Started</button>
+                <div className="col-6" >
+                  {stepsData.map((step, index) => (
+                    <div className="stepsCard" key={index}>
+                      <div>
+                        <div className="stepNum">
+                          {step.number}
+                        </div>
+                      </div>
+                      <div className="stepDes">
+                        <h6 className="heading36">{step.title}</h6>
+                        <p className="sub36">{step.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                  <button className="commonBtn">Get Started</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section className="love">
-        <div className="container">
-          <div className="row text-center mb-4">
-            <div className="col-12">
-              <h2 className="heading54 mb-3">Personalized life insurance designed to grow your money and <span className="sky">protect the people you love.</span></h2>
-              <p className="sub36">You&apos;ve got options. We help you find them.</p>
-            </div>
-          </div>
-          <div className="loveForm">
-            <div className="row mb-5">
-              <div className="col-lg-6 mb-4 mb-sm-5">
-                <div className="row">
-                  <div className="col-6">
-                    <label className="form-label customLabel">Age</label>
-                    <input type="number" className="form-control customInput" id="" />
-                  </div>
-                  <div className="col-6">
-                    <label className="form-label customLabel">Zip Code</label>
-                    <input type="text" className="form-control customInput" id="" />
-                  </div>
+        <div className="container-fluid">
+          <div className="row mb-4 justify-content-center">
+            <div className="col-xl-8">
+              <div className="row text-center">
+                <div className="col-12">
+                  <h2 className="heading54 mb-3">Personalized life insurance designed to grow your money and <span className="sky">protect the people you love.</span></h2>
+                  <p className="sub36 mb-5">You&apos;ve got options. We help you find them.</p>
                 </div>
               </div>
-              <div className="col-lg-6 mb-5">
-                <label className="form-label customLabel">Monthly contribution budget</label>
-                <div style={{ marginTop: '48px', marginLeft: '20px' }}>
-                  <Range
-                    step={0.1}
-                    min={0}
-                    max={100}
-                    values={values}
-                    onChange={(values) => setValues(values)}
-                    renderTrack={({ props, children }) => (
-                      <div
-                        {...props}
-                        style={{
-                          ...props.style,
-                          height: '1px',
-                          width: '100%',
-                          backgroundColor: '#2D3269',
-                        }}
-                        className="rangeBorder"
-                      >
-                        {children}
-                      </div>
-                    )}
-                    renderThumb={({ props, index }) => (
-                      <div
-                        {...props}
-                        style={{
-                          ...props.style,
-                          height: '40px',
-                          width: '40px',
-                          backgroundColor: '#fff',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          borderRadius: '50%',
-                          border: '1px solid #2D3269'
-                        }}
-                        className="rangeRound"
-                      >
-                        <div style={{ position: 'absolute', top: '-38px', fontWeight: '600', fontSize: '24px', background: 'transparent', color: '#2F3A4E' }} className="rangeCount">
-                          ${values[index].toFixed(1)}
-                        </div>
-                      </div>
-                    )}
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 mb-4 mb-lg-0">
-                <label className="form-label customLabel">What are your financial goals?</label>
-                <div className="loveBtnOuter">
-                  {["Grow", "Protect", "Both"].map((goal) => (
-                    <button
-                      key={goal}
-                      type="button"
-                      className={`loveBtn ${financialGoal === goal ? "active" : ""}`}
-                      onClick={() => setFinancialGoal(goal)}
-                    >
-                      {goal}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <div className="loveForm">
 
-              <div className="col-lg-6 mb-4 mb-lg-0">
-                <label className="form-label customLabel">How would you describe your risk tolerance?</label>
-                <div className="loveBtnOuter">
-                  {["Low", "Medium", "High"].map((risk) => (
-                    <button
-                      key={risk}
-                      type="button"
-                      className={`loveBtn ${riskTolerance === risk ? "active" : ""}`}
-                      onClick={() => setRiskTolerance(risk)}
-                    >
-                      {risk}
-                    </button>
-                  ))}
+                <div className="row mb-5">
+                  <div className="col-lg-6 mb-4 mb-sm-5">
+                    <div className="row">
+                      <div className="col-6">
+                        <label className="form-label customLabel">Age</label>
+                        <input type="number" className="form-control customInput" id="" />
+                      </div>
+                      <div className="col-6">
+                        <label className="form-label customLabel">Zip Code</label>
+                        <input type="text" className="form-control customInput" id="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 mb-5">
+                    <label className="form-label customLabel">Monthly contribution budget</label>
+                    <div style={{ marginTop: '48px', marginLeft: '20px' }}>
+                      <Range
+                        step={0.1}
+                        min={0}
+                        max={100}
+                        values={values}
+                        onChange={(values) => setValues(values)}
+                        renderTrack={({ props, children }) => (
+                          <div
+                            {...props}
+                            style={{
+                              ...props.style,
+                              height: '1px',
+                              width: '100%',
+                              backgroundColor: '#2D3269',
+                            }}
+                            className="rangeBorder"
+                          >
+                            {children}
+                          </div>
+                        )}
+                        renderThumb={({ props, index }) => (
+                          <div
+                            {...props}
+                            style={{
+                              ...props.style,
+                              height: '40px',
+                              width: '40px',
+                              backgroundColor: '#fff',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              borderRadius: '50%',
+                              border: '1px solid #2D3269'
+                            }}
+                            className="rangeRound"
+                          >
+                            <div style={{ position: 'absolute', top: '-38px', fontWeight: '600', fontSize: '24px', background: 'transparent', color: '#2F3A4E' }} className="rangeCount">
+                              ${values[index].toFixed(1)}
+                            </div>
+                          </div>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-lg-6 mb-4 mb-lg-0">
+                    <label className="form-label customLabel">What are your financial goals?</label>
+                    <div className="loveBtnOuter">
+                      {["Grow", "Protect", "Both"].map((goal) => (
+                        <button
+                          key={goal}
+                          type="button"
+                          className={`loveBtn ${financialGoal === goal ? "active" : ""}`}
+                          onClick={() => setFinancialGoal(goal)}
+                        >
+                          {goal}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6 mb-4 mb-lg-0">
+                    <label className="form-label customLabel">How would you describe your risk tolerance?</label>
+                    <div className="loveBtnOuter">
+                      {["Low", "Medium", "High"].map((risk) => (
+                        <button
+                          key={risk}
+                          type="button"
+                          className={`loveBtn ${riskTolerance === risk ? "active" : ""}`}
+                          onClick={() => setRiskTolerance(risk)}
+                        >
+                          {risk}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+                <button className="commonBtn mx-auto d-block">Continue</button>
               </div>
             </div>
-            <button className="commonBtn mx-auto d-block">Continue</button>
           </div>
         </div>
       </section>
       <section className="faq">
-        <div className="container">
-          <div className="row text-center mb-4">
-            <div className="col-12">
-              <h2 className="heading54 mb-3">Intelligently Asked  <span className="sky">Questions</span></h2>
-            </div>
-          </div>
-          <div className="row mb-5">
-            <div className="col-lg-12">
-              {faqData.map((item, index) => (
-                <div className="row faqItem" key={index}>
-                  <div className="col-lg-6">
-                    <span className="icon me-2">+</span>
-                    <strong className="question">{item.question}</strong>
-                  </div>
-                  <div className="col-lg-6">
-                    <div className={`faq-content ${openIndex === index ? 'expanded' : ''}`}>
-                      {item.answer}
-                      <button
-                        className="toggleBtn"
-                        onClick={() =>
-                          setOpenIndex(openIndex === index ? null : index)
-                        }
-                      >
-                        {openIndex === index ? ' Read Less' : ' Read More'}
-                      </button>
-                    </div>
-                  </div>
+        <div className="container-fluid">
+          <div className="row justify-content-center  mb-4">
+            <div className="col-xl-8">
+              <div className="row text-center">
+                <div className="col-12">
+                  <h2 className="heading54 mb-3">Intelligently Asked  <span className="sky">Questions</span></h2>
                 </div>
-              ))}
+              </div>
+              <div className="row mb-5">
+                <div className="col-lg-12">
+                  {faqData.map((item, index) => (
+                    <div className="row faqItem" key={index}>
+                      <div className="col-lg-6">
+                        <span className="icon me-2">+</span>
+                        <strong className="question">{item.question}</strong>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className={`faq-content ${openIndex === index ? 'expanded' : ''}`}>
+                          {item.answer}
+                          <button
+                            className="toggleBtn"
+                            onClick={() =>
+                              setOpenIndex(openIndex === index ? null : index)
+                            }
+                          >
+                            {openIndex === index ? ' Read Less' : ' Read More'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section className="agent">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-4">
-              <Image src={images.agent} alt="icon" className="img-fluid" />
-            </div>
-            <div className="col-lg-8">
-              <h2 className="heading54 mb-3">Find a local insurance  <span className="sky">agent</span></h2>
-              <p className="agentDetail"><span className="telWhiteOuter"><Image src={images.telWhite} alt="icon" className="telWhite" /></span>Call Us: +1 8447874652</p>
-              <button className="commonBtn">Get a Quote</button>
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-xl-8">
+              <div className="row">
+                <div className="col-lg-4">
+                  <Image src={images.agent} alt="icon" className="img-fluid" />
+                </div>
+                <div className="col-lg-8">
+                  <h2 className="heading54 mb-3">Find a local insurance  <span className="sky">agent</span></h2>
+                  <p className="agentDetail"><span className="telWhiteOuter"><Image src={images.telWhite} alt="icon" className="telWhite" /></span>Call Us: +1 8447874652</p>
+                  <button className="commonBtn">Get a Quote</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

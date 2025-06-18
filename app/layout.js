@@ -3,7 +3,8 @@ import "./globals.css";
 import "./responsive.css"
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import Head from "next/head";
+import "bootstrap/dist/css/bootstrap.min.css"
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,11 @@ export default function RootLayout({ children }) {
         {children}
         <Footer />
       </body>
+      <Script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          strategy="lazyOnload"
+          async
+        />
     </html>
   );
 }

@@ -1,14 +1,44 @@
-@media(max-width:1400px){
-    /* .react-multi-carousel-dot-list {
-        bottom: -35px !important;
+@media(max-width:1920px){
+    /* .container-fluid{
+        max-width: 1800px;
+        margin-inline: auto;
     } */
-    .footerLogo,
-    .logo img
+}
+@media(max-width: 1800px){
+    .customLabel{
+        font-size: 20px;
+    }
+}
+@media (min-width: 1752px){
+ .container-fluid{
+    max-width: 1752px;
+ }
+}
+@media(max-width:1400px){
+    /* .logo img
     {
         width: 100%;
         height: 100%;
+    } */
+    .customLabel{
+        font-size: 16px;
     }
 
+}
+@media(max-width:1200px){
+    .stepDes .heading36
+    {
+        font-size: 27px;
+    }
+    .stepDes .sub36{
+        font-size: 23px;
+    }
+    .stepsCard {
+        margin-bottom: 3.6875rem;
+    }
+    .container-fluid {
+        padding-inline: 52px !important;
+    }
 }
 @media(max-width: 992px){
     .btnToggleOuter {
@@ -45,6 +75,10 @@
     .customer .react-multi-carousel-list{
         padding-bottom: 12px;
     }
+    .customLabel{
+        font-size: 16px;
+    }
+    
 }
 @media(max-width: 480px){
 nav {
@@ -252,5 +286,11 @@ display: block !important;
     width: 12px;
     height: 12px;
     margin-bottom: 0 !important;
+}
+ .footer .sub16{
+        font-size: 16px;
+}
+.container-fluid {
+    padding-inline: 12px !important;
 }
 }

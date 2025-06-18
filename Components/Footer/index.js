@@ -5,7 +5,7 @@ import * as images from './../../utilities/images'
 const Footer = () => {
   return (
     <section className='footer'>
-      <div className='container'>
+      <div className='container-fluid'>
         <div className='row'>
           <div className='col-lg-6'>
             <div className='row'>
@@ -54,11 +54,11 @@ const Footer = () => {
 
               </div>
               <div className='col-lg-4 text-uppercase'>
-                <Link href="" className='mb-3 d-block'><Image src={images.logoWhite} alt='logo' className='footerLogo' width={241} height={63}/></Link>
+                <Link href="" className='mb-3 d-block'><Image src={images.logoWhite} alt='logo' className='footerLogo img-fluid' width={241} height={63}/></Link>
                 <ul className='social'>
-                  <li><Link href="" className='sub16'><Image src={images.facebookIcon} alt='icon'/></Link></li>
-                  <li><Link href="" className='sub16'><Image src={images.instaIcon} alt='icon'/></Link></li>
-                  <li><Link href="" className='sub16'><Image src={images.pIcon} alt='icon'/></Link></li>
+                  <li><Link href="" className='sub16'><Image src={images.facebookIcon} alt='icon' className='img-fluid'/></Link></li>
+                  <li><Link href="" className='sub16'><Image src={images.instaIcon} alt='icon' className='img-fluid'/></Link></li>
+                  <li><Link href="" className='sub16'><Image src={images.pIcon} alt='icon' className='img-fluid'/></Link></li>
                 </ul>
               </div>
             </div>

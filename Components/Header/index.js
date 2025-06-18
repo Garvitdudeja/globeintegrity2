@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <>
     <section className='header'>
-      <div className='container'>
+      <div className='container-fluid'>
         <div className='row'>
           <div className='col-12'>
             <header className="header">
