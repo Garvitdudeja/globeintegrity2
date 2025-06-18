@@ -41,6 +41,9 @@ child,
 benifit1,
 benifit2,
 benifit3,
+<<<<<<< HEAD
 faq,
 moreQue
+=======
+>>>>>>> 8d487eaf3e45417ffe68999dfc5bd5b2a2915655
 }
