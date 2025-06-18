@@ -3,7 +3,7 @@ import "./globals.css";
 import "./responsive.css"
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import Head from "next/head";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
