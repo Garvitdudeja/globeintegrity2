@@ -1,20 +1,47 @@
-import React from 'react'
+'use client'
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image'
 import * as images from './../../utilities/images'
-import { Linefont } from 'next/font/google'
 import Link from 'next/link'
+import { HiArrowRight } from "react-icons/hi";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,CartesianGrid } from "recharts";
 const Product = () => {
+const [premium, setPremium] = useState(100); // starting from $100
+const years = 60;
+const conservativeReturn = 0.0171;
+const optimisticReturn = 0.064;
+
+// Move the data generation logic to a function
+const generateData = (premium) => {
+  return Array.from({ length: years + 1 }, (_, year) => {
+    const conservativeValue = Math.round(
+      premium * 12 * (((Math.pow(1 + conservativeReturn, year) - 1) / conservativeReturn) || 0)
+    );
+    const optimisticValue = Math.round(
+      premium * 12 * (((Math.pow(1 + optimisticReturn, year) - 1) / optimisticReturn) || 0)
+    );
+    return {
+      year,
+      Conservative: conservativeValue,
+      Optimistic: optimisticValue,
+    };
+  });
+};
+
+// Now only declare data once using useMemo
+const data = useMemo(() => generateData(premium), [premium]);
+
     return (
         <>
             <section className="universe">
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
-                        <div className="col-lg-6">
+                        <div className="col-12 col-md-6 orderTwo">
                             <h1 className='heading54'>Indexed Universal Life Insurance</h1>
                             <p className='sub24 mb-4'>A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life.</p>
                             <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-12 col-md-6 orderOne">
                             <div className='productImgOuter text-end'>
                                 <Image src={images.child} alt='image' className='img-fluid' />
                             </div>
@@ -59,15 +86,113 @@ const Product = () => {
                     </div>
                 </div>
             </section>
+            <section className='premiumGraph'>
+                <div className='container-fluid'>
+                    <div className='row justify-content-center'>
+                        <div className='col-10'>
+                            <h2 className='heading54 text-center text-white mb-4'>IUL Policy Example</h2>
+                            <div className='row'>
+                                <div className='col-lg-4'>
+                                    <p className='sub18 text-white mb-5'>IUL policies typically allow you to grow a portion of your premiums based on returns of an index like the S&P 500.  Insurers often offer a growth cap of 8-9% and floor of 0%.  This allows for upside potential with downside protection. Did I mention it’s all tax-efficient?</p>
+                                    <h3 className='sub18 text-white text-uppercase'>Monthly Premium</h3>
+
+                                    <div className="slider-wrapper mb-5">
+                                <div
+                                    className="slider-label-box"
+                                    style={{ left: `calc(${((premium - 50) / (1000 - 50)) * 100}%)` }}
+                                >
+                                    ${premium}
+                                    <div className="slider-label-pointer"></div>
+                                </div>
+
+                                <input
+                                    type="range"
+                                    min="50"
+                                    max="1000"
+                                    step="10"
+                                    value={premium}
+                                    onChange={(e) => setPremium(Number(e.target.value))}
+                                    className="custom-range"
+                                />
+                                </div>
+                                <button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button>
+                                <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
+                                <p className='sub18 text-white'>A death benefit will be associated with the policy based on an individual's age and health.</p>
+                                </div>
+                                <div className='col-lg-8'>
+                                   <ResponsiveContainer width="100%" height={400}>
+                                    <AreaChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 80 }}>
+                                        
+                                        {/* ✅ Move grid inside AreaChart */}
+                                        <CartesianGrid
+                                        stroke="#ffffff"
+                                        strokeWidth={1}
+                                        strokeDasharray="0"
+                                        vertical={false} // only horizontal lines
+                                        />
+
+                                        <XAxis
+                                        dataKey="year"
+                                        stroke="#ccc"
+                                        ticks={[10, 20, 30, 40, 50, 60]}
+                                        width={130}
+                                        />
+                                        
+                                        <YAxis
+                                        width={10} // space for Y-axis text and full grid line
+                                        tick={{ dx: -3 }}
+                                        tickFormatter={(v) => `$${v.toLocaleString()}`}
+                                        stroke="#ccc"
+                                        tickCount={9}
+                                        tickLine={false}
+                                        />
+                                        
+                                        <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
+                                        
+                                        <Area
+                                        type="monotone"
+                                        dataKey="Conservative"
+                                        stroke="#FFD369"
+                                        fill="#FFD369"
+                                        fillOpacity={0.6}
+                                        />
+                                        
+                                        <Area
+                                        type="monotone"
+                                        dataKey="Optimistic"
+                                        stroke="#32E6A9"
+                                        fill="#32E6A9"
+                                        fillOpacity={0.6}
+                                        />
+                                        
+                                    </AreaChart>
+                                    </ResponsiveContainer>
+                                    <div className='uldata mb-4'>
+                                        <div className='ulBox'></div>
+                                        Example of an IUL policy that achieves a 6.4% annual return with tax deferral and reinvested dividends*
+                                    </div>
+                                    <div className='cddata'>
+                                        <div className='cdBox'></div>
+                                        Bank Savings CD account averages 1.71% annual return with taxable interest payments at 35%*
+                                    </div>
+                                </div>
+                            </div>
+                            <p className='sub16 text-white fw-lighter'>*Tables and charts are for illustrative purposes only and are not based on any specific policy example. Please reference your specific policy for additional details. All guarantees and contractual obligations are based solely on the claims-paying ability of the issuing life insurance company.
+
+Steady returns and long-</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section className='stedy'>
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
-                        <div className='col-lg-8'>
+                        <div className='col-md-8 orderTwo'>
                             <h1 className='heading54'>Steady returns and long-<br />lasting protection</h1>
                             <p className='sub24 mb-4'>Want some extra cash but don't want to sell your stocks or take out money from your retirement or your house? We offer IUL policies that offer a predictable growth trajectory for a portion of your premiums to use for retirement while offering protection that lasts a lifetime.</p>
                             <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
                         </div>
-                        <div className='col-lg-4'>
+                        <div className='col-md-4 orderOne'>
                             <div className='stedyCard'>
                                 <Image src={images.benifit2} alt='image' className='img-fluid' />
                             </div>
@@ -202,18 +327,32 @@ const Product = () => {
                     <div className='row justify-content-center'>
                         <div className='col-xl-8'>
                             <div className='row align-items-center'>
-                                <div className='col-lg-6'>
+                                <div className='col-md-6'>
                                     <div className='moreQue'>
                                         <Image src={images.moreQue} className='img-fluid' />
                                     </div>
                                 </div>
-                                <div className='col-lg-6'>
+                                <div className='col-md-6'>
                                     <h1 className='heading54'>
                                         More questions?
                                         We have answers.</h1>
                                     <p className='sub24 mb-4'>Life insurance can be complicated. Luckily, we're always here to help.</p>
                                     <button type='button' className='commonBtnBig'>FAQS</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className='productStay'>
+                <div className='container-fluid'>
+                    <div className='row text-center'>
+                        <div className='col-12'>
+                            <h1 className='heading54'> Let's stay in touch</h1>
+                            <p className='sub16 mb-4'>Get access to the latest in life insurance and personal finance insights.</p>
+                            <div className='formstay'>
+                                <input type='text' placeholder='your email here' />
+                                <button className='productArrow'><HiArrowRight style={{width:'2rem', height:'2rem'}}/></button>
                             </div>
                         </div>
                     </div>
