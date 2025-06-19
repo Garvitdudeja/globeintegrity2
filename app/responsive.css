@@ -3,16 +3,34 @@
         max-width: 1800px;
         margin-inline: auto;
     } */
-}
+     .container-fluid{
+        padding-inline: 3.5rem !important;
+    }
+    .header .container-fluid,
+    .footer .container-fluid
+    {
+    max-width: 120rem;
+    padding: 0 36px !important;
+    }
+    }
 @media(max-width: 1800px){
     .customLabel{
         font-size: 20px;
+    }
+}
+@media(max-width:1800px){
+    .moreQue img {
+        padding: 32px 48px 24px;
+    }
+    .moreQueSection .heading54{
+        font-size: 3rem;
     }
 }
 @media (min-width: 1752px){
  .container-fluid{
     max-width: 1752px;
  }
+
 }
 @media(max-width:1400px){
     /* .logo img
@@ -23,6 +41,7 @@
     .customLabel{
         font-size: 16px;
     }
+    
 
 }
 @media(max-width:1200px){
@@ -78,7 +97,78 @@
     .customLabel{
         font-size: 16px;
     }
+    .stedy .heading54,
+    .universe .heading54,
+    .benifit .heading54,
+    .premiumGraph .heading54,
+    .prouctFaq .heading54,
+    .moreQueSection .heading54
+    {
+        font-size: 2.375rem;
+    }
+     .stedy .sub24,
+     .universe .sub24,
+     .moreQueSection .sub24
+     {
+        font-size: 17px;
+    }
+    .stedy .commonBtnBig,
+    .universe .commonBtnBig,
+    .benifit .commonBtnBig,
+    .premiumGraph .commonBtnBig,
+    .prouctFaq .commonBtnBig,
+    .moreQueSection .commonBtnBig
+    {
+        max-width: 14.5rem;
+        height: 3rem;
+        font-size: 14px;
+    }
+    .premiumGraph .sub18{
+        font-size: 1rem;
+    }
+    .uldata, .cddata{
+        font-size: 1rem;
+    }
+    .cddata{
+        margin-bottom: 20px;
+    }
+    .prouctFaq .accordion-button{
+        font-size: 1.2rem;
+    }
     
+    .moreQueSection{
+        padding-block: 1.875rem;
+    }
+    .moreQue img {
+        padding: 32px 54px 24px;
+    }
+    .faqCard{
+        display: none;
+    }
+}
+@media(max-width:768){
+    .formstay input{
+        max-width: 60%;
+        font-size: 20px;
+    }
+    .formstay input::placeholder{
+        font-size: 20px;
+    }
+    .productStay .heading54{
+        font-size: 2rem;
+    }
+    
+}
+@media(max-width:576px){
+    .orderTwo{
+        order: 2;
+    }
+    .orderOne{
+        order: 1;
+    }
+    .stedyCard {
+        display: none;
+    }
 }
 @media(max-width: 480px){
 nav {
@@ -290,7 +380,56 @@ display: block !important;
  .footer .sub16{
         font-size: 16px;
 }
-.container-fluid {
+.header .container-fluid,
+.footer .container-fluid
+{
     padding-inline: 12px !important;
+}
+.stedy {
+    padding-block: 3.25rem;
+}
+.prouctFaq {
+    padding-block: 2.25rem;
+}
+.formstay input,
+.productArrow 
+{
+    height: 3.125rem;
+}
+.productArrow svg{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.universeCard{
+    text-align: center;
+}
+.benifitCard {
+    padding-inline: 0;
+}
+.moreQue img {
+    padding: 32px 44px 24px;
+}
+.container-fluid {
+    padding-inline: 24px !important;
+}
+.stedyCardTop{
+    text-align: center;
+}
+.productStay {
+    padding-block: 3rem;
+}
+.moreQueSection{
+    text-align: center;
+}
+.prouctFaq .heading54{
+    text-align: center;
+}
+.prouctFaq .commonBtnBig{
+    display: block;
+    margin-inline: auto;
+}
+.menu-icon {
+    font-size: 1rem;
 }
 }
