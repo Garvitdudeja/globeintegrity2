@@ -147,6 +147,20 @@
     }
 }
 @media(max-width:768){
+    .stedyCard {
+        display: none;
+    }
+    .moreQueSection{
+        padding-block: 1.875rem;
+    }
+}
+@media(max-width:768){
+    .orderTwo{
+        order: 2;
+    }
+    .orderOne{
+        order: 1;
+    }
     .formstay input{
         max-width: 60%;
         font-size: 20px;
