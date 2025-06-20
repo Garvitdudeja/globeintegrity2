@@ -37,9 +37,11 @@ const data = useMemo(() => generateData(premium), [premium]);
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
                         <div className="col-12 col-md-6 orderTwo">
+                            <div className='universeCard'>
                             <h1 className='heading54'>Indexed Universal Life Insurance</h1>
                             <p className='sub24 mb-4'>A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life.</p>
                             <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
+                            </div>
                         </div>
                         <div className="col-12 col-md-6 orderOne">
                             <div className='productImgOuter text-end'>
@@ -59,21 +61,21 @@ const data = useMemo(() => generateData(premium), [premium]);
                         </div>
                     </div>
                     <div className='row'>
-                        <div className='col-lg-4'>
+                        <div className='col-lg-4 mb-4 mb-lg-0'>
                             <div className="benifitCard text-center">
                                 <Image src={images.benifit1} alt='image' className='img-fluid' />
                                 <h3 className='heading28'>Safe & Steady</h3>
                                 <p className='sub18'>Never risk losing your principal from market losses yet still access steady growth within a set range every year, with a cap (typically 9%) and a floor (typically 0%) based on the returns of an index like the S&P 500.</p>
                             </div>
                         </div>
-                        <div className='col-lg-4'>
+                        <div className='col-lg-4 mb-4 mb-lg-0'>
                             <div className="benifitCard text-center">
                                 <Image src={images.benifit2} alt='image' className='img-fluid' />
                                 <h3 className='heading28'>Protective</h3>
                                 <p className='sub18'>Get lifelong coverage with the option to protect you and your loved ones in a variety of scenarios.</p>
                             </div>
                         </div>
-                        <div className='col-lg-4'>
+                        <div className='col-lg-4 mb-4 mb-lg-0'>
                             <div className="benifitCard text-center">
                                 <Image src={images.benifit3} alt='image' className='img-fluid' />
                                 <h3 className='heading28'>Tax-Efficient Growth</h3>
@@ -89,7 +91,7 @@ const data = useMemo(() => generateData(premium), [premium]);
             <section className='premiumGraph'>
                 <div className='container-fluid'>
                     <div className='row justify-content-center'>
-                        <div className='col-10'>
+                        <div className='col-xl-10'>
                             <h2 className='heading54 text-center text-white mb-4'>IUL Policy Example</h2>
                             <div className='row'>
                                 <div className='col-lg-4'>
@@ -168,11 +170,11 @@ const data = useMemo(() => generateData(premium), [premium]);
                                     </AreaChart>
                                     </ResponsiveContainer>
                                     <div className='uldata mb-4'>
-                                        <div className='ulBox'></div>
+                                        <div><div className='ulBox'></div></div>
                                         Example of an IUL policy that achieves a 6.4% annual return with tax deferral and reinvested dividends*
                                     </div>
                                     <div className='cddata'>
-                                        <div className='cdBox'></div>
+                                    <div><div className='cdBox'></div></div>
                                         Bank Savings CD account averages 1.71% annual return with taxable interest payments at 35%*
                                     </div>
                                 </div>
@@ -188,9 +190,11 @@ Steady returns and long-</p>
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
                         <div className='col-md-8 orderTwo'>
+                            <div className='stedyCardTop'>
                             <h1 className='heading54'>Steady returns and long-<br />lasting protection</h1>
                             <p className='sub24 mb-4'>Want some extra cash but don't want to sell your stocks or take out money from your retirement or your house? We offer IUL policies that offer a predictable growth trajectory for a portion of your premiums to use for retirement while offering protection that lasts a lifetime.</p>
                             <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
+                            </div>
                         </div>
                         <div className='col-md-4 orderOne'>
                             <div className='stedyCard'>
@@ -315,7 +319,7 @@ Steady returns and long-</p>
                             <button className='commonBtnBig'>FAQS</button>
                         </div>
                         <div className='col-lg-6'>
-                            <div className='stedyCard text-end'>
+                            <div className='faqCard text-end'>
                                 <Image src={images.faq} alt='image' className='img-fluid' />
                             </div>
                         </div>
