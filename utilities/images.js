@@ -19,7 +19,7 @@ import benifit2 from "../public/images/benifit2.svg";
 import benifit3 from "../public/images/benifit3.svg";
 import faq from "../public/images/faq.jpg";
 import moreQue from "../public/images/moreQue.svg";
-import productTermsBanner from "../public/images/productTermsBanner.png"
+import productTermsBanner from "../public/images/productTermsBanner.webp"
 import benifit4 from "../public/images/benifit4.svg"
 import faqTerms from "../public/images/faqTerms.jpg"
 import productMenu from "../public/images/productMenu.svg"

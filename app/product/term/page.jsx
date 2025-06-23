@@ -1,7 +1,7 @@
 'use client'
 import React, { useMemo, useState } from 'react';
 import Image from 'next/image'
-import * as images from './../../utilities/images'
+import * as images from '.././../../utilities/images'
 import Link from 'next/link'
 import { HiArrowRight } from "react-icons/hi";
 import { IoCheckmarkCircle } from "react-icons/io5";
