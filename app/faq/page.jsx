@@ -4,17 +4,10 @@ import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 
 export default function Faq() {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      import("bootstrap/dist/js/bootstrap.bundle.min.js").then(() => {
-        const bootstrap = require("bootstrap");
-        new bootstrap.ScrollSpy(document.body, {
-          target: "#navbar-example2",
-          offset: 150,
-        });
-      });
-    }
-  }, []);
+useEffect(() => {
+  import("bootstrap/dist/js/bootstrap.bundle.min.js");
+}, []);
+
 
   return (
     <>
