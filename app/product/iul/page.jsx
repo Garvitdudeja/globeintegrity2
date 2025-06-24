@@ -5,6 +5,7 @@ import * as images from '../../../utilities/images'
 import Link from 'next/link'
 import { HiArrowRight } from "react-icons/hi";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,CartesianGrid } from "recharts";
+import Hero from '@/Components/Product/hero';
 const Product = () => {
 const [premium, setPremium] = useState(100); // starting from $100
 const years = 60;
@@ -33,24 +34,8 @@ const data = useMemo(() => generateData(premium), [premium]);
 
     return (
         <>
-            <section className="universe">
-                <div className='container-fluid'>
-                    <div className='row align-items-center'>
-                        <div className="col-12 col-md-6 orderTwo">
-                            <div className='universeCard'>
-                            <h1 className='heading54'>Indexed Universal Life Insurance</h1>
-                            <p className='sub24 mb-4'>A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life.</p>
-                            <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 orderOne">
-                            <div className='productImgOuter text-end'>
-                                <Image src={images.child} alt='image' className='img-fluid' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <Hero heading={"Indexed Universal Life Insurance"} description={"A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life."}
+        button={"GET AN ESTIMATE"} image={images.child}/>
             <section className="benifit">
                 <div className='container-fluid'>
                     <div className='row'>

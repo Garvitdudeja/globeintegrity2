@@ -308,7 +308,7 @@ export default function Faq() {
                             <li>
                               <strong>Are you looking for a</strong>:{" "}
                               <Link href=""> death benefit? </Link> First and
-                              foremost, Amplify only recommends Universal Life
+                              foremost, Globe Integrity only recommends Universal Life
                               Insurance to those looking for some form of
                               coverage in the event of their death. If you’re
                               only considering Universal Life for its cash value
@@ -321,7 +321,7 @@ export default function Faq() {
                               </strong>{" "}
                               Because Universal Life Insurance has higher{" "}
                               <Link href="">premiums</Link> than{" "}
-                              <Link href="">Term Life Insurance</Link>, Amplify
+                              <Link href="">Term Life Insurance</Link>, Globe Integrity
                               typically only recommends Universal Life Insurance
                               to those who can afford the higher monthly
                               payments. If money is tight, or your income is
@@ -338,7 +338,7 @@ export default function Faq() {
                               situation typically determines which of these
                               accounts you can leverage. For example, if you are
                               able to contribute to a 401k through your
-                              employer, Amplify typically recommends you
+                              employer, Globe Integrity typically recommends you
                               contribute to that account first, especially if
                               your employer offers some kind of matching.
                               Ultimately, which tax-advantaged vehicles you
