@@ -130,7 +130,7 @@ const Home = () => {
       <section className="banner">
         <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-xl-10">
+            <div className="col-xl-12">
               <div className="bannerInner">
                 <div className="row">
                   <div className="col-lg-6">
