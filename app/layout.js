@@ -1,10 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "./responsive.css"
+import "./responsive.css";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import "bootstrap/dist/css/bootstrap.min.css"
-import Script from "next/script";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,22 +22,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-..."
-  crossOrigin="anonymous"
-/>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-..."
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <Header />
         {children}
         <Footer />
       </body>
-      <Script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-          strategy="lazyOnload"
-          async
-        />
     </html>
   );
 }

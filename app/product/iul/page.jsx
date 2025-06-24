@@ -5,6 +5,7 @@ import * as images from '../../../utilities/images'
 import Link from 'next/link'
 import { HiArrowRight } from "react-icons/hi";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,CartesianGrid } from "recharts";
+import Hero from '@/Components/Product/hero';
 const Product = () => {
 const [premium, setPremium] = useState(100); // starting from $100
 const years = 60;
@@ -33,24 +34,8 @@ const data = useMemo(() => generateData(premium), [premium]);
 
     return (
         <>
-            <section className="universe">
-                <div className='container-fluid'>
-                    <div className='row align-items-center'>
-                        <div className="col-12 col-md-6 orderTwo">
-                            <div className='universeCard'>
-                            <h1 className='heading54'>Indexed Universal Life Insurance</h1>
-                            <p className='sub24 mb-4'>A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life.</p>
-                            <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 orderOne">
-                            <div className='productImgOuter text-end'>
-                                <Image src={images.child} alt='image' className='img-fluid' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <Hero heading={"Indexed Universal Life Insurance"} description={"A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life."}
+        button={"GET AN ESTIMATE"} image={images.child}/>
             <section className="benifit">
                 <div className='container-fluid'>
                     <div className='row'>
@@ -288,13 +273,13 @@ Steady returns and long-</p>
                                             There are several factors that can help determine whether Universal Life Insurance is right for you at this stage of your life, but here are the high-level criteria to help you determine if this tool is right for you:
                                             <ul className='faqList'>
                                                 <li>
-                                                    <strong>Are you looking for a</strong>: <Link href=""> death benefit? </Link> First and foremost, Globe Integrity only recommends Universal Life Insurance to those looking for some form of coverage in the event of their death. If you’re only considering Universal Life for its cash value savings component then it’s probably not the best option for you.
+                                                    <strong>Are you looking for a</strong>: <Link href=""> death benefit? </Link> First and foremost, Amplify only recommends Universal Life Insurance to those looking for some form of coverage in the event of their death. If you’re only considering Universal Life for its cash value savings component then it’s probably not the best option for you.
                                                 </li>
                                                 <li>
-                                                    <strong>Do you have sufficient free-cash flow?</strong>  Because Universal Life Insurance has higher <Link href="">premiums</Link>  than <Link href="">Term Life Insurance</Link>, Globe Integrity typically only recommends Universal Life Insurance to those who can afford the higher monthly payments. If money is tight, or your income is highly variable then there are other ways to get coverage that might work better for you.
+                                                    <strong>Do you have sufficient free-cash flow?</strong>  Because Universal Life Insurance has higher <Link href="">premiums</Link>  than <Link href="">Term Life Insurance</Link>, Amplify typically only recommends Universal Life Insurance to those who can afford the higher monthly payments. If money is tight, or your income is highly variable then there are other ways to get coverage that might work better for you.
                                                 </li>
                                                 <li>
-                                                    <strong>Does it make sense for you at this stage of life?</strong>: There are several tax-advantaged accounts that are great tools for building wealth. Your life situation typically determines which of these accounts you can leverage. For example, if you are able to contribute to a 401k through your employer, Globe Integrity typically recommends you contribute to that account first, especially if your employer offers some kind of matching. Ultimately, which tax-advantaged vehicles you leverage as part of your holistic financial plan really depends on your goals, risk tolerance, stage of life, and several other factors.
+                                                    <strong>Does it make sense for you at this stage of life?</strong>: There are several tax-advantaged accounts that are great tools for building wealth. Your life situation typically determines which of these accounts you can leverage. For example, if you are able to contribute to a 401k through your employer, Amplify typically recommends you contribute to that account first, especially if your employer offers some kind of matching. Ultimately, which tax-advantaged vehicles you leverage as part of your holistic financial plan really depends on your goals, risk tolerance, stage of life, and several other factors.
                                                 </li>
                                             </ul>
                                             Ultimately, we’ve seen Universal Life Insurance work well for clients of all different types. If you’re unsure whether Universal Life is right for you, check out our website or give us a call. We can offer personalized recommendations that are right for you.

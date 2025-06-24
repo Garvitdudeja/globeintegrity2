@@ -6,52 +6,38 @@ import Link from 'next/link'
 import { HiArrowRight } from "react-icons/hi";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { RxCrossCircled } from "react-icons/rx";
+import Hero from '@/Components/Product/hero';
 const ProductTerm = () => {
-const [premium, setPremium] = useState(100); // starting from $100
-const years = 60;
-const conservativeReturn = 0.0171;
-const optimisticReturn = 0.064;
+    const [premium, setPremium] = useState(100); // starting from $100
+    const years = 60;
+    const conservativeReturn = 0.0171;
+    const optimisticReturn = 0.064;
 
-// Move the data generation logic to a function
-const generateData = (premium) => {
-  return Array.from({ length: years + 1 }, (_, year) => {
-    const conservativeValue = Math.round(
-      premium * 12 * (((Math.pow(1 + conservativeReturn, year) - 1) / conservativeReturn) || 0)
-    );
-    const optimisticValue = Math.round(
-      premium * 12 * (((Math.pow(1 + optimisticReturn, year) - 1) / optimisticReturn) || 0)
-    );
-    return {
-      year,
-      Conservative: conservativeValue,
-      Optimistic: optimisticValue,
+    // Move the data generation logic to a function
+    const generateData = (premium) => {
+        return Array.from({ length: years + 1 }, (_, year) => {
+            const conservativeValue = Math.round(
+                premium * 12 * (((Math.pow(1 + conservativeReturn, year) - 1) / conservativeReturn) || 0)
+            );
+            const optimisticValue = Math.round(
+                premium * 12 * (((Math.pow(1 + optimisticReturn, year) - 1) / optimisticReturn) || 0)
+            );
+            return {
+                year,
+                Conservative: conservativeValue,
+                Optimistic: optimisticValue,
+            };
+        });
     };
-  });
-};
 
-// Now only declare data once using useMemo
-const data = useMemo(() => generateData(premium), [premium]);
+    // Now only declare data once using useMemo
+    const data = useMemo(() => generateData(premium), [premium]);
 
     return (
         <>
-            <section className="universe">
-                <div className='container-fluid'>
-                    <div className='row align-items-center'>
-                        <div className="col-12 col-md-6 orderTwo">
-                            <div className='universeCard'>
-                            <h1 className='heading54'>Term life insurance</h1>
-                            <p className='sub24 mb-4'>A quick and affordable way to offer temporary protection for your loved ones in the event of your passing.</p>
-                            <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 orderOne">
-                            <div className='productImgOuter text-end'>
-                                <Image src={images.productTermsBanner} alt='image' className='img-fluid' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <Hero heading={"Term life insurance"} description={"A quick and affordable way to offer temporary protection for your loved ones in the event of your passing."}
+                button={"GET AN ESTIMATE"} image={images.productTermsBanner} />
+
             <section className="benifit">
                 <div className='container-fluid'>
                     <div className='row'>
@@ -94,36 +80,36 @@ const data = useMemo(() => generateData(premium), [premium]);
                     <div className='row'>
                         <div className='col-lg-6 mb-4 lg-mb-0'>
                             <div className='termsVsCard'>
-                            <h1 className='heading54'>Term vs. Permanent</h1>
-                            <p className='sub24 mb-4'>Have a newborn or a mortgage that you need to protect? Term life insurance can offer the most affordable temporary protection for a high coverage amount, while permanent insurance offers lifetime coverage and additional health and savings benefits.</p>
-                            <button type='button' className='commonBtnBig'>GET A Quote</button>
+                                <h1 className='heading54'>Term vs. Permanent</h1>
+                                <p className='sub24 mb-4'>Have a newborn or a mortgage that you need to protect? Term life insurance can offer the most affordable temporary protection for a high coverage amount, while permanent insurance offers lifetime coverage and additional health and savings benefits.</p>
+                                <button type='button' className='commonBtnBig'>GET A Quote</button>
                             </div>
                         </div>
                         <div className='col-lg-6 mb-4 lg-mb-0'>
                             <div className='termsVsCardOuter'>
-                            <div className="row">
-                                <div className="col-lg-6 mb-4 lg-mb-0">
-                                     <div className='termsVsCardRight'>
-                                        <h4 className='heading28 mb-4'>Permanent life insurance</h4>
-                                        <ul className='ps-0'>
-                                            <li className='sub24'><div><IoCheckmarkCircle className='tickIcon'/></div>Lifelong coverage </li>
-                                            <li className='sub24'><div><IoCheckmarkCircle className='tickIcon'/></div>Retirement benefits such as income or cash for health emergencies</li>
-                                            <li className='sub24'> <div><RxCrossCircled className='tickIcon'/></div>More expensive monthly premium</li>
-                                        </ul>
+                                <div className="row">
+                                    <div className="col-lg-6 mb-4 lg-mb-0">
+                                        <div className='termsVsCardRight'>
+                                            <h4 className='heading28 mb-4'>Permanent life insurance</h4>
+                                            <ul className='ps-0'>
+                                                <li className='sub24'><div><IoCheckmarkCircle className='tickIcon' /></div>Lifelong coverage </li>
+                                                <li className='sub24'><div><IoCheckmarkCircle className='tickIcon' /></div>Retirement benefits such as income or cash for health emergencies</li>
+                                                <li className='sub24'> <div><RxCrossCircled className='tickIcon' /></div>More expensive monthly premium</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-6 mb-4 lg-mb-0">
+                                        <div className='termsVsCardRight'>
+                                            <h4 className='heading28 mb-4'>Term life insurance</h4>
+                                            <ul className='ps-0'>
+                                                <li className='sub24'><div><IoCheckmarkCircle className='tickIcon' /></div>Cheapest monthly premium </li>
+                                                <li className='sub24'><div><RxCrossCircled className='tickIcon' /></div>Coverage expires after term period</li>
+                                                <li className='sub24'><div><RxCrossCircled className='tickIcon' /></div>Premiums double or triple if coverage is renewed</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-6 mb-4 lg-mb-0">
-                                    <div className='termsVsCardRight'>
-                                        <h4 className='heading28 mb-4'>Term life insurance</h4>
-                                        <ul className='ps-0'>
-                                            <li className='sub24'><div><IoCheckmarkCircle className='tickIcon'/></div>Cheapest monthly premium </li>
-                                            <li className='sub24'><div><RxCrossCircled className='tickIcon'/></div>Coverage expires after term period</li>
-                                            <li className='sub24'><div><RxCrossCircled className='tickIcon'/></div>Premiums double or triple if coverage is renewed</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                </div>
-                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,9 +119,9 @@ const data = useMemo(() => generateData(premium), [premium]);
                     <div className='row align-items-center'>
                         <div className='col-md-8 orderTwo'>
                             <div className='stedyCardTop'>
-                            <h1 className='heading54'>Max coverage for a <br/> temporary period of time</h1>
-                            <p className='sub24 mb-4 w-75'>We offer term life insurance that provides max coverage for 10, 20, or 30 years allowing you to protect your loved ones from a financial burden in case you pass. The benefits are temporary and don't provide any potential for tax-efficient growth unlike our other products.</p>
-                            <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
+                                <h1 className='heading54'>Max coverage for a <br /> temporary period of time</h1>
+                                <p className='sub24 mb-4 w-75'>We offer term life insurance that provides max coverage for 10, 20, or 30 years allowing you to protect your loved ones from a financial burden in case you pass. The benefits are temporary and don't provide any potential for tax-efficient growth unlike our other products.</p>
+                                <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
                             </div>
                         </div>
                         <div className='col-md-4 orderOne'>
@@ -155,15 +141,15 @@ const data = useMemo(() => generateData(premium), [premium]);
                                 <div className="accordion-item">
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                           What is Term Life Insurance?
+                                            What is Term Life Insurance?
                                         </button>
                                     </h2>
                                     <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
                                             Term Life Insurance is a type of life insurance <Link href="">policy</Link> that provides coverage for a specific period of time, or "<Link href="">term</Link>." If the term dies during the term, the policy pays out a <Link href="">death benefit</Link> to the <Link href="">beneficiary</Link>. If the policyholder does not die during the term, the policy does not pay out and the coverage ends on the <Link href="">expiry date</Link>.
-                                            <br/>
+                                            <br />
                                             Term Life Insurance is typically less expensive than <Link href="">Permanent Life Insurance</Link>, however, it does not build <Link href="">cash value</Link> or offer tax-advantaged savings like certain types of Permanent Life Insurance.
-                                            <br/>
+                                            <br />
                                             Visit our <Link href="">Term Life product page</Link> to learn more.
                                         </div>
                                     </div>
@@ -171,13 +157,13 @@ const data = useMemo(() => generateData(premium), [premium]);
                                 <div className="accordion-item">
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                           What Is Universal Life Insurance?
+                                            What Is Universal Life Insurance?
                                         </button>
                                     </h2>
                                     <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
-                                           Universal Life Insurance is a type of <Link href="">Permanent Life Insurance</Link> that provides flexible <Link href="">premiums</Link> and the ability to adjust the <Link href="">death benefit</Link>. It combines the features of <Link href="">Term Life Insurance</Link>, which provides protection for a specific period of time, with the savings element of Permanent Life Insurance, which builds <Link href="">cash value</Link> over time. There are several types of Universal Life Insurance, a couple of which we can dive deeper on are:
-                                             <ul className='faqList'>
+                                            Universal Life Insurance is a type of <Link href="">Permanent Life Insurance</Link> that provides flexible <Link href="">premiums</Link> and the ability to adjust the <Link href="">death benefit</Link>. It combines the features of <Link href="">Term Life Insurance</Link>, which provides protection for a specific period of time, with the savings element of Permanent Life Insurance, which builds <Link href="">cash value</Link> over time. There are several types of Universal Life Insurance, a couple of which we can dive deeper on are:
+                                            <ul className='faqList'>
                                                 <li>
                                                     <Link href="">Indexed Universal Life Insurance</Link>
                                                 </li>
@@ -220,7 +206,7 @@ const data = useMemo(() => generateData(premium), [premium]);
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div className="accordion-item">
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
@@ -274,7 +260,7 @@ const data = useMemo(() => generateData(premium), [premium]);
                             <p className='sub16 mb-4'>Get access to the latest in life insurance and personal finance insights.</p>
                             <div className='formstay'>
                                 <input type='text' placeholder='your email here' />
-                                <button className='productArrow'><HiArrowRight style={{width:'2rem', height:'2rem'}}/></button>
+                                <button className='productArrow'><HiArrowRight style={{ width: '2rem', height: '2rem' }} /></button>
                             </div>
                         </div>
                     </div>
