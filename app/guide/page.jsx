@@ -125,7 +125,7 @@ export default function Guide() {
       </li>
 
       <li className={`has-submenu ${isSubActive(["ul-security", "term-policy", "bottom-line"]) ? "open" : ""}`}>
-        <a href="#recommendation" onClick={(e) => handleClick(e, "recommendation")}>Amplify’s Recommendation</a>
+        <a href="#recommendation" onClick={(e) => handleClick(e, "recommendation")}>Globe Integrity’s Recommendation</a>
         <ul className="submenu">
           <li className={isActive("ul-security") ? "active" : ""}>
             <a href="#ul-security" onClick={(e) => handleClick(e, "ul-security")}>Universal Life</a>
