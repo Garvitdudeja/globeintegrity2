@@ -35,7 +35,7 @@ const Home = () => {
       alt: "icon",
       title: "Protect",
       subtitle: "your loved ones",
-      description: "Gain peace of mind knowing your family is protected in case the unexpected happens. Amplify combines life insurance and wealth-building into one powerful solution.",
+      description: "Gain peace of mind knowing your family is protected in case the unexpected happens. Globe Integrity combines life insurance and wealth-building into one powerful solution.",
       buttonText: "CALCULATE COVERAGE"
     },
     {
@@ -43,7 +43,7 @@ const Home = () => {
       alt: "icon",
       title: "Grow",
       subtitle: "your wealth",
-      description: "Turn your life insurance policy into a wealth-building tool. With Amplify, enjoy tax-advantaged growth and the flexibility to access your funds for life’s major milestones.ESTIMATE CASH VALUE",
+      description: "Turn your life insurance policy into a wealth-building tool. With Globe Integrity, enjoy tax-advantaged growth and the flexibility to access your funds for life’s major milestones.ESTIMATE CASH VALUE",
       buttonText: "ESTIMATE CASH VALUE"
     },
     {
