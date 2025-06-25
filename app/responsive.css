@@ -60,6 +60,12 @@
     }
 }
 @media(max-width: 992px){
+      .taxCard {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } 
     .btnToggleOuter {
         display: flex;
         flex-direction: row;
@@ -171,7 +177,7 @@
     .productStay .heading54{
         font-size: 2rem;
     }
-    
+
 }
 @media(max-width:576px){
     .orderTwo{
@@ -251,13 +257,18 @@ nav {
     height: 2.5rem;
 }
 
-.tax .heading54,
+
 .tax .sky
 {
     margin-bottom: 2.125rem;
     font-size: 24px;
     max-width: 15rem;
     margin-inline: auto;
+}
+
+.tax .heading54{
+        margin-bottom: 2.125rem;
+    font-size: 24px;
 }
 .taxCard .heading54 br{
     display: none;
