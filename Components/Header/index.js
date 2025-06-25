@@ -12,12 +12,12 @@ const NavItems = {
     //   path: "#",
     //   image: images.productMenu
     // },
-    // {
-    //   heading: "Whole Life Insurance",
-    //   description: "Highest level of tax advantaged growth with low fees",
-    //   path: "#",
-    //   image: images.veriable
-    // },
+    {
+      heading: "Whole Life Insurance",
+      description: "Highest level of tax advantaged growth with low fees",
+      path: "/product/whole-life",
+      image: images.veriable
+    },
     {
       heading: "Indexed Universal Life",
       description: "Tax advantaged, moderate growth with downside protection",
