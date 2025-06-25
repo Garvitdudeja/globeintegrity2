@@ -79,30 +79,26 @@ const Home = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const faqData = [
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'Our Values',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        'At Globe Integrity, our team of advisors specializes in securing the ideal coverage for each individual client at a highly competitive rate. With a focus on securing your future and providing unwavering support, our financial advisors are committed to ensuring that you are well-protected and prepared for whatever life may bring.',
     },
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'Company Mission',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "Our goal is to provide monetary and insurance solutions that are easy to understand. We strive to offer people, families, and companies safety and security by offering the most extensive and customized insurance coverages. We do this by offering the largest selection of investment and insurance options. Our customers may confidently confront future's risks thanks to our reliable insurance coverages.",
     },
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'Our Goals',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "Protecting the things that are most important to you and ensuring your security are our top priorities at Globe Integrity. Our commitment lies in offering dependable insurance options that provide you with the sense of calmness you deserve. We've got you secured whether it's your company, house, car, or health. You can rely on us to keep our word and perform honestly and transparently right when you require us the most. Insure anything under the sun with us and live a secured life stress-free.",
     },
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'Why Choose Globe Integrity',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "As one of the leading group life insurance providers and indexed universal life insurance companies, we strive to cater to everyone's insurance needs. With more than 10 years of experience we continue insuring and securing lives and businesses no matter what they demand.",
     },
-    {
-      question: 'Do I Need Life Insurance?',
-      answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
-    },
+    
   ];
   // slider 
   const responsive = {
@@ -131,7 +127,7 @@ const Home = () => {
       <section className="banner">
         <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-xl-10">
+            <div className="col-xl-12">
               <div className="bannerInner">
                 <div className="row">
                   <div className="col-lg-6">

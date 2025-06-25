@@ -4,6 +4,7 @@ import "./responsive.css";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapClient from "./bootstrap-client"; // ✅ Correct import
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,9 +24,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>
-      </head>
+      <head />
       <body>
+        {/* ✅ Place it here inside <body> so it runs client-side */}
+        <BootstrapClient />
+
         <Header />
         {children}
         <Footer />

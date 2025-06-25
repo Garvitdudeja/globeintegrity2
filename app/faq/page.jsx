@@ -2,15 +2,27 @@
 import { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapClient from "../bootstrap-client";
 export default function Faq() {
-useEffect(() => {
-  import("bootstrap/dist/js/bootstrap.bundle.min.js");
-}, []);
+  useEffect(() => {
+    // Optional: Re-initialize scrollspy after mount
+    import("bootstrap/dist/js/bootstrap.bundle.min.js").then(({ ScrollSpy }) => {
+      const el = document.querySelector('[data-bs-spy="scroll"]');
+      if (el && ScrollSpy) {
+        new ScrollSpy(el, {
+          target: '#navbar-example',
+          offset: 100,
+        });
+      }
+    });
+  }, []);
+
 
 
   return (
     <>
+     <BootstrapClient />
       <section className="faqPage">
         <div className="container-fluid">
           <div className="row justify-content-center align-items-center">
@@ -90,6 +102,14 @@ useEffect(() => {
 
       {/* Content Sections */}
       <div className="container prouctFaq mainFaqPage py-0">
+        <div
+      className="container prouctFaq mainFaqPage py-0"
+      data-bs-spy="scroll"
+      data-bs-target="#navbar-example2"
+      data-bs-offset="100"
+      tabIndex="0"
+      
+    >
         <div id="scrollspyHeading1" className="mainFaqItems">
           <div className="row justify-content-center">
             <div className="col-xl-10">
@@ -2830,6 +2850,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
+      </div>
       </div>
       <section className="moreQueSection">
         <div className="container-fluid">

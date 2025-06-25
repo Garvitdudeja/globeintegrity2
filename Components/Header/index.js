@@ -77,7 +77,6 @@ const Header = () => {
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-12'>
-              <header>
                 <nav>
                   <div className="logo">
                     <Link href=""><Image src={images.logo} alt='logo' width={231} height={60} /></Link>
@@ -92,11 +91,11 @@ const Header = () => {
                     <ul className="menu">
                       {NavSections.map(section => (
                         <li key={section.label}>
-                          <Link href="#">{section.label} </Link>
+                          <Link href="#" className='headerLabel'>{section.label} </Link>
                           <MdKeyboardArrowDown className='downArrow_' />
                           <div className='subMenuDiv'>
                             {section.items.map(item => (
-                              <Link href={item.path} key={item.heading} className='subMenuInner text-dark'>
+                              <Link href={item.path} key={item.heading}>
                                 <div className='subMenuInner'>
                                   <div className='subMenuImg'>
                                     <Image src={item.image} alt='icon' />
@@ -114,7 +113,6 @@ const Header = () => {
                     </ul>
                   </div>
                 </nav>
-              </header>
             </div>
           </div>
         </div>
