@@ -64,12 +64,12 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className='col-lg-12'>
+        {/* <div className='col-lg-12'>
           <p className='sub16'>© 2024 by Globe Integrity Life Insurance Company. All rights reserved. Globe Integrity Life Insurance operates in California as Globe Integrity Life Insurance Services (CA license # 6002158).</p>
           <p className='sub16'>NAIC Guide to Buying Life Insurance</p>
           <p className='sub16 mb-0'>Securities offered through The Leaders Group, Inc. Member FINRA/SIPC 26 W Dry Creek Circle, Suite 800, Littleton, CO 80120, 303-797-9080. Globe Integrity Life Insurance Company is not affiliated with The Leaders Group, Inc (https://leadersgroup.net/). Globe Integrity Life Insurance Company offers variable life insurance policies underwritten by Nationwide Mutual Insurance Company and Equitable Financial Life Insurance Company of America.
 Check the background of your financial professional or broker/dealer with FINRA BrokerCheck.</p>
-        </div>
+        </div> */}
       </div>
     </section>
   )
