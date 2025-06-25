@@ -3,20 +3,21 @@ import Image from 'next/image'
 import * as images from './../../utilities/images'
 import Link from 'next/link'
 import { MdKeyboardArrowDown } from "react-icons/md";
+
 const NavItems = {
   products: [
-    {
-      heading: "Compare Our Products",
-      description: "Explore and compare our life insurance policies",
-      path: "#",
-      image: images.productMenu
-    },
-    {
-      heading: "Whole Life Insurance",
-      description: "Highest level of tax advantaged growth with low fees",
-      path: "#",
-      image: images.veriable
-    },
+    // {
+    //   heading: "Compare Our Products",
+    //   description: "Explore and compare our life insurance policies",
+    //   path: "#",
+    //   image: images.productMenu
+    // },
+    // {
+    //   heading: "Whole Life Insurance",
+    //   description: "Highest level of tax advantaged growth with low fees",
+    //   path: "#",
+    //   image: images.veriable
+    // },
     {
       heading: "Indexed Universal Life",
       description: "Tax advantaged, moderate growth with downside protection",
@@ -29,41 +30,47 @@ const NavItems = {
       path: "/product/term",
       image: images.life
     },
-    {
-      heading: "Combination Life",
-      description: "Custom insurance plans to meet protection needs and access tax-advantaged growth",
-      path: "#",
-      image: images.combinationLife
-    },
+    // {
+    //   heading: "Combination Life",
+    //   description: "Custom insurance plans to meet protection needs and access tax-advantaged growth",
+    //   path: "#",
+    //   image: images.combinationLife
+    // },
   ],
   Learn: [
-        {
-      heading: "Guide to Life Insurance",
-      description: "A quick yet comprehensive overview of life insurance",
-      path: "#",
-      image: images.guide
-    },
-        {
+    // {
+    //   heading: "Guide to Life Insurance",
+    //   description: "A quick yet comprehensive overview of life insurance",
+    //   path: "#",
+    //   image: images.guide
+    // },
+    {
       heading: "Life Insurance Calculator",
       description: "Determine your coverage need and ideal product fit in a few quick steps",
-      path: "#",
+      path: "/calculator",
       image: images.lifeCal
     },
-        {
+    {
       heading: "FAQs",
       description: "Expert answers to your top questions",
-      path: "#",
+      path: "/faq",
       image: images.faqs
     },
-        {
-      heading: "Education",
-      description: "Knowledge articles and resources from our blog",
-      path: "#",
-      image: images.life
-    },
+    // {
+    //   heading: "Education",
+    //   description: "Knowledge articles and resources from our blog",
+    //   path: "#",
+    //   image: images.life
+    // },
   ]
 }
+
 const Header = () => {
+  const NavSections = [
+    { label: "Products", items: NavItems.products },
+    { label: "Learn", items: NavItems.Learn }
+  ]
+
   return (
     <>
       <section className='header'>
@@ -76,37 +83,34 @@ const Header = () => {
                     <Link href=""><Image src={images.logo} alt='logo' width={231} height={60} /></Link>
                   </div>
                   <div className='btnToggleOuter'>
-                    <button type='button' className='commonBtn'><Image src={images.telIcon} alt='phone' width={20} height={20} className='me-1 mb-1' />855-496-9338</button>
+                    <button type='button' className='commonBtn'>
+                      <Image src={images.telIcon} alt='phone' width={20} height={20} className='me-1 mb-1' />
+                      855-496-9338
+                    </button>
                     <input type="checkbox" id="menu-toggle" />
                     <label htmlFor="menu-toggle" className="menu-icon">&#9776;</label>
                     <ul className="menu">
-                      <li><Link href="#" className=''>Products </Link><MdKeyboardArrowDown className='downArrow_' />
-                        <div className='subMenuDiv'>
-                          {NavItems.products.map(item => <div className='subMenuInner' key={item.heading}>
-                            <div className='subMenuImg'>
-                              <Image src={item.image} alt='icon' />
-                            </div>
-                            <div className='subMenuTxt'>
-                              <h4>{item.heading}</h4>
-                              <p>{item.description}</p>
-                            </div>
-                          </div>)}
-                        </div>
-                      </li>
-                      <li><Link href="#">Learn </Link><MdKeyboardArrowDown className='downArrow_' />
-                        <div className='subMenuDiv'>
-                          {NavItems.Learn.map(item => <div className='subMenuInner' key={item.heading}>
-                            <div className='subMenuImg'>
-                              <Image src={item.image} alt='icon' />
-                            </div>
-                            <div className='subMenuTxt'>
-                              <h4>{item.heading}</h4>
-                              <p>{item.description}</p>
-                            </div>
-                          </div>)}
-                        </div>
-                      </li>
-                      <li><Link href="#">Sign In</Link></li>
+                      {NavSections.map(section => (
+                        <li key={section.label}>
+                          <Link href="#">{section.label} </Link>
+                          <MdKeyboardArrowDown className='downArrow_' />
+                          <div className='subMenuDiv'>
+                            {section.items.map(item => (
+                              <Link href={item.path} key={item.heading} className='subMenuInner text-dark'>
+                                <div className='subMenuInner'>
+                                  <div className='subMenuImg'>
+                                    <Image src={item.image} alt='icon' />
+                                  </div>
+                                  <div className='subMenuTxt'>
+                                    <h4>{item.heading}</h4>
+                                    <p>{item.description}</p>
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </nav>
