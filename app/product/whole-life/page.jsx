@@ -114,7 +114,7 @@ const tabData = [
         content: () => (
             <>
                 <div className="row mt-5">
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 mb-4 lg-mb-0">
                         <p className="sub18 mb-2">EXAMPLE FUND: HIGH VOLATILITY</p>
                         <h3 className="heading36">Vanguard® Growth Index Admiral</h3>
                         <p className="sub18 fw-normal mb-5">Inception Date: 11/2000</p>

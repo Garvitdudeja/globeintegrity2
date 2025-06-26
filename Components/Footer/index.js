@@ -28,7 +28,7 @@ const Footer = () => {
               <div className='col-lg-4'>
                 <h6 className='sub16 text-uppercase'>Contact</h6>
                 <ul className='ps-0'>
-                <li><Link href="" className='sub16'>support@globeintegrity.com</Link></li>
+                <li><Link href="" className='sub16 text-break'>support@globeintegrity.com</Link></li>
                 <li><Link href="" className='sub16'>1-855-687-4300</Link></li>
                 </ul>
               </div>
