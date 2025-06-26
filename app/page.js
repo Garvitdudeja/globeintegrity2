@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Range } from "react-range";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import TaxCards from "@/Components/HomePage/taxCards";
 const Home = () => {
   const customerReviews = [
     {
@@ -51,8 +52,8 @@ const Home = () => {
       alt: "icon",
       title: "Simplify",
       subtitle: "the process",
-      description: "We’ve made getting coverage easier than ever. With a fully digital application and fast approvals, you can apply in minutes.",
-      buttonText: "START APPLICATION"
+      description: "We’ve made getting covered easier than ever. Get a free personalized plan and speak with an expert who will walk you through the next steps — most applications are quick and hassle-free.",
+      buttonText: "GET MY PERSONALIZED PLAN"
     }
   ];
 
@@ -60,17 +61,17 @@ const Home = () => {
     {
       number: 1,
       title: "Get an Estimate",
-      description: "Get a free, no-obligation estimate and personalized product recommendation"
+      description: "Answer a few quick questions to get a free, no-obligation estimate and product recommendation customized for you."
     },
     {
       number: 2,
-      title: "Apply Online",
-      description: "Complete a simple online application in minutes with guidance every step of the way"
+      title: "Speak with a Licensed Advisor",
+      description: "Schedule a quick call with one of our licensed advisors to review your estimate and answer any questions about your options."
     },
     {
       number: 3,
-      title: "Get Covered",
-      description: "Receive your policy and start protecting your future — no medical exam required in most cases"
+      title: "Apply and Get Covered",
+      description: "Our team will help you apply and guide you through getting covered — no medical exam required in most cases."
     }
   ];
   // Range slider
@@ -80,28 +81,29 @@ const Home = () => {
     {
       question: 'Do I Need Life Insurance?',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can provide peace of mind and long-term security. Life insurance helps cover expenses and gives your family financial protection."
     },
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'How Much Life Insurance Coverage Do I Need?',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "The amount of coverage you need depends on your income, debts, lifestyle, and your family's future goals. A good rule of thumb is 10 to 15 times your annual income. Our free estimate can help you determine the right amount based on your unique situation.",
     },
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'What Is Indexed Universal Life (IUL) Insurance?',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "Indexed Universal Life insurance is a flexible life insurance product that can grow cash value tied to market performance, without the risk of losing money in a downturn. It offers both protection and tax-advantaged growth potential.",
     },
     {
-      question: 'Do I Need Life Insurance?',
+      question: 'Do I Need a Medical Exam to Qualify?',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "In most cases, no medical exam is required to get covered through our simplified process. Some higher coverage amounts or specific situations may still require one, but our team will guide you every step of the way."
     },
-    {
-      question: 'Do I Need Life Insurance?',
+        {
+      question: '5. How Quickly Can I Get Covered?',
       answer:
-        'At a foundational level, life insurance offers you and your loved ones protection in the event of your passing. If someone relies on you for financial stability, this coverage can ensure peace of mind and long-term security. Life insurance helps cover expenses and gives your family security.',
+        "Many of our clients are able to get same-day estimates and fast approvals, sometimes in as little as 24 to 48 hours. Our process is streamlined to get you covered as quickly as possible."
     },
+    
   ];
   // slider 
   const responsive = {
@@ -199,29 +201,7 @@ const Home = () => {
               <h2 className="heading54">Bundled Protection and  <span className="sky">Tax Savings</span></h2>
             </div>
           </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-10">
-              <div className="row">
-                {taxCards.map((card, index) => (
-                  <div className="col-lg-4 mb-4 mb-lg-0" key={index}>
-                    <div className="taxCard">
-                      <Image
-                        src={card.image}
-                        alt={card.alt}
-                        width={183}
-                        height={174}
-                      />
-                      <h4 className="heading54 mb-3 taxHeading">
-                        <span className="sky">{card.title}</span><br />{card.subtitle}
-                      </h4>
-                      <p className="sub16">{card.description}</p>
-                      <button className="blueBtn w-100 mt-auto">{card.buttonText}</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <TaxCards data={taxCards}/>
         </div>
       </section>
       <section className="steps">

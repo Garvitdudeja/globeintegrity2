@@ -131,8 +131,8 @@ nav {
   position: absolute;
     visibility: hidden;
     opacity: 0;
-    width: 100vw;
-    max-width: 318px;
+    width: 100%;
+    min-width: 318px;
     top: 54px;
     z-index: 1000;
     background-color: #FFFFFF;
@@ -141,6 +141,7 @@ nav {
     transition: visibility 0.2s ease-in, opacity 0.2s ease-in;
     box-shadow: 0px 4px 20px -3px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    left:-43px;
 }
 .menu li:hover .downArrow_{
   transform: rotate(180deg);
@@ -168,7 +169,7 @@ nav {
   width: 100%;
 }
 
-.menu li:hover a{
+.menu li:hover .headerLabel{
   color: #1dd3f5;
 }
 .menu li:hover .subMenuDiv{
@@ -192,6 +193,7 @@ opacity: 1;
     align-items: start;
     gap: 8px;
     padding: 8px;
+    cursor: pointer;
 }
 .subMenuInner:hover{
   background-color: #1dd5f553;
@@ -365,6 +367,12 @@ opacity: 1;
 .sub24{
   font-family: "DM Sans", sans-serif;
   font-size: 24px;
+  font-weight: 400;
+  color: #2F3A4E;
+}
+.sub20{
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
   font-weight: 400;
   color: #2F3A4E;
 }
@@ -1127,5 +1135,103 @@ opacity: 1;
   font-size: .75rem;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
+}
+/* End calculator  */
+/* Start Uvl */
+.tabsOuter{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.dotList{
+  padding-left: 0;
+}
+.taxList li{
+  list-style: disc !important;
+  font-size: 18px;
+}
+.taxList{
+  margin-bottom: 40px;
+}
+.dotFill{
+  width: 14px;
+  height: 14px;
+  background: #2D3269;
+  border-radius: 14px;
+}
+.dotFade{
+  width: 14px;
+  height: 14px;
+  background: #2d326985;
+  border-radius: 14px;
+}
+.dotList li{
+  display: inline-block;
+  margin-right: 5px;
+}
+.tabBox{
+  opacity: 0.7;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out 0s;
+  z-index: 1;
+  max-width: 350px 
+}
+.tabBox h4{
+  font-family: "DM Sans", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+}
+.tabBox:hover{
+  opacity: 1;
+}
+.moveCard{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #FFFFFF;
+  border: 1px solid #21554e;
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  z-index: 0;
+}
 
+
+.tabsOuter {
+  display: flex;
+  position: relative;
+  border-top: 1px solid #21554e;
+  border-bottom: 1px solid #21554e;
+  padding: 16px 0;
+}
+
+.tabBox {
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.dotList {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.opacity-100{
+  opacity: 1 !important;
+}
+.opacity-60{
+  opacity: 0.7;
+}
+.tracking-wider {
+  letter-spacing: 6px;
+}
+.starIcon{
+  color: #2D3269;
 }
