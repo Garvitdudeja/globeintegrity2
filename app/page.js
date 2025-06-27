@@ -99,7 +99,7 @@ const Home = () => {
         "In most cases, no medical exam is required to get covered through our simplified process. Some higher coverage amounts or specific situations may still require one, but our team will guide you every step of the way."
     },
         {
-      question: '5. How Quickly Can I Get Covered?',
+      question: 'How Quickly Can I Get Covered?',
       answer:
         "Many of our clients are able to get same-day estimates and fast approvals, sometimes in as little as 24 to 48 hours. Our process is streamlined to get you covered as quickly as possible."
     },
@@ -212,7 +212,7 @@ const Home = () => {
             </div>
           </div>
           <div className="row justify-content-center">
-            <div className="col-xl-8">
+            <div className="col-xl-10">
               <div className="row align-items-center">
                 <div className="col-6">
                   <Image src={images.steps} alt="image" className="img-fluid" />
@@ -357,10 +357,9 @@ const Home = () => {
                   <h2 className="heading54 mb-3">Intelligently Asked  <span className="sky">Questions</span></h2>
                 </div>
               </div>
-              <div className="row mb-5">
-                <div className="col-lg-12">
+              
                   {faqData.map((item, index) => (
-                    <div className="row faqItem" key={index}>
+                    <div className="row  faqItem" key={index}>
                       <div className="col-lg-6">
                         <span className="icon me-2">+</span>
                         <strong className="question">{item.question}</strong>
@@ -383,8 +382,6 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
       </section>
       <section className="agent">
         <div className="container-fluid">

@@ -181,8 +181,8 @@ Steady returns and long-</p>
                             <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
                             </div>
                         </div>
-                        <div className='col-md-4 orderOne'>
-                            <div className='stedyCard'>
+                        <div className='col-md-4 orderOne mb-5 md-md-0'>
+                            <div className='stedyCard stedyCardIul'>
                                 <Image src={images.benifit2} alt='image' className='img-fluid' />
                             </div>
                         </div>

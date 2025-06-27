@@ -125,7 +125,7 @@ const ProductTerm = () => {
                             </div>
                         </div>
                         <div className='col-md-4 orderOne'>
-                            <div className='stedyCard'>
+                            <div className='stedyCard stedyCardIul'>
                                 <Image src={images.benifit1} alt='image' className='img-fluid' />
                             </div>
                         </div>
