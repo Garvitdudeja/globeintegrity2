@@ -79,7 +79,7 @@ const Header = () => {
             <div className='col-12'>
                 <nav>
                   <div className="logo">
-                    <Link href=""><Image src={images.logo} alt='logo' width={231} height={60} /></Link>
+                    <Link href="/"><Image src={images.logo} alt='logo' width={231} height={60} /></Link>
                   </div>
                   <div className='btnToggleOuter'>
                     <button type='button' className='commonBtn'>
