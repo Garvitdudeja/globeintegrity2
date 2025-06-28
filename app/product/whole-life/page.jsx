@@ -8,6 +8,7 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 import Hero from '@/Components/Product/hero';
 import { IoIosStar } from "react-icons/io";
 import KeyBenifits from '@/Components/Product/KeyBenifits';
+import WholeLifeGraph from '@/Components/Product/WholeLifeGraph';
 const tabData = [
     {
         title: 'Low volatility',
@@ -282,116 +283,7 @@ const Uvl = () => {
             <Hero heading={"Whole Life Insurance"} description={"Life insurance that's as flexible as you are. Imagine that."}
                 button={"GET AN ESTIMATE"} image={images.child} />
             <KeyBenifits data={benifits} />
-            <section className='premiumGraph'>
-                <div className='container-fluid'>
-                    <div className='row justify-content-center'>
-                        <div className='col-xl-10'>
-                            <h2 className='heading54 text-center text-white mb-4'>VUL Policy Example</h2>
-                            <div className='row'>
-                                <div className='col-lg-4'>
-                                    {/* <p className='sub18 text-white mb-5'>IUL policies typically allow you to grow a portion of your premiums based on returns of an index like the S&P 500.  Insurers often offer a growth cap of 8-9% and floor of 0%.  This allows for upside potential with downside protection. Did I mention it’s all tax-efficient?</p> */}
-                                    <h3 className='sub18 text-white text-uppercase'>MONTHLY PREMIUM</h3>
-
-                                    <div className="slider-wrapper mb-5">
-                                        <div
-                                            className="slider-label-box"
-                                            style={{ left: `calc(${((premium - 50) / (1000 - 50)) * 100}%)` }}
-                                        >
-                                            ${premium}
-                                            <div className="slider-label-pointer"></div>
-                                        </div>
-
-                                        <input
-                                            type="range"
-                                            min="50"
-                                            max="1000"
-                                            step="10"
-                                            value={premium}
-                                            onChange={(e) => setPremium(Number(e.target.value))}
-                                            className="custom-range"
-                                        />
-                                    </div>
-                                    <h3 className='sub18 text-white'>TOTAL PREMIUMS</h3>
-                                    <p className='sub24 text-white fw-bold mb-2'>$48,000</p>
-                                    <p className='sub20 text-white mb-4'>Over 40 number of years</p>
-
-                                    <h3 className='sub18 text-white'>VUL ACCOUNT</h3>
-                                    <p className='sub24 text-white fw-bold'>$337,121</p>
-                                    <p className='sub20 text-white mb-4'>8.17% IRR for 40 years</p>
-
-                                    <p className='sub20 text-white'>S&P 500 TAXABLE ACCOUNT*</p>
-                                    <p className='sub24 text-white fw-bold'>$207,105</p>
-                                    <h3 className='sub18 text-white mb-4'>6.32% IRR for 40 years</h3>
-
-                                    <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
-                                    <p className='sub18 text-white mb-5'>A death benefit will be associated with the policy based on an individual's age and health.</p>
-                                    <button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button>
-                                </div>
-                                <div className='col-lg-8'>
-                                    <ResponsiveContainer width="100%" height={400}>
-                                        <AreaChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 80 }}>
-
-                                            {/* ✅ Move grid inside AreaChart */}
-                                            <CartesianGrid
-                                                stroke="#ffffff"
-                                                strokeWidth={1}
-                                                strokeDasharray="0"
-                                                vertical={false} // only horizontal lines
-                                            />
-
-                                            <XAxis
-                                                dataKey="year"
-                                                stroke="#ccc"
-                                                ticks={[10, 20, 30, 40, 50, 60]}
-                                                width={130}
-                                            />
-
-                                            <YAxis
-                                                width={10} // space for Y-axis text and full grid line
-                                                tick={{ dx: -3 }}
-                                                tickFormatter={(v) => `$${v.toLocaleString()}`}
-                                                stroke="#ccc"
-                                                tickCount={9}
-                                                tickLine={false}
-                                            />
-
-                                            <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
-
-                                            <Area
-                                                type="monotone"
-                                                dataKey="Conservative"
-                                                stroke="#FFD369"
-                                                fill="#FFD369"
-                                                fillOpacity={0.6}
-                                            />
-
-                                            <Area
-                                                type="monotone"
-                                                dataKey="Optimistic"
-                                                stroke="#32E6A9"
-                                                fill="#32E6A9"
-                                                fillOpacity={0.6}
-                                            />
-
-                                        </AreaChart>
-                                    </ResponsiveContainer>
-                                    <div className='uldata mb-4'>
-                                        <div><div className='ulBox'></div></div>
-                                        Example of an IUL policy that achieves a 6.4% annual return with tax deferral and reinvested dividends*
-                                    </div>
-                                    <div className='cddata'>
-                                        <div><div className='cdBox'></div></div>
-                                        Bank Savings CD account averages 1.71% annual return with taxable interest payments at 35%*
-                                    </div>
-                                </div>
-                            </div>
-                            <p className='sub16 text-white fw-lighter'>*Tables and charts are for illustrative purposes only and are not based on any specific policy example. Please reference your specific policy for additional details. All guarantees and contractual obligations are based solely on the claims-paying ability of the issuing life insurance company.
-
-                                Steady returns and long-</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <WholeLifeGraph/>
             <section className='stedy'>
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
