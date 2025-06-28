@@ -1,9 +1,10 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "../bootstrap-client";
+
 export default function Faq() {
   useEffect(() => {
     // Optional: Re-initialize scrollspy after mount
@@ -144,62 +145,81 @@ export default function Faq() {
       ]
 
     },
-    {title: "Compare Products",
+    {
+      title: "Compare Products",
       items: [{
         question: "What are the different types of life insurance?",
         answer: <>There are many different types of life insurance to choose from. The most common types consumers purchase are Term Life Insurance, Permanent Life Insurance, or a Combination Policy. What you purchase ultimately depends on your needs and a variety of factors, including how long you need coverage for, how much you want to pay, and whether you’re looking to build cash value over time.</>
       },
-    {
+      {
         question: "What is Term Life Insurance?",
         answer: <>Term Life Insurance is a type of life insurance policy that provides coverage for a specific period of time, or "term." If the policyholder dies during the term, the policy pays out a death benefit to the beneficiary. If the policyholder does not die during the term, the policy does not pay out and the coverage ends on the expiry date.
-        <br/>
-        Term Life Insurance is typically less expensive than Permanent Life Insurance, however, it does not build cash value or offer tax-advantaged savings like certain types of Permanent Life Insurance.
-        <br/>
-        Visit our <Link href={"/product/term"}>Term Life product page</Link> to learn more.</>
-      },{
+          <br />
+          Term Life Insurance is typically less expensive than Permanent Life Insurance, however, it does not build cash value or offer tax-advantaged savings like certain types of Permanent Life Insurance.
+          <br />
+          Visit our <Link href={"/product/term"}>Term Life product page</Link> to learn more.</>
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
-      },{
+      }, {
         question: "",
         answer: <></>
       },]
     },
-    {title: "Why Globe Integrity"},
-    {title: "Why Bundle"},
-    {title: "Apply"},
-    {title: "Manage Policy"},
-    {title: "Grow Wealth"},
-    {title: "Access Funds"},
-    {title: "Leverage Protection"},
-    {title: "Expand Protection"},
+    { title: "Why Globe Integrity" },
+    { title: "Why Bundle" },
+    { title: "Apply" },
+    { title: "Manage Policy" },
+    { title: "Grow Wealth" },
+    { title: "Access Funds" },
+    { title: "Leverage Protection" },
+    { title: "Expand Protection" },
   ]
+
+
+  const navRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const scrollNav = (direction) => {
+    const items = navRef.current?.querySelectorAll(".nav-item");
+    if (!items?.length) return;
+
+    let newIndex = direction === "left" ? currentIndex - 1 : currentIndex + 1;
+    newIndex = Math.max(0, Math.min(items.length - 1, newIndex)); // Clamp
+
+    const targetItem = items[newIndex];
+    targetItem?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+
+    setCurrentIndex(newIndex);
+  };
+
 
 
   return (
@@ -227,17 +247,54 @@ export default function Faq() {
         </div>
       </section>
       {/* Sticky Navbar */}
-      <nav id="navbar-example2" className="navbar px-3 mb-3 mainFaqPageNav">
-        <ul className="nav nav-pills">
-          {FaqData.map((item ,index)=>  
-                    <li className="nav-item">
-            <a className="nav-link" href={"#scrollspyHeading"+index}>
-              {item.title}
-            </a>
-          </li>)}
+      <div className="mainFaqPageNav">
+      <div className="faq-nav-wrapper position-relative">
+        {/* Left arrow */}
+        
 
+        {/* Navbar */}
+        <div className="d-flex align-items-center mx-3">
+      <button onClick={() => scrollNav("left")} className="btn btn-sm me-2 leftRighArrow">
+        ◀
+      </button>
+
+      <nav
+        id="navbar-example2"
+        className="navbar px-3  overflow-hidden flex-grow-1"
+      >
+        <ul
+          ref={navRef}
+          className="nav nav-pills flex-nowrap hide-scrollbar"
+          style={{ overflowX: "auto", scrollBehavior: "smooth", whiteSpace: "nowrap" }}
+        >
+          {FaqData.map((item, index) => (
+            <li className="nav-item d-inline-block" key={index}>
+              <a className="nav-link" href={`#scrollspyHeading${index}`}>
+                {item.title}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
+
+      <button onClick={() => scrollNav("right")} className="btn btn-sm ms-2 leftRighArrow">
+        ▶
+      </button>
+    </div>
+
+        
+      </div>
+      </div>
+      {/* <nav id="navbar-example2" className="navbar px-3 mb-3 mainFaqPageNav">
+        <ul ref={navRef} className="nav nav-pills">
+          {FaqData.map((item, index) =>
+            <li className="nav-item">
+              <a className="nav-link" href={"#scrollspyHeading" + index}>
+                {item.title}
+              </a>
+            </li>)}
+        </ul>
+      </nav> */}
 
       {/* Content Sections */}
       <div className="container prouctFaq mainFaqPage py-0">
@@ -249,7 +306,7 @@ export default function Faq() {
           tabIndex="0"
 
         >
-          {FaqData.map((faq, index)=><div id={"scrollspyHeading"+index} className="mainFaqItems">
+          {FaqData.map((faq, index) => <div id={"scrollspyHeading" + index} className="mainFaqItems">
             <div className="row justify-content-center">
               <div className="col-xl-10">
                 <div className="row">
@@ -257,7 +314,7 @@ export default function Faq() {
                     <h4 className="heading28">{faq.title}</h4>
                   </div>
                   <div className="col-lg-8">
-                    <div className="accordion mb-5" id="accordionExample">
+                    <div className="accordion mb-0 mb-lg-5" id="accordionExample">
                       {faq?.items && faq.items.map((item, index) => <div className="accordion-item">
                         <h2 className="accordion-header">
                           <button
@@ -290,6 +347,7 @@ export default function Faq() {
 
         </div>
       </div>
+
       <section className="moreQueSection">
         <div className="container-fluid">
           <div className="row justify-content-center">

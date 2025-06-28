@@ -43,7 +43,7 @@ const Calculator = () => {
     <section className="calculator py-4">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-5 lg-mb-4">
+          <div className="col-lg-5 mb-5 lg-mb-0">
             <div className="calcLeftCard">
               <h2 className="heading54">Globe Integrity's Insurance Calculator</h2>
               <p className="sub24">
@@ -499,7 +499,7 @@ const Calculator = () => {
           <div className="col-lg-7 lg-mb-4">
             <div className="calcRightCard">
               <div className="row mb-4">
-                <div className="col-lg-6">
+                <div className="col-lg-6 mb-4 lg-mb-0">
                   <div className="calcRightInner">
                     <div className="py-5">
                       <h4 className="text-center">Your Total Coverage Need</h4>
@@ -524,7 +524,7 @@ const Calculator = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-6  mb-4 lg-mb-0">
                   <div className="calcRightInner">
                     <div className="py-5">
                       <h4 className="text-center">

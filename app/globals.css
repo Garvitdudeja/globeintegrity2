@@ -3,6 +3,24 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 /*Start Common Css */
+/* Scrollbar Track */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #2d3269;
+  border-radius: 10px;
+}
+
+/* Optional: Scrollbar Track Background */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray for contrast */
+  border-radius: 10px;
+}
+
 :root{
   --white: '#ffffff';
   --black: '#000000';
@@ -70,6 +88,7 @@ p{
 }
 /* End Common */
 /* Header Css */
+
 .header .container-fluid,
 .footer .container-fluid
 {
@@ -200,44 +219,16 @@ opacity: 1;
   padding: 8px;
   border-radius: 8px;
 }
-@media only screen and (max-width: 950px) {
-  .menu {
-    flex-direction: column;
-    background-color: var(--white);
-    align-items: start;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-    transform: scale(1, 0);
-    transform-origin: top;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  }
-  .menu a {
-    margin-left: 12px;
-  }
-  .menu li {
-    margin-bottom: 10px;
-  }
-  .menu-icon {
-    border: 1px solid #2d3269;
-    border-radius: 5px;
-    padding: 0 7px;
-    font-size: 16px;
-    display: block;
-  }
-}
 .btnToggleOuter {
   display: flex;
   flex-direction: row-reverse;
 }
+
 /* End Header  */
 /* Start Banner */
 .banner{
   background-color:#EEFCFF;
-  padding:37px 71px;
+  padding:37px 0px;
 }
 .heading54{
   font-size: 3.375rem;
@@ -500,7 +491,7 @@ opacity: 1;
 
 .question {
   color: #2F3A4E;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   margin-right: 6px;
   font-weight: 600;
   font-size: 2rem;
@@ -1136,6 +1127,23 @@ opacity: 1;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
 }
+.calcLeftCard, .calcRightCard{
+  height: calc(100vh - 121px);
+  overflow: auto;
+  /* padding: 20px; */
+}
+.calcLeftCard, .calcRightCard {
+  height: calc(100vh - 121px);
+  overflow: auto;
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* Internet Explorer 10+ */
+}
+
+.calcLeftCard::-webkit-scrollbar,
+.calcRightCard::-webkit-scrollbar {
+  display: none;                  /* Chrome, Safari, Opera */
+}
+
 /* End calculator  */
 /* Start Uvl */
 .tabsOuter{
@@ -1234,4 +1242,11 @@ opacity: 1;
 }
 .starIcon{
   color: #2D3269;
+}
+.mainFaqPageNav .flex-nowrap::-webkit-scrollbar {
+  display: none;                  /* Chrome, Safari, Opera */
+}
+.leftRighArrow{
+  border: 1px solid black !important;
+  display: none !important;
 }

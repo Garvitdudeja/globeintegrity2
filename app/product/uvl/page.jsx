@@ -1,41 +1,214 @@
 'use client'
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image'
 import * as images from '../../../utilities/images'
 import Link from 'next/link'
 import { HiArrowRight } from "react-icons/hi";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,CartesianGrid } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import Hero from '@/Components/Product/hero';
-const Product = () => {
-const [premium, setPremium] = useState(100); // starting from $100
-const years = 60;
-const conservativeReturn = 0.0171;
-const optimisticReturn = 0.064;
+import { IoIosStar } from "react-icons/io";
+const tabData = [
+    {
+      title: 'Low volatility',
+      dots: [true, false, false],
+      content: () => (
+        <>
+          <div className="row mt-5">
+            <div className="col-lg-6">
+              <p className="sub18 mb-2">EXAMPLE FUND: LOW VOLATILITY</p>
+              <h3 className="heading36">Vanguard® VIF Conservative Allocation</h3>
+              <p className="sub18 fw-normal mb-5">Inception Date: 10/2011</p>
+  
+              <p className="sub18 fw-normal mb-2">TOP HOLDINGS</p>
+              <ul className="taxList mb-5">
+                <li>Retirement</li>
+                <li>Pay off student loans</li>
+                <li>Down payment on a house</li>
+                <li>Pay for college</li>
+              </ul>
+  
+              <p className="sub18 fw-normal mb-2">
+                * Top holdings accurate as of April 30, 2023
+              </p>
+            </div>
+  
+            <div className="col-lg-6">
+              <div className="mb-4">
+                <h3 className="heading36 tracking-wider">Overall Morningstar Rating</h3>
+                <p>
+                  <IoIosStar className="starIcon" />
+                  <IoIosStar className="starIcon" />
+                  <IoIosStar className="starIcon" />
+                </p>
+              </div>
+              <div className="mb-4">
+                <h3 className="heading36 tracking-wider">Volatility Assessment</h3>
+                <p className="sub18">Low</p>
+              </div>
+              <div className="mb-4">
+                <h3 className="heading36 tracking-wider">Annualized Return Since Inception</h3>
+                <p className="sub18">5.40%</p>
+              </div>
+              <div className="mb-4">
+                <h3 className="heading36 tracking-wider">Gross Operating Expense</h3>
+                <p className="sub18">0.13%</p>
+              </div>
+            </div>
+          </div>
+        </>
+      ),
+    },
+    {
+      title: 'Average volatility',
+      dots: [true, true, false],
+      content: () => (
+        <>
+        <div className="row mt-5">
+          <div className="col-lg-6">
+            <p className="sub18 mb-2">EXAMPLE FUND: AVERAGE VOLATILITY</p>
+            <h3 className="heading36">Vanguard® Real Estate Index Fund</h3>
+            <p className="sub18 fw-normal mb-5">Inception Date: 11/2001</p>
 
-// Move the data generation logic to a function
-const generateData = (premium) => {
-  return Array.from({ length: years + 1 }, (_, year) => {
-    const conservativeValue = Math.round(
-      premium * 12 * (((Math.pow(1 + conservativeReturn, year) - 1) / conservativeReturn) || 0)
-    );
-    const optimisticValue = Math.round(
-      premium * 12 * (((Math.pow(1 + optimisticReturn, year) - 1) / optimisticReturn) || 0)
-    );
-    return {
-      year,
-      Conservative: conservativeValue,
-      Optimistic: optimisticValue,
+            <p className="sub18 fw-normal mb-2">TOP HOLDINGS</p>
+            <ul className="taxList mb-5">
+              <li>8.07% Prologis Inc.</li>
+              <li>6.65% American Tower Corp.</li>
+              <li>4.68% Equinix Inc.</li>
+            </ul>
+
+            <p className="sub18 fw-normal mb-2">
+            * Top holdings accurate as of April 30, 2023
+            </p>
+          </div>
+
+          <div className="col-lg-6">
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Overall Morningstar Rating</h3>
+              <p>
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+              </p>
+            </div>
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Volatility Assessment</h3>
+              <p className="sub18">Moderate</p>
+            </div>
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Annualized Return Since Inception</h3>
+              <p className="sub18">8.97%</p>
+            </div>
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Gross Operating Expense</h3>
+              <p className="sub18">0.12%</p>
+            </div>
+          </div>
+        </div>
+      </>
+      ),
+    },
+    {
+      title: 'High volatility',
+      dots: [true, true, true],
+      content: () => (
+        <>
+        <div className="row mt-5">
+          <div className="col-lg-6">
+            <p className="sub18 mb-2">EXAMPLE FUND: HIGH VOLATILITY</p>
+            <h3 className="heading36">Vanguard® Growth Index Admiral</h3>
+            <p className="sub18 fw-normal mb-5">Inception Date: 11/2000</p>
+
+            <p className="sub18 fw-normal mb-2">TOP HOLDINGS</p>
+            <ul className="taxList mb-5">
+              <li>13.67% Apple Inc</li>
+              <li>12.26% Microsoft Corp</li>
+              <li>4.92% Amazon.com Inc</li>
+            </ul>
+
+            <p className="sub18 fw-normal mb-2">
+            * Top holdings accurate as of April 30, 2023
+            </p>
+          </div>
+
+          <div className="col-lg-6">
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Overall Morningstar Rating</h3>
+              <p>
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+                <IoIosStar className="starIcon" />
+              </p>
+            </div>
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Volatility Assessment</h3>
+              <p className="sub18">High</p>
+            </div>
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Annualized Return Since Inception</h3>
+              <p className="sub18">7.43%</p>
+            </div>
+            <div className="mb-4">
+              <h3 className="heading36 tracking-wider">Gross Operating Expense</h3>
+              <p className="sub18">0.05%</p>
+            </div>
+          </div>
+        </div>
+      </>
+      ),
+    },
+  ];
+  
+
+
+const Uvl = () => {
+    const [premium, setPremium] = useState(100); // starting from $100
+    const years = 60;
+    const conservativeReturn = 0.0171;
+    const optimisticReturn = 0.064;
+
+    // Move the data generation logic to a function
+    const generateData = (premium) => {
+        return Array.from({ length: years + 1 }, (_, year) => {
+            const conservativeValue = Math.round(
+                premium * 12 * (((Math.pow(1 + conservativeReturn, year) - 1) / conservativeReturn) || 0)
+            );
+            const optimisticValue = Math.round(
+                premium * 12 * (((Math.pow(1 + optimisticReturn, year) - 1) / optimisticReturn) || 0)
+            );
+            return {
+                year,
+                Conservative: conservativeValue,
+                Optimistic: optimisticValue,
+            };
+        });
     };
-  });
-};
+    // Now only declare data once using useMemo
+    const data = useMemo(() => generateData(premium), [premium]);
 
-// Now only declare data once using useMemo
-const data = useMemo(() => generateData(premium), [premium]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [moveStyle, setMoveStyle] = useState({});
+    const tabRefs = useRef([]);
+    useEffect(() => {
+        const tabEl = tabRefs.current[activeIndex];
+        if (tabEl) {
+            const rect = tabEl.getBoundingClientRect();
+            const containerRect = tabEl.parentNode.getBoundingClientRect();
+            const left = rect.left - containerRect.left;
+            setMoveStyle({
+                width: `${rect.width}px`,
+                left: `${left}px`,
+            });
+        }
+    }, [activeIndex]);
+
 
     return (
         <>
-        <Hero heading={"Indexed Universal Life Insurance"} description={"A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life."}
-        button={"GET AN ESTIMATE"} image={images.child}/>
+            <Hero heading={"Variable Universal Life Insurance"} description={"Life insurance that's as flexible as you are. Imagine that."}
+                button={"GET AN ESTIMATE"} image={images.child} />
             <section className="benifit">
                 <div className='container-fluid'>
                     <div className='row'>
@@ -49,8 +222,8 @@ const data = useMemo(() => generateData(premium), [premium]);
                         <div className='col-lg-4 mb-4 mb-lg-0'>
                             <div className="benifitCard text-center">
                                 <Image src={images.benifit1} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Safe & Steady</h3>
-                                <p className='sub18'>Never risk losing your principal from market losses yet still access steady growth within a set range every year, with a cap (typically 9%) and a floor (typically 0%) based on the returns of an index like the S&P 500.</p>
+                                <h3 className='heading28'>Flexible</h3>
+                                <p className='sub18'>It’s your policy - that means you can access your policy’s cash value.*</p>
                             </div>
                         </div>
                         <div className='col-lg-4 mb-4 mb-lg-0'>
@@ -77,96 +250,108 @@ const data = useMemo(() => generateData(premium), [premium]);
                 <div className='container-fluid'>
                     <div className='row justify-content-center'>
                         <div className='col-xl-10'>
-                            <h2 className='heading54 text-center text-white mb-4'>IUL Policy Example</h2>
+                            <h2 className='heading54 text-center text-white mb-4'>VUL Policy Example</h2>
                             <div className='row'>
                                 <div className='col-lg-4'>
-                                    <p className='sub18 text-white mb-5'>IUL policies typically allow you to grow a portion of your premiums based on returns of an index like the S&P 500.  Insurers often offer a growth cap of 8-9% and floor of 0%.  This allows for upside potential with downside protection. Did I mention it’s all tax-efficient?</p>
-                                    <h3 className='sub18 text-white text-uppercase'>Monthly Premium</h3>
+                                    {/* <p className='sub18 text-white mb-5'>IUL policies typically allow you to grow a portion of your premiums based on returns of an index like the S&P 500.  Insurers often offer a growth cap of 8-9% and floor of 0%.  This allows for upside potential with downside protection. Did I mention it’s all tax-efficient?</p> */}
+                                    <h3 className='sub18 text-white text-uppercase'>MONTHLY PREMIUM</h3>
 
                                     <div className="slider-wrapper mb-5">
-                                <div
-                                    className="slider-label-box"
-                                    style={{ left: `calc(${((premium - 50) / (1000 - 50)) * 100}%)` }}
-                                >
-                                    ${premium}
-                                    <div className="slider-label-pointer"></div>
-                                </div>
+                                        <div
+                                            className="slider-label-box"
+                                            style={{ left: `calc(${((premium - 50) / (1000 - 50)) * 100}%)` }}
+                                        >
+                                            ${premium}
+                                            <div className="slider-label-pointer"></div>
+                                        </div>
 
-                                <input
-                                    type="range"
-                                    min="50"
-                                    max="1000"
-                                    step="10"
-                                    value={premium}
-                                    onChange={(e) => setPremium(Number(e.target.value))}
-                                    className="custom-range"
-                                />
-                                </div>
-                                <button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button>
-                                <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
-                                <p className='sub18 text-white'>A death benefit will be associated with the policy based on an individual's age and health.</p>
+                                        <input
+                                            type="range"
+                                            min="50"
+                                            max="1000"
+                                            step="10"
+                                            value={premium}
+                                            onChange={(e) => setPremium(Number(e.target.value))}
+                                            className="custom-range"
+                                        />
+                                    </div>
+                                    <h3 className='sub18 text-white'>TOTAL PREMIUMS</h3>
+                                    <p className='sub24 text-white fw-bold mb-2'>$48,000</p>
+                                    <p className='sub20 text-white mb-4'>Over 40 number of years</p>
+
+                                    <h3 className='sub18 text-white'>VUL ACCOUNT</h3>
+                                    <p className='sub24 text-white fw-bold'>$337,121</p>
+                                    <p className='sub20 text-white mb-4'>8.17% IRR for 40 years</p>
+
+                                    <p className='sub20 text-white'>S&P 500 TAXABLE ACCOUNT*</p>
+                                    <p className='sub24 text-white fw-bold'>$207,105</p>
+                                    <h3 className='sub18 text-white mb-4'>6.32% IRR for 40 years</h3>
+
+                                    <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
+                                    <p className='sub18 text-white mb-5'>A death benefit will be associated with the policy based on an individual's age and health.</p>
+                                    <button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button>
                                 </div>
                                 <div className='col-lg-8'>
-                                   <ResponsiveContainer width="100%" height={400}>
-                                    <AreaChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 80 }}>
-                                        
-                                        {/* ✅ Move grid inside AreaChart */}
-                                        <CartesianGrid
-                                        stroke="#ffffff"
-                                        strokeWidth={1}
-                                        strokeDasharray="0"
-                                        vertical={false} // only horizontal lines
-                                        />
+                                    <ResponsiveContainer width="100%" height={400}>
+                                        <AreaChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 80 }}>
 
-                                        <XAxis
-                                        dataKey="year"
-                                        stroke="#ccc"
-                                        ticks={[10, 20, 30, 40, 50, 60]}
-                                        width={130}
-                                        />
-                                        
-                                        <YAxis
-                                        width={10} // space for Y-axis text and full grid line
-                                        tick={{ dx: -3 }}
-                                        tickFormatter={(v) => `$${v.toLocaleString()}`}
-                                        stroke="#ccc"
-                                        tickCount={9}
-                                        tickLine={false}
-                                        />
-                                        
-                                        <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
-                                        
-                                        <Area
-                                        type="monotone"
-                                        dataKey="Conservative"
-                                        stroke="#FFD369"
-                                        fill="#FFD369"
-                                        fillOpacity={0.6}
-                                        />
-                                        
-                                        <Area
-                                        type="monotone"
-                                        dataKey="Optimistic"
-                                        stroke="#32E6A9"
-                                        fill="#32E6A9"
-                                        fillOpacity={0.6}
-                                        />
-                                        
-                                    </AreaChart>
+                                            {/* ✅ Move grid inside AreaChart */}
+                                            <CartesianGrid
+                                                stroke="#ffffff"
+                                                strokeWidth={1}
+                                                strokeDasharray="0"
+                                                vertical={false} // only horizontal lines
+                                            />
+
+                                            <XAxis
+                                                dataKey="year"
+                                                stroke="#ccc"
+                                                ticks={[10, 20, 30, 40, 50, 60]}
+                                                width={130}
+                                            />
+
+                                            <YAxis
+                                                width={10} // space for Y-axis text and full grid line
+                                                tick={{ dx: -3 }}
+                                                tickFormatter={(v) => `$${v.toLocaleString()}`}
+                                                stroke="#ccc"
+                                                tickCount={9}
+                                                tickLine={false}
+                                            />
+
+                                            <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
+
+                                            <Area
+                                                type="monotone"
+                                                dataKey="Conservative"
+                                                stroke="#FFD369"
+                                                fill="#FFD369"
+                                                fillOpacity={0.6}
+                                            />
+
+                                            <Area
+                                                type="monotone"
+                                                dataKey="Optimistic"
+                                                stroke="#32E6A9"
+                                                fill="#32E6A9"
+                                                fillOpacity={0.6}
+                                            />
+
+                                        </AreaChart>
                                     </ResponsiveContainer>
                                     <div className='uldata mb-4'>
                                         <div><div className='ulBox'></div></div>
                                         Example of an IUL policy that achieves a 6.4% annual return with tax deferral and reinvested dividends*
                                     </div>
                                     <div className='cddata'>
-                                    <div><div className='cdBox'></div></div>
+                                        <div><div className='cdBox'></div></div>
                                         Bank Savings CD account averages 1.71% annual return with taxable interest payments at 35%*
                                     </div>
                                 </div>
                             </div>
                             <p className='sub16 text-white fw-lighter'>*Tables and charts are for illustrative purposes only and are not based on any specific policy example. Please reference your specific policy for additional details. All guarantees and contractual obligations are based solely on the claims-paying ability of the issuing life insurance company.
 
-Steady returns and long-</p>
+                                Steady returns and long-</p>
                         </div>
                     </div>
                 </div>
@@ -174,15 +359,60 @@ Steady returns and long-</p>
             <section className='stedy'>
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
-                        <div className='col-md-8 orderTwo'>
-                            <div className='stedyCardTop'>
-                            <h1 className='heading54'>Steady returns and long-<br />lasting protection</h1>
-                            <p className='sub24 mb-4'>Want some extra cash but don't want to sell your stocks or take out money from your retirement or your house? We offer IUL policies that offer a predictable growth trajectory for a portion of your premiums to use for retirement while offering protection that lasts a lifetime.</p>
-                            <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
+                        <div className='col-md-12'>
+                            <h1 className='heading54 text-center mb-5'>High-Performance Funds</h1>
+                        </div>
+                        <div className="col-12">
+                            <div>
+                            <div className="tabsOuter">
+                                <div className="moveCard" style={moveStyle}></div>
+
+                                {tabData.map((tab, idx) => (
+                                    <div
+                                    key={idx}
+                                    className={`tabBox z-10 cursor-pointer transition-opacity duration-300 ${
+                                        activeIndex === idx ? 'opacity-100' : 'opacity-60'
+                                    }`}
+                                    onClick={() => setActiveIndex(idx)}
+                                    ref={(el) => (tabRefs.current[idx] = el)}
+                                    >
+                                    <ul className="dotList mb-2">
+                                        {tab.dots.map((filled, i) => (
+                                        <li key={i} className={filled ? 'dotFill' : 'dotFade'}></li>
+                                        ))}
+                                    </ul>
+                                    <h4>{tab.title}</h4>
+                                    </div>
+                                ))}
+                                </div>
+                                <div className="tabContent mt-6 text-green-900 font-medium">
+                                    {tabData[activeIndex].content()}
+                                </div>
                             </div>
                         </div>
-                        <div className='col-md-4 orderOne mb-5 md-md-0'>
-                            <div className='stedyCard stedyCardIul'>
+                    </div>
+                </div>
+            </section>
+            <div className='bg-white py-5'></div>
+            <section className='stedy'>
+                <div className='container-fluid'>
+                    <div className='row align-items-center'>
+                        <div className='col-md-8 orderTwo'>
+                            <div className='stedyCardTop'>
+                                <h1 className='heading54'>Tax-efficient growth <br />& lifelong protection</h1>
+                                <p className='sub24 mb-4'>We offer VUL policies that allow you to grow your premiums in funds such as S&P 500, REITs, global funds, and many others. You can access your cash value and tax-deferred growth as long as your policy is in-force and your death benefit will pass to your loved ones upon your passing.</p>
+                                <p className='sub18 fw-normal'>Choose how you want to use your policy returns. See what our customers have used it for:</p>
+                                <ul className='taxList'>
+                                    <li>Retirement</li>
+                                    <li>Pay off student loans</li>
+                                    <li>Down payment on a house</li>
+                                    <li> Pay for college</li>
+                                </ul>
+                                <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
+                            </div>
+                        </div>
+                        <div className='col-md-4 orderOne'>
+                            <div className='stedyCard'>
                                 <Image src={images.benifit2} alt='image' className='img-fluid' />
                             </div>
                         </div>
@@ -341,7 +571,7 @@ Steady returns and long-</p>
                             <p className='sub16 mb-4'>Get access to the latest in life insurance and personal finance insights.</p>
                             <div className='formstay'>
                                 <input type='text' placeholder='your email here' />
-                                <button className='productArrow'><HiArrowRight style={{width:'2rem', height:'2rem'}}/></button>
+                                <button className='productArrow'><HiArrowRight style={{ width: '2rem', height: '2rem' }} /></button>
                             </div>
                         </div>
                     </div>
@@ -351,4 +581,4 @@ Steady returns and long-</p>
     )
 }
 
-export default Product
+export default Uvl

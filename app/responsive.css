@@ -41,7 +41,15 @@
     .customLabel{
         font-size: 16px;
     }
-    
+    .stepsCard .sub36{
+        font-size: 32px;
+    }
+    .stepsCard {
+        margin-bottom: 3.6875rem;
+    }
+    .leftRighArrow{
+        display: inline-block !important;
+    }
 
 }
 @media(max-width:1200px){
@@ -60,6 +68,39 @@
     }
 }
 @media(max-width: 992px){
+    .menu {
+    flex-direction: column;
+    background-color: var(--white);
+    align-items: start;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    gap: 0 !important;
+  }
+  .menu a {
+    margin-left: 12px;
+  }
+  .menu li {
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+  }
+  .menu li .downArrow_{
+    display: none;
+  }
+  .menu-icon {
+    border: 1px solid #2d3269;
+    border-radius: 5px;
+    padding: 0 7px;
+    font-size: 16px;
+    display: block;
+  }
       .taxCard {
     text-align: center;
     display: flex;
@@ -110,7 +151,7 @@
     .prouctFaq .heading54,
     .moreQueSection .heading54
     {
-        font-size: 2.375rem;
+        font-size: 2.275rem;
     }
      .stedy .sub24,
      .universe .sub24,
@@ -151,10 +192,35 @@
     .faqCard{
         display: none;
     }
+    .tabBox h4 {
+        font-size: 25px;
+        font-weight: 700;
+    }
+    .tooltipBox {
+    left: 4%;
+    transform: translateX(-4%);
+}
+.tooltipBox:after {
+    left: 4%;
+    transform: translateX(4%);
+}
+.calcLeftCard, .calcRightCard {
+   height: auto;
+}
+.subMenuDiv{
+    visibility: visible;
+    opacity: 1;
+    padding: 0;
+    position: static;
+    box-shadow: none !important;
+}
 }
 @media(max-width:768){
     .stedyCard {
         display: none;
+    }
+    .stedyCard.stedyCardIul{
+        display: block;
     }
     .moreQueSection{
         padding-block: 1.875rem;
@@ -164,6 +230,16 @@
     }
     .faqCard{
         display: none;
+    }
+    .header .container-fluid {
+        padding: 0 13px !important;
+    }
+    .header .commonBtn {
+        padding: 9px 13px;
+        font-size: 15px;
+    }
+    .header .logo img{
+        max-width: 11.25rem;
     }
 }
 @media(max-width:768){
@@ -392,7 +468,6 @@ display: block !important;
     text-align: start;
     padding-left: 0;
 }
-
 .header .commonBtn {
     padding: 4.5px 10px;
     font-size: 12px;
@@ -425,7 +500,6 @@ display: block !important;
     width: 1.5rem;
     height: 1.5rem;
 }
-
 .universeCard{
     text-align: center;
 }
@@ -456,5 +530,124 @@ display: block !important;
 }
 .menu-icon {
     font-size: 1rem;
+}
+.termsVsCard .heading54{
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.termsVs {
+    padding-block: 38px;
+}
+.termsVsCard .sub24,
+.termsVsCardRight .sub24
+{
+    font-size: 1.1875rem;
+}
+.tickIcon {
+    width: 33px;
+    height: 33px;
+}
+.stedyCardTop .w-75{
+    width: 100% !important;
+}
+.tabBox h4 {
+    font-size: 18px;
+    font-weight: 600;
+}
+.dotFill, .dotFade{
+    width: 12px;
+    height: 12px;
+}
+.tracking-wider {
+    letter-spacing: 2px;
+}
+.tabContent .heading36{
+    font-size: 20px;
+}
+.taxList{
+    text-align: start;
+}
+.calcLeftCard{
+    padding: 1.875rem;
+}
+.calcLeftCard .heading54{
+    font-size: 2rem;
+}
+.calcLeftCard .sub24{
+    font-size: 1.1875rem;
+}
+.calcCount {
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+}
+.tooltipBox {
+    left: 0;
+    transform: translateX(-2%);
+}
+.tooltipBox:after {
+    left: 2%;
+    transform: translateX(2%);
+}
+.calcFormControl {
+    flex-wrap: wrap;
+}
+.calcLabel, .calcInput {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.calcLeftCard, .calcRightCard{
+    height: auto;
+}
+.calcHeading {
+    font-size: 24px;
+}
+.calcRightInne,
+.policyType
+{
+    padding: 1.875rem;
+}
+.calcRightInner{
+    min-height: auto;
+    text-align: center;
+}
+.calcFooter {
+    padding: 40px 30px;
+}
+.mainFaqPageNav {
+    top: 56px;
+    border-bottom: 1px solid #000;
+}
+.faqPage {
+    height: 251px;
+}
+.faqHead .heading28 {
+    font-size: 1.625rem;
+}
+.faqHead p{
+    font-size: 1.1875rem;
+}
+.faqHead input {
+    padding: 11px 63px 11px 18px;
+}
+.searchBtn{
+    padding: .375rem;
+}
+.faqHead input::placeholder {
+   font-size: 19px;
+}
+.prouctFaq.mainFaqPage .accordion-button {
+    font-size: 1rem;
+    font-weight: 600 !important;
+}
+.mainFaqItems {
+    padding-block: 2.75rem;
+}
+.mainFaqPage .heading28{
+    font-size: 1.25rem;
+}
+.menu{
+    top: 38px;
 }
 }
