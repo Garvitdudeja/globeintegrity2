@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaArrowLeft } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 export default function SignUp() {
   const [step, setStep] = useState(0);
 
@@ -13,7 +15,7 @@ export default function SignUp() {
 
   const nextStep = () => setStep(prev => Math.min(prev + 1, steps.length - 1));
   const prevStep = () => setStep(prev => Math.max(prev - 1, 0));
-
+const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <>
       <section className="steperSection mb-5">
@@ -83,35 +85,120 @@ export default function SignUp() {
                         Why are you looking for life insurance?
                       </h1>
                       <div className="custom-checkbox-wrapper">
-                        <input type="checkbox" id="check1" className="custom-checkbox" />
+                        <input
+                          type="checkbox"
+                          id="check1"
+                          className="custom-checkbox"
+                        />
                         <label htmlFor="check1"></label>
-                        <label htmlFor="check1" className="check-label">Income protection</label>
+                        <label htmlFor="check1" className="check-label">
+                          Income protection
+                        </label>
+                      </div>
+                      <div className="custom-checkbox-wrapper">
+                        <input
+                          type="checkbox"
+                          id="check2"
+                          className="custom-checkbox"
+                        />
+                        <label htmlFor="check2"></label>
+                        <label htmlFor="check2" className="check-label">
+                          Debt
+                        </label>
+                      </div>
+                      <div className="custom-checkbox-wrapper">
+                        <input
+                          type="checkbox"
+                          id="check3"
+                          className="custom-checkbox"
+                        />
+                        <label htmlFor="check3"></label>
+                        <label htmlFor="check3" className="check-label">
+                          Inheritance
+                        </label>
+                      </div>
+                      <div className="custom-checkbox-wrapper">
+                        <input
+                          type="checkbox"
+                          id="check4"
+                          className="custom-checkbox"
+                        />
+                        <label htmlFor="check4"></label>
+                        <label htmlFor="check4" className="check-label">
+                          Tax savings
+                        </label>
+                      </div>
+                      <div className="custom-checkbox-wrapper">
+                        <input
+                          type="checkbox"
+                          id="check5"
+                          className="custom-checkbox"
+                        />
+                        <label htmlFor="check5"></label>
+                        <label htmlFor="check5" className="check-label">
+                          Emergency coverage
+                        </label>
+                      </div>
+                      <div className="custom-checkbox-wrapper">
+                        <input
+                          type="checkbox"
+                          id="check6"
+                          className="custom-checkbox"
+                        />
+                        <label htmlFor="check6"></label>
+                        <label htmlFor="check6" className="check-label">
+                          Wealth Building
+                        </label>
+                      </div>
+                      
+                      {/* Start Second */}
+                      <h1 className="heading54 mb-4">
+                       Investment comfort level
+                      </h1>
+                      <div className="custom-radio-group">
+                      <div className="custom-radio-option">
+                        <input type="radio" id="risk1" name="risk" />
+                        <label htmlFor="risk1">
+                         High
+                        </label>
+                      </div>
+
+                      <div className="custom-radio-option">
+                        <input type="radio" id="risk2" name="risk" />
+                        <label htmlFor="risk2">
+                         Moderate
+                        </label>
+                      </div>
+
+                      <div className="custom-radio-option">
+                        <input type="radio" id="risk3" name="risk" />
+                        <label htmlFor="risk3">
+                         Low risk
+                        </label>
+                      </div>
                     </div>
-                    <div className="custom-checkbox-wrapper">
-                        <input type="checkbox" id="check2" className="custom-checkbox" />
-                        <label htmlFor="check1"></label>
-                        <label htmlFor="check2" className="check-label">Debt</label>
+
+                    {/* Start Gender */}
+                    <h1 className="heading54 mb-4">
+                       What’s your gender?
+                      </h1>
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="selectGender">Male</div>
+                      </div>
+                       <div className="col-lg-6">
+                        <div className="selectGender">Female</div>
+                      </div>
                     </div>
-                    <div className="custom-checkbox-wrapper">
-                        <input type="checkbox" id="check3" className="custom-checkbox" />
-                        <label htmlFor="check1"></label>
-                        <label htmlFor="check3" className="check-label">Inheritance</label>
                     </div>
-                    <div className="custom-checkbox-wrapper">
-                        <input type="checkbox" id="check4" className="custom-checkbox" />
-                        <label htmlFor="check1"></label>
-                        <label htmlFor="check4" className="check-label">Tax savings</label>
-                    </div>
-                    <div className="custom-checkbox-wrapper">
-                        <input type="checkbox" id="check5" className="custom-checkbox" />
-                        <label htmlFor="check1"></label>
-                        <label htmlFor="check5" className="check-label">Emergency coverage</label>
-                    </div>
-                    <div className="custom-checkbox-wrapper">
-                        <input type="checkbox" id="check6" className="custom-checkbox" />
-                        <label htmlFor="check1"></label>
-                        <label htmlFor="check6" className="check-label">Wealth Building</label>
-                    </div>
+                    {/* Start Date of birth */}
+                    <h1 className="heading54">What is your date of birth?</h1>
+                    <div className="">
+                       <DatePicker
+                        selected={selectedDate}
+                        onChange={(date) => setSelectedDate(date)}
+                        placeholderText="DD/MM/YYYY"
+                      />
                     </div>
                   </>
                 )}
@@ -138,12 +225,9 @@ export default function SignUp() {
           </div>
           <div className="row mb-">
             <div className="col-12">
-             <div className="d-flex justify-content-center my-4 gap-3">
+              <div className="d-flex justify-content-center my-4 gap-3">
                 {step > 0 && (
-                  <button
-                    className="steperBack"
-                    onClick={prevStep}
-                  >
+                  <button className="steperBack" onClick={prevStep}>
                     <FaArrowLeft />
                   </button>
                 )}
