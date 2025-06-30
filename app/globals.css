@@ -1567,3 +1567,27 @@ background-color:rgb(45, 50, 105);
   height: 50px;
   padding-left: 10px;
 }
+
+
+/* Signup */
+.fade-enter {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease;
+}
