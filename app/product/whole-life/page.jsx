@@ -284,7 +284,7 @@ const Uvl = () => {
                 button={"GET AN ESTIMATE"} image={images.child} />
             <KeyBenifits data={benifits} />
             <WholeLifeGraph/>
-            <section className='stedy'>
+            {/* <section className='stedy'>
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
                         <div className='col-md-12'>
@@ -319,8 +319,8 @@ const Uvl = () => {
                         </div>
                     </div>
                 </div>
-            </section>
-            <div className='bg-white py-5'></div>
+            </section> */}
+            <div className='bg-white'></div>
 <section className='stedy'>
     <div className='container-fluid'>
         <div className='row align-items-center'>

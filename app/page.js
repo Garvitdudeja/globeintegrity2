@@ -50,7 +50,7 @@ const taxCards = [
     alt: "icon",
     title: "Grow",
     subtitle: "your wealth",
-    description: "Turn your life insurance policy into a wealth-building tool. With Globe Integrity, enjoy tax-advantaged growth and the flexibility to access your funds for life’s major milestones.ESTIMATE CASH VALUE",
+    description: "Turn your life insurance policy into a wealth-building tool. With Globe Integrity, enjoy tax-advantaged growth and the flexibility to access your funds for life’s major milestones.",
     buttonText: "ESTIMATE CASH VALUE"
   },
   {
