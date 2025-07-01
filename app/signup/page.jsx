@@ -9,10 +9,14 @@ export default function SignUp() {
   const [step, setStep] = useState(0);
   const [currentInput, setCurrentInput] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [sliderValue, setSliderValue] = useState(1000);
+  const min = 100;
+  const max = 10000;
+
 
   const steps = [
-    { title: "Personal Info", inputs: ["goal", "risk", "gender", "dob"] },
-    { title: "Account Info", inputs: ["username", "password"] },
+    { title: "Personal Info", inputs: ["goal", "risk", "gender", "dob", "ZipCode"] },
+    { title: "Account Info", inputs: ["income", "invsest", "citizen"] },
     { title: "Confirmation", inputs: ["review"] },
   ];
   const [fade, setFade] = useState(true);
@@ -128,7 +132,7 @@ export default function SignUp() {
                     {currentInput === 0 && (
                       <>
                         <h1 className="heading54 mb-4">Why are you looking for life insurance?</h1>
-                        {["Income protection", "Debt", "Inheritance", "Tax savings", "Emergency coverage", "Wealth Building"].map((label, index) => (
+                        {["Lock in a guaranteed rate", "Help build more wealth", "Leave a legacy for my family", "Get tax-advantaged income", "Pay off debts", "Income protection"].map((label, index) => (
                           <div key={index} className="custom-checkbox-wrapper">
                             <input type="checkbox" id={`check${index}`} className="custom-checkbox" />
                             <label htmlFor={`check${index}`}></label>
@@ -171,6 +175,12 @@ export default function SignUp() {
                         />
                       </>
                     )}
+                    {currentInput === 4 && (
+                      <>
+                        <h1 className="heading54 mb-4">What’s your zip code?</h1>
+                        <input type="text" className="form-control" />
+                      </>
+                    )}
                   </>
                 )}
 
@@ -178,14 +188,63 @@ export default function SignUp() {
                   <>
                     {currentInput === 0 && (
                       <>
-                        <label className="form-label">Username</label>
-                        <input type="text" className="form-control" />
+                        <h1 className="heading54 mb-4">What is your annual income?</h1>
+                        <input type="number" className="form-control" />
                       </>
                     )}
                     {currentInput === 1 && (
                       <>
-                        <label className="form-label">Password</label>
-                        <input type="password" className="form-control" />
+                        <h1 className="heading54 mb-4">What would be a comfortable monthly contribution?</h1>
+
+                        {/* Slider */}
+                        <div className="slider-wrapper mb-4" style={{ position: 'relative' }}>
+                          <div
+                            className="slider-label-box"
+                            style={{
+                              position: 'absolute',
+                              top: '-40px',
+                              left: `calc(${((sliderValue - min) / (max - min)) * 100}% - 30px)`,
+                              backgroundColor: '#214E4E',
+                              color: 'white',
+                              padding: '5px 10px',
+                              borderRadius: '5px',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            ${sliderValue}
+                          </div>
+
+                          <input
+                            type="range"
+                            min={min}
+                            max={max}
+                            step={100}
+                            value={sliderValue}
+                            onChange={(e) => setSliderValue(Number(e.target.value))}
+                            style={{ width: '100%' }}
+                          />
+                        </div>
+
+                        {/* Info Box */}
+                        <div style={{ backgroundColor: '#E9F7F2', padding: '20px', borderRadius: '8px' }}>
+                          <h4>DID YOU KNOW?</h4>
+                          <p>
+                            If you pay <strong>${sliderValue}.00</strong> of premium a month into a policy's investment subaccounts, you could grow your account value up to <strong>${(sliderValue * 2270).toLocaleString()}</strong> after 30 years.
+                          </p>
+                        </div>
+                      </>
+                    )}
+                    {currentInput === 2 && (
+                      <>
+                        <h1 className="heading54 mb-4">Are you a U.S. Citizen?</h1>
+                        <div className="row">
+                          <div className="col-lg-6">
+                            <div className="selectGender">Yes</div>
+                          </div>
+                          <div className="col-lg-6">
+                            <div className="selectGender">No</div>
+                          </div>
+                        </div>
                       </>
                     )}
                   </>
