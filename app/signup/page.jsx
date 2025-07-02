@@ -596,29 +596,27 @@ export default function SignUp() {
                               <h1 className="heading54 mb-4">
                                Will you be performing any of the following activities in the next 2 years?
                               </h1>
-                              {["None", "Sky Diving", "Hang Gliding","Mountain Climbing","Racing", "Scuba Diving"].map(
-                                (label, index) => (
-                                 <div
-                                  key={index}
-                                  className="custom-checkbox-wrapper"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={`activity${index}`}
-                                    className="custom-checkbox"
-                                    checked={formData.activities.includes(label)}
-                                    onChange={() => handleCheckboxChange('activities', label)}
-                                  />
-                                  <label htmlFor={`activity${index}`}></label>
-                                  <label
-                                    htmlFor={`activity${index}`}
-                                    className="check-label"
-                                  >
-                                    {label}
-                                  </label>
-                                </div>
-                                )
-                              )}
+                              <div className="row">
+                                {["None", "Sky Diving", "Hang Gliding", "Mountain Climbing", "Racing", "Scuba Diving"].map(
+                                  (label, index) => (
+                                    <div key={index} className="col-lg-6">
+                                      <div className="custom-checkbox-wrapper">
+                                        <input
+                                          type="checkbox"
+                                          id={`activity${index}`}
+                                          className="custom-checkbox"
+                                          checked={formData.activities.includes(label)}
+                                          onChange={() => handleCheckboxChange("activities", label)}
+                                        />
+                                        <label htmlFor={`activity${index}`}></label>
+                                        <label htmlFor={`activity${index}`} className="check-label">
+                                          {label}
+                                        </label>
+                                      </div>
+                                    </div>
+                                  )
+                                )}
+                              </div>
                             </>
                           )}
                           {currentInput === 6 && (
