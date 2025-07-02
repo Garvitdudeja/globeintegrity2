@@ -739,18 +739,18 @@ export default function SignUp() {
 
                       {step === 2 && (
                         <>
-                          <h1 className="heading54 mb-4">Review Your Information</h1>
+                          <h1 className="heading54 mb-2">Review Your Information</h1>
                           <div className="review-section">
-                            <p>Please review your information before submitting:</p>
+                            <p className="sub20 mb-3">Please review your information before submitting:</p>
                             <div className="form-summary" style={{ textAlign: 'left', padding: '20px', backgroundColor: '#f8f9fa', borderRadius: '8px', marginBottom: '20px' }}>
-                              <h5>Personal Information:</h5>
+                              <h5 className="sub24">Personal Information:</h5>
                               <p><strong>Goals:</strong> {formData.goal.join(', ') || 'Not specified'}</p>
                               <p><strong>Risk Tolerance:</strong> {formData.risk || 'Not specified'}</p>
                               <p><strong>Gender:</strong> {formData.gender || 'Not specified'}</p>
                               <p><strong>Date of Birth:</strong> {formData.dob || 'Not specified'}</p>
                               <p><strong>Zip Code:</strong> {formData.zipCode || 'Not specified'}</p>
                               
-                              <h5 style={{ marginTop: '20px' }}>Account Information:</h5>
+                              <h5 className="sub24 mb-3">Account Information:</h5>
                               <p><strong>Household Income:</strong> {formData.householdIncome || 'Not specified'}</p>
                               <p><strong>Personal Income:</strong> {formData.personalIncome || 'Not specified'}</p>
                               <p><strong>Monthly Contribution:</strong> ${formData.monthlyContribution}</p>
