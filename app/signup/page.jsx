@@ -5,22 +5,49 @@ import { FaArrowLeft } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import Image from 'next/image'
 import * as images from './../../utilities/images'
+
 export default function SignUp() {
   const [step, setStep] = useState(0);
   const [currentInput, setCurrentInput] = useState(0);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [sliderValue, setSliderValue] = useState(1000);
   const min = 100;
   const max = 10000;
 
+  // Form data state
+  const [formData, setFormData] = useState({
+    // Step 0 - Personal Info
+    goal: [],
+    risk: '',
+    gender: '',
+    dob: '',
+    zipCode: '',
+
+    // Step 1 - Account Info
+    householdIncome: '',
+    personalIncome: '',
+    monthlyContribution: 1000,
+    citizen: '',
+    employed: '',
+    maritalStatus: '',
+    activities: [],
+    height: '',
+    weight: '',
+    substanceUse: [],
+    hivStatus: ''
+  });
+
   const steps = [
     {
       title: "Personal Info",
-      inputs: ["goal", "risk", "gender", "dob", "ZipCode"],
+      inputs: ["goal", "risk", "gender", "dob", "zipCode"],
     },
-    { title: "Account Info", inputs: ["income", "invsest", "citizen", "employee","marital","activity","height","risk","hiv"] },
+    {
+      title: "Account Info",
+      inputs: ["income", "investment", "citizen", "employed", "marital", "activities", "health", "substances", "hiv"]
+    },
     { title: "Confirmation", inputs: ["review"] },
   ];
+
   const [fade, setFade] = useState(true);
 
   const totalInputs = steps.reduce((acc, curr) => acc + curr.inputs.length, 0);
@@ -30,7 +57,83 @@ export default function SignUp() {
 
   const currentStepInputs = steps[step].inputs;
 
+  // Validation function
+  const isCurrentInputValid = () => {
+    const currentField = currentStepInputs[currentInput];
+
+    switch (currentField) {
+      case "goal":
+        return formData.goal.length > 0;
+      case "risk":
+        return formData.risk !== '';
+      case "gender":
+        return formData.gender !== '';
+      case "dob":
+        return formData.dob !== '' && formData.dob.length === 10;
+      case "zipCode":
+        return formData.zipCode !== '';
+      case "income":
+        return formData.householdIncome !== '' && formData.personalIncome !== '';
+      case "investment":
+        return formData.monthlyContribution >= min && formData.monthlyContribution <= max;
+      case "citizen":
+        return formData.citizen !== '';
+      case "employed":
+        return formData.employed !== '';
+      case "marital":
+        return formData.maritalStatus !== '';
+      case "activities":
+        return formData.activities.length > 0;
+      case "health":
+        return formData.height !== '' && formData.weight !== '';
+      case "substances":
+        return formData.substanceUse.length > 0;
+      case "hiv":
+        return formData.hivStatus !== '';
+      case "review":
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  // Update form data
+  const updateFormData = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  // Handle checkbox changes
+  const handleCheckboxChange = (field, value) => {
+    setFormData(prev => {
+      const currentArray = prev[field] || [];
+      const isChecked = currentArray.includes(value);
+
+      if (isChecked) {
+        return {
+          ...prev,
+          [field]: currentArray.filter(item => item !== value)
+        };
+      } else {
+        return {
+          ...prev,
+          [field]: [...currentArray, value]
+        };
+      }
+    });
+  };
+
   const nextInput = () => {
+    if (!isCurrentInputValid()) return;
+
+    // Console log current step data
+    console.log(`Step ${step + 1}, Input ${currentInput + 1} completed:`, {
+      field: currentStepInputs[currentInput],
+      value: getCurrentFieldValue()
+    });
+
     setFade(false);
     setTimeout(() => {
       if (currentInput < currentStepInputs.length - 1) {
@@ -40,7 +143,7 @@ export default function SignUp() {
         setCurrentInput(0);
       }
       setFade(true);
-    }, 300); // 300ms matches CSS transition time
+    }, 300);
   };
 
   const prevInput = () => {
@@ -57,6 +160,36 @@ export default function SignUp() {
     }, 300);
   };
 
+  // Get current field value for logging
+  const getCurrentFieldValue = () => {
+    const currentField = currentStepInputs[currentInput];
+    switch (currentField) {
+      case "goal": return formData.goal;
+      case "risk": return formData.risk;
+      case "gender": return formData.gender;
+      case "dob": return formData.dob;
+      case "zipCode": return formData.zipCode;
+      case "income": return { household: formData.householdIncome, personal: formData.personalIncome };
+      case "investment": return formData.monthlyContribution;
+      case "citizen": return formData.citizen;
+      case "employed": return formData.employed;
+      case "marital": return formData.maritalStatus;
+      case "activities": return formData.activities;
+      case "health": return { height: formData.height, weight: formData.weight };
+      case "substances": return formData.substanceUse;
+      case "hiv": return formData.hivStatus;
+      default: return null;
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = () => {
+    console.log("=== COMPLETE FORM SUBMISSION ===");
+    console.log("All form data:", formData);
+    console.log("================================");
+    alert("Form submitted successfully! Check console for all data.");
+  };
+
   // Progress within current step
   const stepProgress =
     ((completedInputs -
@@ -64,9 +197,8 @@ export default function SignUp() {
       currentStepInputs.length) *
     100;
 
-  // Start Date / Code
-  const [value, setValue] = useState("");
-  const handleInput = e => {
+  // Date input handler
+  const handleDateInput = (e) => {
     let input = e.target.value.replace(/\D/g, ""); // Remove non-digits
     if (input.length > 2 && input.length <= 4) {
       input = input.slice(0, 2) + "/" + input.slice(2);
@@ -74,9 +206,11 @@ export default function SignUp() {
       input =
         input.slice(0, 2) + "/" + input.slice(2, 4) + "/" + input.slice(4, 8);
     }
-    setValue(input);
+    updateFormData('dob', input);
   };
+
   const percentage = ((sliderValue - min) / (max - min)) * 100;
+
   return (
     <>
       {/* Stepper Header */}
@@ -95,9 +229,8 @@ export default function SignUp() {
                       style={{ width, zIndex: 1 }}
                     >
                       <small
-                        className={`${
-                          i === step ? "activeBar" : "inActiveBar"
-                        }`}
+                        className={`${i === step ? "activeBar" : "inActiveBar"
+                          }`}
                       >
                         {s.title}
                       </small>
@@ -149,9 +282,8 @@ export default function SignUp() {
                 <div className="row justify-content-center">
                   <div className="col-8">
                     <div
-                      className={`animated-slide ${
-                        fade ? "fade-enter-active" : "fade-exit-active"
-                      }`}
+                      className={`animated-slide ${fade ? "fade-enter-active" : "fade-exit-active"
+                        }`}
                     >
                       {step === 0 && (
                         <>
@@ -174,12 +306,14 @@ export default function SignUp() {
                                 >
                                   <input
                                     type="checkbox"
-                                    id={`check${index}`}
+                                    id={`goal${index}`}
                                     className="custom-checkbox"
+                                    checked={formData.goal.includes(label)}
+                                    onChange={() => handleCheckboxChange('goal', label)}
                                   />
-                                  <label htmlFor={`check${index}`}></label>
+                                  <label htmlFor={`goal${index}`}></label>
                                   <label
-                                    htmlFor={`check${index}`}
+                                    htmlFor={`goal${index}`}
                                     className="check-label"
                                   >
                                     {label}
@@ -193,36 +327,52 @@ export default function SignUp() {
                               <h1 className="heading54 mb-4">
                                 What is your investment risk tolerance?
                               </h1>
-                              {["I prefer high risk, with high-reward potential", "I prefer moderate risk, with moderate-reward potential", "I prefer low risk, with low-reward potential"].map(
-                                (label, index) => (
-                                  <div
-                                    key={index}
-                                    className="custom-radio-option mb-3"
-                                  >
-                                    <input
-                                      type="radio"
-                                      id={`risk${index}`}
-                                      name="risk"
-                                    />
-                                    <label htmlFor={`risk${index}`}>
-                                      {label}
-                                    </label>
-                                  </div>
-                                )
-                              )}
+                              {[
+                                "I prefer high risk, with high-reward potential", 
+                                "I prefer moderate risk, with moderate-reward potential", 
+                                "I prefer low risk, with low-reward potential"
+                              ].map((label, index) => (
+                                <div
+                                  key={index}
+                                  className="custom-radio-option mb-3"
+                                >
+                                  <input
+                                    type="radio"
+                                    id={`risk${index}`}
+                                    name="risk"
+                                    checked={formData.risk === label}
+                                    onChange={() => updateFormData('risk', label)}
+                                  />
+                                  <label htmlFor={`risk${index}`}>
+                                    {label}
+                                  </label>
+                                </div>
+                              ))}
                             </>
                           )}
                           {currentInput === 2 && (
                             <>
                               <h1 className="heading54 mb-4">
-                                What’s your gender?
+                                What's your gender?
                               </h1>
                               <div className="row">
                                 <div className="col-lg-6">
-                                  <div className="selectGender">Male</div>
+                                  <div 
+                                    className={`selectGender ${formData.gender === 'Male' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('gender', 'Male')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    Male
+                                  </div>
                                 </div>
                                 <div className="col-lg-6">
-                                  <div className="selectGender">Female</div>
+                                  <div 
+                                    className={`selectGender ${formData.gender === 'Female' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('gender', 'Female')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    Female
+                                  </div>
                                 </div>
                               </div>
                             </>
@@ -238,8 +388,8 @@ export default function SignUp() {
                                   id="date"
                                   placeholder="DD/MM/YYYY"
                                   maxLength={10}
-                                  value={value}
-                                  onChange={handleInput}
+                                  value={formData.dob}
+                                  onChange={handleDateInput}
                                   required
                                 />
                                 <label htmlFor="date">DD/MM/YYYY</label>
@@ -249,7 +399,7 @@ export default function SignUp() {
                           {currentInput === 4 && (
                             <>
                               <h1 className="heading54">
-                                What’s your zip code?
+                                What's your zip code?
                               </h1>
                               <p className="sub20  mb-4">
                                 This helps us find the right products available
@@ -258,10 +408,12 @@ export default function SignUp() {
                               <div className="seletDateOuter">
                                 <input
                                   type="text"
-                                  id="date"
+                                  id="zipcode"
                                   placeholder="zip code"
+                                  value={formData.zipCode}
+                                  onChange={(e) => updateFormData('zipCode', e.target.value)}
                                 />
-                                <label htmlFor="date">Zip Code</label>
+                                <label htmlFor="zipcode">Zip Code</label>
                               </div>
                             </>
                           )}
@@ -278,26 +430,29 @@ export default function SignUp() {
                               <div className="seletDateOuter">
                                 <input
                                   type="text"
-                                  id="date"
+                                  id="household"
                                   placeholder="Household Income"
+                                  value={formData.householdIncome}
+                                  onChange={(e) => updateFormData('householdIncome', e.target.value)}
                                 />
-                                <label htmlFor="date">Household Income</label>
+                                <label htmlFor="household">Household Income</label>
                               </div>
                               <div className="seletDateOuter">
                                 <input
                                   type="text"
-                                  id="date"
+                                  id="personal"
                                   placeholder="Personal Income"
+                                  value={formData.personalIncome}
+                                  onChange={(e) => updateFormData('personalIncome', e.target.value)}
                                 />
-                                <label htmlFor="date">Personal Income</label>
+                                <label htmlFor="personal">Personal Income</label>
                               </div>
                             </>
                           )}
                           {currentInput === 1 && (
                             <>
                               <h1 className="heading54 mb-4">
-                                What would be a comfortable monthly
-                                contribution?
+                                What would be a comfortable monthly contribution?
                               </h1>
 
                               {/* Slider */}
@@ -327,9 +482,11 @@ export default function SignUp() {
                                   max={max}
                                   step={100}
                                   value={sliderValue}
-                                  onChange={e =>
-                                    setSliderValue(Number(e.target.value))
-                                  }
+                                  onChange={(e) => {
+                                    const value = Number(e.target.value);
+                                    setSliderValue(value);
+                                    updateFormData('monthlyContribution', value);
+                                  }}
                                   className="custombar-slider"
                                   style={{
                                     background: `linear-gradient(to right, #1e2a5a 0%, #1e2a5a ${percentage}%, #ccc ${percentage}%, #ccc 100%)`,
@@ -338,9 +495,7 @@ export default function SignUp() {
                               </div>
 
                               {/* Info Box */}
-                              <div
-                                className="didYouNow"
-                              >
+                              <div className="didYouNow">
                                 <div className="row align-items-center">
                                   <div className="col-lg-4 text-center">
                                     <Image src={images.benifit1} width={130} height={160} alt="image"/>
@@ -369,10 +524,22 @@ export default function SignUp() {
                               </h1>
                               <div className="row">
                                 <div className="col-lg-6">
-                                  <div className="selectGender">Yes</div>
+                                  <div 
+                                    className={`selectGender ${formData.citizen === 'Yes' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('citizen', 'Yes')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    Yes
+                                  </div>
                                 </div>
                                 <div className="col-lg-6">
-                                  <div className="selectGender">No</div>
+                                  <div 
+                                    className={`selectGender ${formData.citizen === 'No' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('citizen', 'No')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    No
+                                  </div>
                                 </div>
                               </div>
                             </>
@@ -384,10 +551,22 @@ export default function SignUp() {
                               </h1>
                               <div className="row">
                                 <div className="col-lg-6">
-                                  <div className="selectGender">Yes</div>
+                                  <div 
+                                    className={`selectGender ${formData.employed === 'Yes' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('employed', 'Yes')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    Yes
+                                  </div>
                                 </div>
                                 <div className="col-lg-6">
-                                  <div className="selectGender">No</div>
+                                  <div 
+                                    className={`selectGender ${formData.employed === 'No' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('employed', 'No')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    No
+                                  </div>
                                 </div>
                               </div>
                             </>
@@ -398,21 +577,17 @@ export default function SignUp() {
                                What's your marital status?
                               </h1>
                               <div className="row">
-                                <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">Single</div>
-                                </div>
-                                <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">Married</div>
-                                </div>
-                                <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">Divorced</div>
-                                </div>
-                                 <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">Separated</div>
-                                </div>
-                                <div className="col-lg-6 ">
-                                  <div className="selectGender">Widowed</div>
-                                </div>
+                                {["Single", "Married", "Divorced", "Separated", "Widowed"].map((status) => (
+                                  <div key={status} className="col-lg-6 mb-3">
+                                    <div 
+                                      className={`selectGender ${formData.maritalStatus === status ? 'selected' : ''}`}
+                                      onClick={() => updateFormData('maritalStatus', status)}
+                                      style={{ cursor: 'pointer' }}
+                                    >
+                                      {status}
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
                             </>
                           )}
@@ -429,12 +604,14 @@ export default function SignUp() {
                                 >
                                   <input
                                     type="checkbox"
-                                    id={`check${index}`}
+                                    id={`activity${index}`}
                                     className="custom-checkbox"
+                                    checked={formData.activities.includes(label)}
+                                    onChange={() => handleCheckboxChange('activities', label)}
                                   />
-                                  <label htmlFor={`check${index}`}></label>
+                                  <label htmlFor={`activity${index}`}></label>
                                   <label
-                                    htmlFor={`check${index}`}
+                                    htmlFor={`activity${index}`}
                                     className="check-label"
                                   >
                                     {label}
@@ -451,13 +628,36 @@ export default function SignUp() {
                                   <label htmlFor="height" className="select-label">
                                     Height (ft)
                                   </label>
-                                  <select id="height" className="custom-select">
+                                  <select 
+                                    id="height" 
+                                    className="custom-select"
+                                    value={formData.height}
+                                    onChange={(e) => updateFormData('height', e.target.value)}
+                                  >
+                                    <option value="">Select Height</option>
                                     <option value="<4'8">&lt; 4'8"</option>
                                     <option value="4'8">4'8"</option>
                                     <option value="4'9">4'9"</option>
                                     <option value="4'10">4'10"</option>
                                     <option value="4'11">4'11"</option>
-                                    {/* add more as needed */}
+                                    <option value="5'0">5'0"</option>
+                                    <option value="5'1">5'1"</option>
+                                    <option value="5'2">5'2"</option>
+                                    <option value="5'3">5'3"</option>
+                                    <option value="5'4">5'4"</option>
+                                    <option value="5'5">5'5"</option>
+                                    <option value="5'6">5'6"</option>
+                                    <option value="5'7">5'7"</option>
+                                    <option value="5'8">5'8"</option>
+                                    <option value="5'9">5'9"</option>
+                                    <option value="5'10">5'10"</option>
+                                    <option value="5'11">5'11"</option>
+                                    <option value="6'0">6'0"</option>
+                                    <option value="6'1">6'1"</option>
+                                    <option value="6'2">6'2"</option>
+                                    <option value="6'3">6'3"</option>
+                                    <option value="6'4">6'4"</option>
+                                    <option value=">6'4">&gt; 6'4"</option>
                                   </select>
                                 </div>
                                 <div className="col-lg-12 mb-3 ">
@@ -468,6 +668,8 @@ export default function SignUp() {
                                       id="weight"
                                       className="weight-input"
                                       placeholder="234"
+                                      value={formData.weight}
+                                      onChange={(e) => updateFormData('weight', e.target.value)}
                                     />
                                     <span className="unit">lbs</span>
                                   </div>
@@ -481,24 +683,21 @@ export default function SignUp() {
                                 What products have you used in the last 5 years?
                               </h1>
                               <p className="sub20 mb-3">You can choose multiple</p>
-                              {[
-                                "None",
-                                "Cigarettes",
-                                "Marijuana",
-                                "Other"
-                              ].map((label, index) => (
+                              {["None", "Cigarettes", "Marijuana", "Other"].map((label, index) => (
                                 <div
                                   key={index}
                                   className="custom-checkbox-wrapper"
                                 >
                                   <input
                                     type="checkbox"
-                                    id={`check${index}`}
+                                    id={`substance${index}`}
                                     className="custom-checkbox"
+                                    checked={formData.substanceUse.includes(label)}
+                                    onChange={() => handleCheckboxChange('substanceUse', label)}
                                   />
-                                  <label htmlFor={`check${index}`}></label>
+                                  <label htmlFor={`substance${index}`}></label>
                                   <label
-                                    htmlFor={`check${index}`}
+                                    htmlFor={`substance${index}`}
                                     className="check-label"
                                   >
                                     {label}
@@ -517,10 +716,22 @@ export default function SignUp() {
                               </p>
                               <div className="row">
                                 <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">Yes</div>
+                                  <div 
+                                    className={`selectGender ${formData.hivStatus === 'Yes' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('hivStatus', 'Yes')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    Yes
+                                  </div>
                                 </div>
                                 <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">No</div>
+                                  <div 
+                                    className={`selectGender ${formData.hivStatus === 'No' ? 'selected' : ''}`}
+                                    onClick={() => updateFormData('hivStatus', 'No')}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    No
+                                  </div>
                                 </div>
                               </div>
                             </>
@@ -530,8 +741,34 @@ export default function SignUp() {
 
                       {step === 2 && (
                         <>
-                          <p>Review your information before submitting.</p>
-                          <button className="btn btn-success">Submit</button>
+                          <h1 className="heading54 mb-4">Review Your Information</h1>
+                          <div className="review-section">
+                            <p>Please review your information before submitting:</p>
+                            <div className="form-summary" style={{ textAlign: 'left', padding: '20px', backgroundColor: '#f8f9fa', borderRadius: '8px', marginBottom: '20px' }}>
+                              <h5>Personal Information:</h5>
+                              <p><strong>Goals:</strong> {formData.goal.join(', ') || 'Not specified'}</p>
+                              <p><strong>Risk Tolerance:</strong> {formData.risk || 'Not specified'}</p>
+                              <p><strong>Gender:</strong> {formData.gender || 'Not specified'}</p>
+                              <p><strong>Date of Birth:</strong> {formData.dob || 'Not specified'}</p>
+                              <p><strong>Zip Code:</strong> {formData.zipCode || 'Not specified'}</p>
+                              
+                              <h5 style={{ marginTop: '20px' }}>Account Information:</h5>
+                              <p><strong>Household Income:</strong> {formData.householdIncome || 'Not specified'}</p>
+                              <p><strong>Personal Income:</strong> {formData.personalIncome || 'Not specified'}</p>
+                              <p><strong>Monthly Contribution:</strong> ${formData.monthlyContribution}</p>
+                              <p><strong>U.S. Citizen:</strong> {formData.citizen || 'Not specified'}</p>
+                              <p><strong>Employed:</strong> {formData.employed || 'Not specified'}</p>
+                              <p><strong>Marital Status:</strong> {formData.maritalStatus || 'Not specified'}</p>
+                              <p><strong>Activities:</strong> {formData.activities.join(', ') || 'Not specified'}</p>
+                              <p><strong>Height:</strong> {formData.height || 'Not specified'}</p>
+                              <p><strong>Weight:</strong> {formData.weight ? `${formData.weight} lbs` : 'Not specified'}</p>
+                              <p><strong>Substance Use:</strong> {formData.substanceUse.join(', ') || 'Not specified'}</p>
+                              <p><strong>HIV Status:</strong> {formData.hivStatus || 'Not specified'}</p>
+                            </div>
+                            <button className="btn btn-success" onClick={handleSubmit}>
+                              Submit Application
+                            </button>
+                          </div>
                         </>
                       )}
                     </div>
@@ -549,10 +786,10 @@ export default function SignUp() {
                       )}
                       {(step < steps.length - 1 ||
                         currentInput < currentStepInputs.length - 1) && (
-                        <button className="commonBtn" onClick={nextInput}>
-                          Next
-                        </button>
-                      )}
+                          <button className="commonBtn" onClick={nextInput}>
+                            Next
+                          </button>
+                        )}
                     </div>
                   </div>
                 </div>
@@ -561,6 +798,5 @@ export default function SignUp() {
           </div>
         </div>
       </section>
-    </>
-  );
+    </>);
 }
