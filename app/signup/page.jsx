@@ -191,9 +191,9 @@ export default function SignUp() {
                           {currentInput === 1 && (
                             <>
                               <h1 className="heading54 mb-4">
-                                Investment comfort level
+                                What is your investment risk tolerance?
                               </h1>
-                              {["High", "Moderate", "Low risk"].map(
+                              {["I prefer high risk, with high-reward potential", "I prefer moderate risk, with moderate-reward potential", "I prefer low risk, with low-reward potential"].map(
                                 (label, index) => (
                                   <div
                                     key={index}
@@ -419,16 +419,29 @@ export default function SignUp() {
                           {currentInput === 5 && (
                             <>
                               <h1 className="heading54 mb-4">
-                               High Risk Activities?
+                               Will you be performing any of the following activities in the next 2 years?
                               </h1>
-                              <div className="row">
-                                <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">Yes</div>
+                              {["None", "Sky Diving", "Hang Gliding","Mountain Climbing","Racing", "Scuba Diving"].map(
+                                (label, index) => (
+                                 <div
+                                  key={index}
+                                  className="custom-checkbox-wrapper"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    id={`check${index}`}
+                                    className="custom-checkbox"
+                                  />
+                                  <label htmlFor={`check${index}`}></label>
+                                  <label
+                                    htmlFor={`check${index}`}
+                                    className="check-label"
+                                  >
+                                    {label}
+                                  </label>
                                 </div>
-                                <div className="col-lg-6 mb-3 ">
-                                  <div className="selectGender">No</div>
-                                </div>
-                              </div>
+                                )
+                              )}
                             </>
                           )}
                           {currentInput === 6 && (
@@ -465,7 +478,7 @@ export default function SignUp() {
                            {currentInput === 7 && (
                             <>
                               <h1 className="heading54">
-                                Tobacco/Marijuaja use?
+                                What products have you used in the last 5 years?
                               </h1>
                               <p className="sub20 mb-3">You can choose multiple</p>
                               {[
@@ -497,8 +510,11 @@ export default function SignUp() {
                           {currentInput === 8 && (
                             <>
                               <h1 className="heading54 mb-4">
-                               HIV/AIDS Diagnosis?
+                               Have you ever been diagnosed with AIDS, HIV, or AIDS-related complex (ARC)?
                               </h1>
+                              <p className="sub20  mb-4">
+                                We know this is a sensitive topic, and we take great measures to ensure your privacy.
+                              </p>
                               <div className="row">
                                 <div className="col-lg-6 mb-3 ">
                                   <div className="selectGender">Yes</div>
