@@ -285,7 +285,7 @@ export default function SignUp() {
             <div className="col-12">
               <div className="steperOptionInner">
                 <div className="row justify-content-center">
-                  <div className="col-8">
+                  <div className="col-lg-8">
                     <div
                       className={`animated-slide ${fade ? "fade-enter-active" : "fade-exit-active"
                         }`}
