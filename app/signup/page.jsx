@@ -44,7 +44,7 @@ export default function SignUp() {
     },
     {
       title: "Account Info",
-      inputs: ["income", "investment", "citizen", "employed", "marital", "activities", "health", "substances", "hiv"]
+      inputs: ["income", "investment", "citizen", "employed", "marital", "activities", "health", "substances", "hiv", "name"]
     },
     { title: "Confirmation", inputs: ["review"] },
   ];
@@ -184,14 +184,33 @@ export default function SignUp() {
   };
 
   // Handle form submission
-  const handleSubmit = async() => {
-  try {
-        const response = await axios.post('/api/submit', { data: {High_risk_Activities: (formData.activities),HIV_AIDS_Diagnosis: formData.hivStatus } });
-        console.log('Server response:', response.data);
-        alert('Form submitted successfully! Check console for server response.');
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('/api/submit', {
+        data: {
+          High_risk_Activities: formData.activities.join(', '),
+          Height: formData.height,
+          HIV_AIDS_Diagnosis: formData.hivStatus,
+          HouseHold_Income: parseFloat(formData.householdIncome),
+          Insurance: formData.goal.join(', '),
+          Risk_Tolerance: formData.risk,
+          Gender: formData.gender,
+          Date_of_Birth: formData.dob, // If Zoho requires YYYY-MM-DD, format it accordingly
+          Zip_Code: parseInt(formData.zipCode),
+          Personal_Income: parseFloat(formData.personalIncome),
+          Comfortable_Monthly_Contribution: parseFloat(formData.monthlyContribution),
+          U_S_Citizen: formData.citizen,
+          Currently_Employed: formData.employed,
+          Marital_Status: formData.maritalStatus,
+          Weight: parseFloat(formData.weight),
+          Tobacco_Marijuana_Use: formData.substanceUse.join(', ')
+        }
+      });
+      console.log('Server response:', response.data);
+      alert('Form submitted successfully! Check console for server response.');
     } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('There was an error submitting the form.');
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting the form.');
     }
   };
 
@@ -333,8 +352,8 @@ export default function SignUp() {
                                 What is your investment risk tolerance?
                               </h1>
                               {[
-                                "I prefer high risk, with high-reward potential", 
-                                "I prefer moderate risk, with moderate-reward potential", 
+                                "I prefer high risk, with high-reward potential",
+                                "I prefer moderate risk, with moderate-reward potential",
                                 "I prefer low risk, with low-reward potential"
                               ].map((label, index) => (
                                 <div
@@ -362,7 +381,7 @@ export default function SignUp() {
                               </h1>
                               <div className="row">
                                 <div className="col-lg-6">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.gender === 'Male' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('gender', 'Male')}
                                     style={{ cursor: 'pointer' }}
@@ -371,7 +390,7 @@ export default function SignUp() {
                                   </div>
                                 </div>
                                 <div className="col-lg-6">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.gender === 'Female' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('gender', 'Female')}
                                     style={{ cursor: 'pointer' }}
@@ -469,7 +488,7 @@ export default function SignUp() {
                                     top: "-40px",
                                     left: `calc(${
                                       ((sliderValue - min) / (max - min)) * 100
-                                    }% - 8px)`,
+                                      }% - 8px)`,
                                     backgroundColor: "#1e2a5a",
                                     color: "white",
                                     padding: "5px 10px",
@@ -506,17 +525,17 @@ export default function SignUp() {
                                     <Image src={images.benifit1} width={130} height={160} alt="image"/>
                                   </div>
                                   <div className="col-lg-8">
-                                     <h4>DID YOU KNOW?</h4>
-                                      <p>
-                                        If you pay <strong>${sliderValue}.00</strong>{" "}
-                                        of premium a month into a policy's investment
-                                        subaccounts, you could grow your account value
-                                        up to{" "}
-                                        <strong>
-                                          ${(sliderValue * 2270).toLocaleString()}
-                                        </strong>{" "}
-                                        after 30 years.
-                                      </p>
+                                    <h4>DID YOU KNOW?</h4>
+                                    <p>
+                                      If you pay <strong>${sliderValue}.00</strong>{" "}
+                                      of premium a month into a policy's investment
+                                      subaccounts, you could grow your account value
+                                      up to{" "}
+                                      <strong>
+                                        ${(sliderValue * 2270).toLocaleString()}
+                                      </strong>{" "}
+                                      after 30 years.
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -529,7 +548,7 @@ export default function SignUp() {
                               </h1>
                               <div className="row">
                                 <div className="col-lg-6">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.citizen === 'Yes' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('citizen', 'Yes')}
                                     style={{ cursor: 'pointer' }}
@@ -538,7 +557,7 @@ export default function SignUp() {
                                   </div>
                                 </div>
                                 <div className="col-lg-6">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.citizen === 'No' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('citizen', 'No')}
                                     style={{ cursor: 'pointer' }}
@@ -549,14 +568,14 @@ export default function SignUp() {
                               </div>
                             </>
                           )}
-                           {currentInput === 3 && (
+                          {currentInput === 3 && (
                             <>
                               <h1 className="heading54 mb-4">
                                 Are you currently employed?
                               </h1>
                               <div className="row">
                                 <div className="col-lg-6">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.employed === 'Yes' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('employed', 'Yes')}
                                     style={{ cursor: 'pointer' }}
@@ -565,7 +584,7 @@ export default function SignUp() {
                                   </div>
                                 </div>
                                 <div className="col-lg-6">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.employed === 'No' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('employed', 'No')}
                                     style={{ cursor: 'pointer' }}
@@ -579,12 +598,12 @@ export default function SignUp() {
                           {currentInput === 4 && (
                             <>
                               <h1 className="heading54 mb-4">
-                               What's your marital status?
+                                What's your marital status?
                               </h1>
                               <div className="row">
                                 {["Single", "Married", "Divorced", "Separated", "Widowed"].map((status) => (
                                   <div key={status} className="col-lg-6 mb-3">
-                                    <div 
+                                    <div
                                       className={`selectGender ${formData.maritalStatus === status ? 'selected' : ''}`}
                                       onClick={() => updateFormData('maritalStatus', status)}
                                       style={{ cursor: 'pointer' }}
@@ -599,7 +618,7 @@ export default function SignUp() {
                           {currentInput === 5 && (
                             <>
                               <h1 className="heading54 mb-4">
-                               Will you be performing any of the following activities in the next 2 years?
+                                Will you be performing any of the following activities in the next 2 years?
                               </h1>
                               <div className="row">
                                 {["None", "Sky Diving", "Hang Gliding", "Mountain Climbing", "Racing", "Scuba Diving"].map(
@@ -631,8 +650,8 @@ export default function SignUp() {
                                   <label htmlFor="height" className="select-label">
                                     Height (ft)
                                   </label>
-                                  <select 
-                                    id="height" 
+                                  <select
+                                    id="height"
                                     className="custom-select"
                                     value={formData.height}
                                     onChange={(e) => updateFormData('height', e.target.value)}
@@ -680,7 +699,7 @@ export default function SignUp() {
                               </div>
                             </>
                           )}
-                           {currentInput === 7 && (
+                          {currentInput === 7 && (
                             <>
                               <h1 className="heading54">
                                 What products have you used in the last 5 years?
@@ -712,14 +731,14 @@ export default function SignUp() {
                           {currentInput === 8 && (
                             <>
                               <h1 className="heading54 mb-4">
-                               Have you ever been diagnosed with AIDS, HIV, or AIDS-related complex (ARC)?
+                                Have you ever been diagnosed with AIDS, HIV, or AIDS-related complex (ARC)?
                               </h1>
                               <p className="sub20  mb-4">
                                 We know this is a sensitive topic, and we take great measures to ensure your privacy.
                               </p>
                               <div className="row">
                                 <div className="col-lg-6 mb-3 ">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.hivStatus === 'Yes' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('hivStatus', 'Yes')}
                                     style={{ cursor: 'pointer' }}
@@ -728,7 +747,7 @@ export default function SignUp() {
                                   </div>
                                 </div>
                                 <div className="col-lg-6 mb-3 ">
-                                  <div 
+                                  <div
                                     className={`selectGender ${formData.hivStatus === 'No' ? 'selected' : ''}`}
                                     onClick={() => updateFormData('hivStatus', 'No')}
                                     style={{ cursor: 'pointer' }}
@@ -739,6 +758,54 @@ export default function SignUp() {
                               </div>
                             </>
                           )}
+                          {currentInput == 9 && (<>
+                              <h1 className="heading54 mb-4">
+                                We’re almost to your estimate.
+                              </h1>
+                              <p className="sub20  mb-4">
+                                As a last step, we need your email and phone number.
+                              </p>
+                              <div className="seletDateOuter">
+                                <input
+                                  type="text"
+                                  id="First_Name"
+                                  placeholder="First Name"
+                                  value={formData.First_Name}
+                                  onChange={(e) => updateFormData('First_Name', e.target.value)}
+                                />
+                                <label htmlFor="First_Name">First Name</label>
+                              </div>
+                              <div className="seletDateOuter">
+                                <input
+                                  type="text"
+                                  id="Last_Name"
+                                  placeholder="Last Name"
+                                  value={formData.Last_Name}
+                                  onChange={(e) => updateFormData('Last_Name', e.target.value)}
+                                />
+                                <label htmlFor="Last_Name">Last Name</label>
+                              </div>
+                              <div className="seletDateOuter">
+                                <input
+                                  type="text"
+                                  id="Email"
+                                  placeholder="email"
+                                  value={formData.Email}
+                                  onChange={(e) => updateFormData('Email', e.target.value)}
+                                />
+                                <label htmlFor="Email">Email</label>
+                              </div>
+                              <div className="seletDateOuter">
+                                <input
+                                  type="text"
+                                  id="Phone"
+                                  placeholder="Phone"
+                                  value={formData.Phone}
+                                  onChange={(e) => updateFormData('Phone', e.target.value)}
+                                />
+                                <label htmlFor="Phone">Phone</label>
+                              </div>
+                          </>)}
                         </>
                       )}
 
@@ -754,7 +821,7 @@ export default function SignUp() {
                               <p><strong>Gender:</strong> {formData.gender || 'Not specified'}</p>
                               <p><strong>Date of Birth:</strong> {formData.dob || 'Not specified'}</p>
                               <p><strong>Zip Code:</strong> {formData.zipCode || 'Not specified'}</p>
-                              
+
                               <h5 className="sub24 mb-3">Account Information:</h5>
                               <p><strong>Household Income:</strong> {formData.householdIncome || 'Not specified'}</p>
                               <p><strong>Personal Income:</strong> {formData.personalIncome || 'Not specified'}</p>
