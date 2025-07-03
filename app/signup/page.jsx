@@ -34,7 +34,12 @@ export default function SignUp() {
     height: '',
     weight: '',
     substanceUse: [],
-    hivStatus: ''
+    hivStatus: '',
+    First_Name: '',
+    Last_Name: '',
+    Email: '',
+    Phone: '',
+
   });
 
   const steps = [
@@ -92,6 +97,8 @@ export default function SignUp() {
       case "hiv":
         return formData.hivStatus !== '';
       case "review":
+        return true;
+      case "name":
         return true;
       default:
         return false;
@@ -196,14 +203,18 @@ export default function SignUp() {
           Risk_Tolerance: formData.risk,
           Gender: formData.gender,
           Date_of_Birth: formData.dob, // If Zoho requires YYYY-MM-DD, format it accordingly
-          Zip_Code: parseInt(formData.zipCode),
+          Zip_Code: formData.zipCode,
           Personal_Income: parseFloat(formData.personalIncome),
           Comfortable_Monthly_Contribution: parseFloat(formData.monthlyContribution),
           U_S_Citizen: formData.citizen,
           Currently_Employed: formData.employed,
           Marital_Status: formData.maritalStatus,
           Weight: parseFloat(formData.weight),
-          Tobacco_Marijuana_Use: formData.substanceUse.join(', ')
+          Tobacco_Marijuana_Use: formData.substanceUse.join(', '),
+          Last_name: formData.Last_Name,
+          First_Name: formData.First_Name,
+          Email: formData.Email,
+          Phone: formData.Phone
         }
       });
       console.log('Server response:', response.data);
@@ -759,52 +770,52 @@ export default function SignUp() {
                             </>
                           )}
                           {currentInput == 9 && (<>
-                              <h1 className="heading54 mb-4">
-                                We’re almost to your estimate.
-                              </h1>
-                              <p className="sub20  mb-4">
-                                As a last step, we need your email and phone number.
-                              </p>
-                              <div className="seletDateOuter">
-                                <input
-                                  type="text"
-                                  id="First_Name"
-                                  placeholder="First Name"
-                                  value={formData.First_Name}
-                                  onChange={(e) => updateFormData('First_Name', e.target.value)}
-                                />
-                                <label htmlFor="First_Name">First Name</label>
-                              </div>
-                              <div className="seletDateOuter">
-                                <input
-                                  type="text"
-                                  id="Last_Name"
-                                  placeholder="Last Name"
-                                  value={formData.Last_Name}
-                                  onChange={(e) => updateFormData('Last_Name', e.target.value)}
-                                />
-                                <label htmlFor="Last_Name">Last Name</label>
-                              </div>
-                              <div className="seletDateOuter">
-                                <input
-                                  type="text"
-                                  id="Email"
-                                  placeholder="email"
-                                  value={formData.Email}
-                                  onChange={(e) => updateFormData('Email', e.target.value)}
-                                />
-                                <label htmlFor="Email">Email</label>
-                              </div>
-                              <div className="seletDateOuter">
-                                <input
-                                  type="text"
-                                  id="Phone"
-                                  placeholder="Phone"
-                                  value={formData.Phone}
-                                  onChange={(e) => updateFormData('Phone', e.target.value)}
-                                />
-                                <label htmlFor="Phone">Phone</label>
-                              </div>
+                            <h1 className="heading54 mb-4">
+                              We’re almost to your estimate.
+                            </h1>
+                            <p className="sub20  mb-4">
+                              As a last step, we need your email and phone number.
+                            </p>
+                            <div className="seletDateOuter">
+                              <input
+                                type="text"
+                                id="First_Name"
+                                placeholder="First Name"
+                                value={formData.First_Name}
+                                onChange={(e) => updateFormData('First_Name', e.target.value)}
+                              />
+                              <label htmlFor="First_Name">First Name</label>
+                            </div>
+                            <div className="seletDateOuter">
+                              <input
+                                type="text"
+                                id="Last_Name"
+                                placeholder="Last Name"
+                                value={formData.Last_Name}
+                                onChange={(e) => updateFormData('Last_Name', e.target.value)}
+                              />
+                              <label htmlFor="Last_Name">Last Name</label>
+                            </div>
+                            <div className="seletDateOuter">
+                              <input
+                                type="text"
+                                id="Email"
+                                placeholder="email"
+                                value={formData.Email}
+                                onChange={(e) => updateFormData('Email', e.target.value)}
+                              />
+                              <label htmlFor="Email">Email</label>
+                            </div>
+                            <div className="seletDateOuter">
+                              <input
+                                type="text"
+                                id="Phone"
+                                placeholder="Phone"
+                                value={formData.Phone}
+                                onChange={(e) => updateFormData('Phone', e.target.value)}
+                              />
+                              <label htmlFor="Phone">Phone</label>
+                            </div>
                           </>)}
                         </>
                       )}
