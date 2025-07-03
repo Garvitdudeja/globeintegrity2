@@ -219,6 +219,11 @@ opacity: 1;
   padding: 8px;
   border-radius: 8px;
 }
+.selected{
+    color: #1dd3f5;
+    background-color: #f0f9ff;
+    border-color: #1dd3f5;
+}
 .btnToggleOuter {
   display: flex;
   flex-direction: row-reverse;

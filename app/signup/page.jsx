@@ -6,8 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import Image from 'next/image'
 import * as images from './../../utilities/images'
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const router = useRouter()
   const [step, setStep] = useState(0);
   const [currentInput, setCurrentInput] = useState(0);
   const [sliderValue, setSliderValue] = useState(1000);
@@ -152,6 +154,9 @@ export default function SignUp() {
       }
       setFade(true);
     }, 300);
+    if(step === 1 && currentInput === 9){
+      handleSubmit();
+    }
   };
 
   const prevInput = () => {
@@ -217,8 +222,7 @@ export default function SignUp() {
           Phone: formData.Phone
         }
       });
-      console.log('Server response:', response.data);
-      alert('Form submitted successfully! Check console for server response.');
+      router.push("/");
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an error submitting the form.');
@@ -363,10 +367,10 @@ export default function SignUp() {
                                 What is your investment risk tolerance?
                               </h1>
                               {[
-                                "I prefer high risk, with high-reward potential",
-                                "I prefer moderate risk, with moderate-reward potential",
-                                "I prefer low risk, with low-reward potential"
-                              ].map((label, index) => (
+                                {label: "I prefer high risk, with high-reward potential", value: "High risk"},
+                                {label: "I prefer moderate risk, with moderate-reward potential", value: "Moderate risk"},
+                                {label: "I prefer low risk, with low-reward potential", value:"Low risk"}
+                              ].map((item, index) => (
                                 <div
                                   key={index}
                                   className="custom-radio-option mb-3"
@@ -375,11 +379,11 @@ export default function SignUp() {
                                     type="radio"
                                     id={`risk${index}`}
                                     name="risk"
-                                    checked={formData.risk === label}
-                                    onChange={() => updateFormData('risk', label)}
+                                    checked={formData.risk === item.value}
+                                    onChange={() => updateFormData('risk', item.value)}
                                   />
                                   <label htmlFor={`risk${index}`}>
-                                    {label}
+                                    {item.label}
                                   </label>
                                 </div>
                               ))}
@@ -769,7 +773,7 @@ export default function SignUp() {
                               </div>
                             </>
                           )}
-                          {currentInput == 9 && (<>
+                          {currentInput === 9 && (<>
                             <h1 className="heading54 mb-4">
                               We’re almost to your estimate.
                             </h1>
