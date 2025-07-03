@@ -13,12 +13,10 @@
     padding: 0 36px !important;
     }
     }
-@media(max-width: 1800px){
+@media(max-width:1800px){
     .customLabel{
         font-size: 20px;
     }
-}
-@media(max-width:1800px){
     .moreQue img {
         padding: 32px 48px 24px;
     }
@@ -213,6 +211,9 @@
     padding: 0;
     position: static;
     box-shadow: none !important;
+}
+.selectGender {
+    margin-bottom: 20px;
 }
 }
 @media(max-width:768){
@@ -649,5 +650,46 @@ display: block !important;
 }
 .menu{
     top: 38px;
+}
+.animated-slide{
+    padding-inline: 20px;
+}
+.animated-slide .heading54{
+    font-size: 1.625rem;
+}
+.animated-slide .check-label{
+    font-size: 1rem;
+}
+.custom-checkbox-wrapper {
+    font-size: 1rem;
+    gap: 17px;
+}
+.custom-checkbox + label {
+    width: 25px;
+    height: 25px;
+}
+.steperSection {
+    margin-bottom: 30px !important;
+}
+.steperSection .container-fluid{
+    padding-inline: 0 !important;
+}
+.steperOptionInner{
+    height: auto;
+    min-height: 82vh;
+}
+.custom-checkbox:checked + label:after {
+    content: "✓";
+    font-size: 16px;
+    position: absolute;
+    top: -1px;
+    left: 5px;
+}
+.custom-radio-option label {
+    padding-left: 47px;
+    font-size: 16px;
+}
+.selectGender {
+    margin-bottom: 20px;
 }
 }
