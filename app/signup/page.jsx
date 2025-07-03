@@ -5,6 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import Image from 'next/image'
 import * as images from './../../utilities/images'
+import axios from "axios";
 
 export default function SignUp() {
   const [step, setStep] = useState(0);
@@ -183,11 +184,15 @@ export default function SignUp() {
   };
 
   // Handle form submission
-  const handleSubmit = () => {
-    console.log("=== COMPLETE FORM SUBMISSION ===");
-    console.log("All form data:", formData);
-    console.log("================================");
-    alert("Form submitted successfully! Check console for all data.");
+  const handleSubmit = async() => {
+  try {
+        const response = await axios.post('/api/submit', { data: {High_risk_Activities: (formData.activities),HIV_AIDS_Diagnosis: formData.hivStatus } });
+        console.log('Server response:', response.data);
+        alert('Form submitted successfully! Check console for server response.');
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error submitting the form.');
+    }
   };
 
   // Progress within current step
