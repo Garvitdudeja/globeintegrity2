@@ -13,6 +13,7 @@ export default function SignUp() {
   const [step, setStep] = useState(0);
   const [currentInput, setCurrentInput] = useState(0);
   const [sliderValue, setSliderValue] = useState(1000);
+  const [errors, setErrors] = useState({});
   const min = 100;
   const max = 10000;
 
@@ -65,6 +66,44 @@ export default function SignUp() {
 
   const currentStepInputs = steps[step].inputs;
 
+  // Get error message for current field
+  const getErrorMessage = (field) => {
+    switch (field) {
+      case "goal":
+        return "Please select at least one goal for your life insurance.";
+      case "risk":
+        return "Please select your investment risk tolerance.";
+      case "gender":
+        return "Please select your gender.";
+      case "dob":
+        return "Please enter a valid date of birth (DD/MM/YYYY).";
+      case "zipCode":
+        return "Please enter your zip code.";
+      case "income":
+        return "Please enter both household and personal income.";
+      case "investment":
+        return "Please select a monthly contribution amount.";
+      case "citizen":
+        return "Please indicate if you are a U.S. citizen.";
+      case "employed":
+        return "Please indicate your employment status.";
+      case "marital":
+        return "Please select your marital status.";
+      case "activities":
+        return "Please select at least one option for high-risk activities.";
+      case "health":
+        return "Please enter both your height and weight.";
+      case "substances":
+        return "Please select at least one option for substance use.";
+      case "hiv":
+        return "Please answer the HIV/AIDS diagnosis question.";
+      case "name":
+        return "Please fill in all required fields.";
+      default:
+        return "This field is required.";
+    }
+  };
+
   // Validation function
   const isCurrentInputValid = (value) => {
     const currentField = currentStepInputs[currentInput];
@@ -101,7 +140,7 @@ export default function SignUp() {
       case "review":
         return true;
       case "name":
-        return true;
+        return formData.First_Name !== '' && formData.Last_Name !== '' && formData.Email !== '' && formData.Phone !== '';
       default:
         return false;
     }
@@ -113,10 +152,19 @@ export default function SignUp() {
       ...prev,
       [field]: value
     }));
+    
+    // Clear error when user starts typing/selecting
+    const currentField = currentStepInputs[currentInput];
+    if (errors[currentField]) {
+      setErrors(prev => ({
+        ...prev,
+        [currentField]: null
+      }));
+    }
+    
     if(next){
       nextInput(value);
     }
-
   };
 
   // Handle checkbox changes
@@ -137,10 +185,34 @@ export default function SignUp() {
         };
       }
     });
+
+    // Clear error when user makes a selection
+    const currentField = currentStepInputs[currentInput];
+    if (errors[currentField]) {
+      setErrors(prev => ({
+        ...prev,
+        [currentField]: null
+      }));
+    }
   };
 
   const nextInput = (value = "") => {
-    if (!isCurrentInputValid(value)) return;
+    const currentField = currentStepInputs[currentInput];
+    
+    if (!isCurrentInputValid(value)) {
+      // Set error for current field
+      setErrors(prev => ({
+        ...prev,
+        [currentField]: getErrorMessage(currentField)
+      }));
+      return;
+    }
+
+    // Clear any existing error
+    setErrors(prev => ({
+      ...prev,
+      [currentField]: null
+    }));
 
     // Console log current step data
     console.log(`Step ${step + 1}, Input ${currentInput + 1} completed:`, {
@@ -164,6 +236,13 @@ export default function SignUp() {
   };
 
   const prevInput = () => {
+    // Clear errors when going back
+    const currentField = currentStepInputs[currentInput];
+    setErrors(prev => ({
+      ...prev,
+      [currentField]: null
+    }));
+
     setFade(false);
     setTimeout(() => {
       if (currentInput > 0) {
@@ -195,6 +274,7 @@ export default function SignUp() {
       case "health": return { height: formData.height, weight: formData.weight };
       case "substances": return formData.substanceUse;
       case "hiv": return formData.hivStatus;
+      case "name": return { firstName: formData.First_Name, lastName: formData.Last_Name, email: formData.Email, phone: formData.Phone };
       default: return null;
     }
   };
@@ -253,6 +333,9 @@ export default function SignUp() {
   };
 
   const percentage = ((sliderValue - min) / (max - min)) * 100;
+
+  // Get current field for error display
+  const getCurrentField = () => currentStepInputs[currentInput];
 
   return (
     <>
@@ -363,6 +446,11 @@ export default function SignUp() {
                                   </label>
                                 </div>
                               ))}
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 1 && (
@@ -391,6 +479,11 @@ export default function SignUp() {
                                   </label>
                                 </div>
                               ))}
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 2 && (
@@ -418,6 +511,11 @@ export default function SignUp() {
                                   </div>
                                 </div>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 3 && (
@@ -437,6 +535,11 @@ export default function SignUp() {
                                 />
                                 <label htmlFor="date">DD/MM/YYYY</label>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 4 && (
@@ -458,6 +561,11 @@ export default function SignUp() {
                                 />
                                 <label htmlFor="zipcode">Zip Code</label>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                         </>
@@ -490,6 +598,11 @@ export default function SignUp() {
                                 />
                                 <label htmlFor="personal">Personal Income</label>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 1 && (
@@ -558,6 +671,11 @@ export default function SignUp() {
                                   </div>
                                 </div>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 2 && (
@@ -585,6 +703,11 @@ export default function SignUp() {
                                   </div>
                                 </div>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 3 && (
@@ -612,6 +735,11 @@ export default function SignUp() {
                                   </div>
                                 </div>
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 4 && (
@@ -632,6 +760,11 @@ export default function SignUp() {
                                   </div>
                                 ))}
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 5 && (
@@ -660,6 +793,11 @@ export default function SignUp() {
                                   )
                                 )}
                               </div>
+                              {errors[getCurrentField()] && (
+                                <p className="text-danger mt-3" style={{ fontSize: '14px', marginBottom: '10px' }}>
+                                  {errors[getCurrentField()]}
+                                </p>
+                              )}
                             </>
                           )}
                           {currentInput === 6 && (
