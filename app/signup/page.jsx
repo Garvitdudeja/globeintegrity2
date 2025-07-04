@@ -66,16 +66,16 @@ export default function SignUp() {
   const currentStepInputs = steps[step].inputs;
 
   // Validation function
-  const isCurrentInputValid = () => {
+  const isCurrentInputValid = (value) => {
     const currentField = currentStepInputs[currentInput];
 
     switch (currentField) {
       case "goal":
         return formData.goal.length > 0;
       case "risk":
-        return formData.risk !== '';
+        return value || formData.risk !== '';
       case "gender":
-        return formData.gender !== '';
+        return value || formData.gender !== '';
       case "dob":
         return formData.dob !== '' && formData.dob.length === 10;
       case "zipCode":
@@ -85,11 +85,11 @@ export default function SignUp() {
       case "investment":
         return formData.monthlyContribution >= min && formData.monthlyContribution <= max;
       case "citizen":
-        return formData.citizen !== '';
+        return value  ||formData.citizen !== '';
       case "employed":
-        return formData.employed !== '';
+        return value || formData.employed !== '';
       case "marital":
-        return formData.maritalStatus !== '';
+        return value || formData.maritalStatus !== '';
       case "activities":
         return formData.activities.length > 0;
       case "health":
@@ -97,7 +97,7 @@ export default function SignUp() {
       case "substances":
         return formData.substanceUse.length > 0;
       case "hiv":
-        return formData.hivStatus !== '';
+        return value || formData.hivStatus !== '';
       case "review":
         return true;
       case "name":
@@ -108,11 +108,15 @@ export default function SignUp() {
   };
 
   // Update form data
-  const updateFormData = (field, value) => {
+  const updateFormData = (field, value, next= false) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
+    if(next){
+      nextInput(value);
+    }
+
   };
 
   // Handle checkbox changes
@@ -135,8 +139,8 @@ export default function SignUp() {
     });
   };
 
-  const nextInput = () => {
-    if (!isCurrentInputValid()) return;
+  const nextInput = (value = "") => {
+    if (!isCurrentInputValid(value)) return;
 
     // Console log current step data
     console.log(`Step ${step + 1}, Input ${currentInput + 1} completed:`, {
@@ -380,7 +384,7 @@ export default function SignUp() {
                                     id={`risk${index}`}
                                     name="risk"
                                     checked={formData.risk === item.value}
-                                    onChange={() => updateFormData('risk', item.value)}
+                                    onChange={() => updateFormData('risk', item.value, true)}
                                   />
                                   <label htmlFor={`risk${index}`}>
                                     {item.label}
@@ -398,7 +402,7 @@ export default function SignUp() {
                                 <div className="col-lg-6">
                                   <div
                                     className={`selectGender ${formData.gender === 'Male' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('gender', 'Male')}
+                                    onClick={() => updateFormData('gender', 'Male', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     Male
@@ -407,7 +411,7 @@ export default function SignUp() {
                                 <div className="col-lg-6">
                                   <div
                                     className={`selectGender ${formData.gender === 'Female' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('gender', 'Female')}
+                                    onClick={() => updateFormData('gender', 'Female', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     Female
@@ -565,7 +569,7 @@ export default function SignUp() {
                                 <div className="col-lg-6">
                                   <div
                                     className={`selectGender ${formData.citizen === 'Yes' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('citizen', 'Yes')}
+                                    onClick={() => updateFormData('citizen', 'Yes', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     Yes
@@ -574,7 +578,7 @@ export default function SignUp() {
                                 <div className="col-lg-6">
                                   <div
                                     className={`selectGender ${formData.citizen === 'No' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('citizen', 'No')}
+                                    onClick={() => updateFormData('citizen', 'No', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     No
@@ -592,7 +596,7 @@ export default function SignUp() {
                                 <div className="col-lg-6">
                                   <div
                                     className={`selectGender ${formData.employed === 'Yes' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('employed', 'Yes')}
+                                    onClick={() => updateFormData('employed', 'Yes', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     Yes
@@ -601,7 +605,7 @@ export default function SignUp() {
                                 <div className="col-lg-6">
                                   <div
                                     className={`selectGender ${formData.employed === 'No' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('employed', 'No')}
+                                    onClick={() => updateFormData('employed', 'No', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     No
@@ -620,7 +624,7 @@ export default function SignUp() {
                                   <div key={status} className="col-lg-6 mb-3">
                                     <div
                                       className={`selectGender ${formData.maritalStatus === status ? 'selected' : ''}`}
-                                      onClick={() => updateFormData('maritalStatus', status)}
+                                      onClick={() => updateFormData('maritalStatus', status, true)}
                                       style={{ cursor: 'pointer' }}
                                     >
                                       {status}
@@ -755,7 +759,7 @@ export default function SignUp() {
                                 <div className="col-lg-6 mb-3 ">
                                   <div
                                     className={`selectGender ${formData.hivStatus === 'Yes' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('hivStatus', 'Yes')}
+                                    onClick={() => updateFormData('hivStatus', 'Yes', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     Yes
@@ -764,7 +768,7 @@ export default function SignUp() {
                                 <div className="col-lg-6 mb-3 ">
                                   <div
                                     className={`selectGender ${formData.hivStatus === 'No' ? 'selected' : ''}`}
-                                    onClick={() => updateFormData('hivStatus', 'No')}
+                                    onClick={() => updateFormData('hivStatus', 'No', true)}
                                     style={{ cursor: 'pointer' }}
                                   >
                                     No
