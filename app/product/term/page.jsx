@@ -7,6 +7,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { RxCrossCircled } from "react-icons/rx";
 import Hero from '@/Components/Product/hero';
+import KeyBenifits from '@/Components/Product/KeyBenifits';
 const ProductTerm = () => {
     const [premium, setPremium] = useState(100); // starting from $100
     const years = 60;
@@ -33,48 +34,34 @@ const ProductTerm = () => {
     // Now only declare data once using useMemo
     const data = useMemo(() => generateData(premium), [premium]);
 
+    const benifits = {
+            heading: "Key Benefits",
+            Cards: [{
+                heading: "Safe",
+                description: "Protect what's at stake in the next 10, 20, 30 years with max coverage.",
+                image: images.benifit4
+            },
+            {
+                heading: "Predictable",
+                description: "You have predictable max coverage in the near term to protect your loved ones from unexpected catastrophes.",
+                image: images.benifit1
+            },
+            {
+                heading: "Affordable",
+                description: "Get higher coverage for a typically lower price, but remember it's just temporary.",
+                image: images.benifit3
+            },
+            ],
+            buttonText: "GET A QUOTE",
+            cta: "https://quotes.globeintegrity.com/"
+        };
+
     return (
         <>
             <Hero heading={"Term life insurance"} description={"A quick and affordable way to offer temporary protection for your loved ones in the event of your passing."}
                 button={"GET AN ESTIMATE"} image={images.productTermsBanner} />
 
-            <section className="benifit">
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <h1 className='heading54 text-center'>
-                                Key Benefits
-                            </h1>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-lg-4 mb-4 mb-lg-0'>
-                            <div className="benifitCard text-center">
-                                <Image src={images.benifit4} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Safe</h3>
-                                <p className='sub18'>Protect what's at stake in the next 10, 20, 30 years with max coverage.</p>
-                            </div>
-                        </div>
-                        <div className='col-lg-4 mb-4 mb-lg-0'>
-                            <div className="benifitCard text-center">
-                                <Image src={images.benifit1} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Predictable</h3>
-                                <p className='sub18'>You have predictable max coverage in the near term to protect your loved ones from unexpected catastrophes.</p>
-                            </div>
-                        </div>
-                        <div className='col-lg-4 mb-4 mb-lg-0'>
-                            <div className="benifitCard text-center">
-                                <Image src={images.benifit3} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Affordable</h3>
-                                <p className='sub18'>Get higher coverage for a typically lower price, but remember it's just temporary.</p>
-                            </div>
-                        </div>
-                        <div className='col-12 text-center my-5'>
-                            <button className='commonBtnBig text-uppercase'>get a quote</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <KeyBenifits data={benifits}/>
             <section className='termsVs'>
                 <div className='container-fluid'>
                     <div className='row'>

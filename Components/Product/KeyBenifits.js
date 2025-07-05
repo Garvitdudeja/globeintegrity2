@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const { default: Image } = require("next/image")
 
 const KeyBenifits = ({data}) => {
@@ -21,7 +23,7 @@ const KeyBenifits = ({data}) => {
                 </div>)}
 
                 <div className='col-12 text-center my-5'>
-                    <button className='commonBtnBig text-uppercase'>{data.buttonText}</button>
+                    <Link href={data?.cta || "https://quotes.globeintegrity.com/"}><button className='commonBtnBig text-uppercase'>{data.buttonText}</button></Link>
                 </div>
             </div>
         </div>

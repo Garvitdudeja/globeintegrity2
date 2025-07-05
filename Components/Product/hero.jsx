@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = (props)=>{
     return(            <section className="universe">
@@ -8,7 +9,7 @@ const Hero = (props)=>{
                                 <div className='universeCard'>
                                 <h1 className='heading54'>{props.heading}</h1>
                                 <p className='sub24 mb-4'>{props.description}.</p>
-                                <button type='button' className='commonBtnBig'>{props?.button}</button>
+                                <Link href="https://quotes.globeintegrity.com/"><button type='button' className='commonBtnBig'>{props?.button}</button></Link>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6 orderOne">

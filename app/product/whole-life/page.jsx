@@ -226,7 +226,7 @@ const Uvl = () => {
         },
         ],
         buttonText: "GET AN ESTIMATE",
-        cta: "#"
+        cta: "https://quotes.globeintegrity.com/"
     };
 
 
@@ -283,7 +283,7 @@ const Uvl = () => {
             <Hero heading={"Whole Life Insurance"} description={"Life insurance that's as flexible as you are. Imagine that."}
                 button={"GET AN ESTIMATE"} image={images.child} />
             <KeyBenifits data={benifits} />
-            <WholeLifeGraph/>
+            <WholeLifeGraph />
             {/* <section className='stedy'>
                 <div className='container-fluid'>
                     <div className='row align-items-center'>
@@ -321,35 +321,35 @@ const Uvl = () => {
                 </div>
             </section> */}
             <div className='bg-white'></div>
-<section className='stedy'>
-    <div className='container-fluid'>
-        <div className='row align-items-center'>
-            <div className='col-md-8 orderTwo'>
-                <div className='stedyCardTop'>
-                    <h1 className='heading54'>Guaranteed Growth <br />& Lifelong Protection</h1>
-                    <p className='sub24 mb-4'>
-                        Our Whole Life Insurance policies provide guaranteed protection for life, fixed premiums, and steady, tax-deferred cash value growth. Your policy not only safeguards your loved ones with a guaranteed death benefit, but also builds cash value you can access during your lifetime.
-                    </p>
-                    <p className='sub18 fw-normal'>
-                        Many of our policyholders use the cash value from their Whole Life Insurance to support key life goals. Here are just a few examples:
-                    </p>
-                    <ul className='taxList'>
-                        <li>Supplement Retirement Income</li>
-                        <li>Pay Off Debts</li>
-                        <li>Make a Down Payment on a Home</li>
-                        <li>Fund a Child’s Education</li>
-                    </ul>
-                    <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
+            <section className='stedy'>
+                <div className='container-fluid'>
+                    <div className='row align-items-center'>
+                        <div className='col-md-8 orderTwo'>
+                            <div className='stedyCardTop'>
+                                <h1 className='heading54'>Guaranteed Growth <br />& Lifelong Protection</h1>
+                                <p className='sub24 mb-4'>
+                                    Our Whole Life Insurance policies provide guaranteed protection for life, fixed premiums, and steady, tax-deferred cash value growth. Your policy not only safeguards your loved ones with a guaranteed death benefit, but also builds cash value you can access during your lifetime.
+                                </p>
+                                <p className='sub18 fw-normal'>
+                                    Many of our policyholders use the cash value from their Whole Life Insurance to support key life goals. Here are just a few examples:
+                                </p>
+                                <ul className='taxList'>
+                                    <li>Supplement Retirement Income</li>
+                                    <li>Pay Off Debts</li>
+                                    <li>Make a Down Payment on a Home</li>
+                                    <li>Fund a Child’s Education</li>
+                                </ul>
+                                <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
+                            </div>
+                        </div>
+                        <div className='col-md-4 orderOne'>
+                            <div className='stedyCard'>
+                                <Image src={images.benifit2} alt='Whole Life Insurance Benefits' className='img-fluid' />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className='col-md-4 orderOne'>
-                <div className='stedyCard'>
-                    <Image src={images.benifit2} alt='Whole Life Insurance Benefits' className='img-fluid' />
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
             <section className='prouctFaq'>
                 <div className='container-fluid'>
@@ -357,13 +357,13 @@ const Uvl = () => {
                         <div className='col-lg-6'>
                             <h2 className='heading54 mb-5'>FAQ</h2>
                             <div className="accordion mb-5" id="accordionExample">
-                                {faqData.map((item, index)=><div className="accordion-item">
+                                {faqData.map((item, index) => <div className="accordion-item">
                                     <h2 className="accordion-header">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
+                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse" + index} aria-expanded="false" aria-controls={"collapse" + index}>
                                             {item.question}
                                         </button>
                                     </h2>
-                                    <div id={"collapse"+index} className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id={"collapse" + index} className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">{item.answer}</div>
                                     </div>
                                 </div>)}
