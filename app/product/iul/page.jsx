@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { HiArrowRight } from "react-icons/hi";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,CartesianGrid } from "recharts";
 import Hero from '@/Components/Product/hero';
+import KeyBenifits from '@/Components/Product/KeyBenifits';
 const Product = () => {
 const [premium, setPremium] = useState(100); // starting from $100
 const years = 60;
@@ -32,47 +33,33 @@ const generateData = (premium) => {
 // Now only declare data once using useMemo
 const data = useMemo(() => generateData(premium), [premium]);
 
+    const benifits = {
+        heading: "Key Benefits",
+        Cards: [{
+            heading: "Safe & Steady",
+            description: "Never risk losing your principal from market losses yet still access steady growth within a set range every year, with a cap (typically 9%) and a floor (typically 0%) based on the returns of an index like the S&P 500.",
+            image: images.benifit1
+        },
+        {
+            heading: "Protective",
+            description: "Get lifelong coverage with the option to protect you and your loved ones in a variety of scenarios.",
+            image: images.benifit2
+        },
+        {
+            heading: "Tax-Efficient Growth",
+            description: "Have the potential to grow tax-efficient wealth by allocating a portion of your premiums to accumulate based on returns of an index like the S&P 500.",
+            image: images.benifit3
+        },
+        ],
+        buttonText: "GET AN ESTIMATE",
+        cta: "https://quotes.globeintegrity.com/"
+    };
+
     return (
         <>
         <Hero heading={"Indexed Universal Life Insurance"} description={"A vehicle that helps you build predictable, safe, tax-efficient wealth for the rest of your life."}
         button={"GET AN ESTIMATE"} image={images.child}/>
-            <section className="benifit">
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <h1 className='heading54 text-center'>
-                                Key Benefits
-                            </h1>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-lg-4 mb-4 mb-lg-0'>
-                            <div className="benifitCard text-center">
-                                <Image src={images.benifit1} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Safe & Steady</h3>
-                                <p className='sub18'>Never risk losing your principal from market losses yet still access steady growth within a set range every year, with a cap (typically 9%) and a floor (typically 0%) based on the returns of an index like the S&P 500.</p>
-                            </div>
-                        </div>
-                        <div className='col-lg-4 mb-4 mb-lg-0'>
-                            <div className="benifitCard text-center">
-                                <Image src={images.benifit2} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Protective</h3>
-                                <p className='sub18'>Get lifelong coverage with the option to protect you and your loved ones in a variety of scenarios.</p>
-                            </div>
-                        </div>
-                        <div className='col-lg-4 mb-4 mb-lg-0'>
-                            <div className="benifitCard text-center">
-                                <Image src={images.benifit3} alt='image' className='img-fluid' />
-                                <h3 className='heading28'>Tax-Efficient Growth</h3>
-                                <p className='sub18'>Have the potential to grow tax-efficient wealth by allocating a portion of your premiums to accumulate based on returns of an index like the S&P 500.</p>
-                            </div>
-                        </div>
-                        <div className='col-12 text-center my-5'>
-                            <button className='commonBtnBig text-uppercase'>get an estimate</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <KeyBenifits data={benifits}/>
             <section className='premiumGraph'>
                 <div className='container-fluid'>
                     <div className='row justify-content-center'>
