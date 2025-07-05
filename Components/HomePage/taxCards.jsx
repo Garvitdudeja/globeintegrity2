@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const TaxCards = (props) => {
     return (<div className="row justify-content-center">
@@ -17,7 +18,7 @@ const TaxCards = (props) => {
                                 <span className="sky">{card.title}</span><br />{card.subtitle}
                             </h4>
                             <p className="sub16">{card.description}</p>
-                            <button className="blueBtn w-100 mt-auto">{card.buttonText}</button>
+                            <Link href={card.cta}><button className="blueBtn w-100 mt-auto">{card.buttonText}</button></Link>
                         </div>
                     </div>
                 ))}

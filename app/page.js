@@ -8,6 +8,7 @@ import { Range } from "react-range";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import TaxCards from "@/Components/HomePage/taxCards";
+import Link from "next/link";
 const Home = () => {
   const customerReviews = [
     {
@@ -43,7 +44,8 @@ const taxCards = [
     title: "Protect",
     subtitle: "your loved ones",
     description: "Gain peace of mind knowing your family is protected in case the unexpected happens. Globe Integrity combines life insurance and wealth-building into one powerful solution.",
-    buttonText: "CALCULATE COVERAGE"
+    buttonText: "CALCULATE COVERAGE",
+    cta: "https://quotes.globeintegrity.com/"
   },
   {
     image: images.tax2,
@@ -51,7 +53,8 @@ const taxCards = [
     title: "Grow",
     subtitle: "your wealth",
     description: "Turn your life insurance policy into a wealth-building tool. With Globe Integrity, enjoy tax-advantaged growth and the flexibility to access your funds for life’s major milestones.",
-    buttonText: "ESTIMATE CASH VALUE"
+    buttonText: "ESTIMATE CASH VALUE",
+    cta: "https://quotes.globeintegrity.com/"
   },
   {
     image: images.tax3,
@@ -59,7 +62,8 @@ const taxCards = [
     title: "Simplify",
     subtitle: "the process",
     description: "We’ve made getting covered easier than ever. Get a free personalized plan and speak with an expert who will walk you through the next steps — most applications are quick and hassle-free.",
-    buttonText: "GET MY PERSONALIZED PLAN"
+    buttonText: "GET MY PERSONALIZED PLAN",
+    cta: "https://quotes.globeintegrity.com/"
   }
 ];
 
@@ -144,7 +148,7 @@ return (
                 <div className="col-lg-6">
                   <h2 className="heading54">Build tax-free<br /> wealth.<span className="sky"> Protect your<br /> future.</span></h2>
                   <p className="sub16">Whether you&apos;re planning for retirement or protecting your family, Globe Integrity gives you the strategy and security to do both in one policy.</p>
-                  <button type="button" className="commonBtn me-2">See If you Qualify</button>
+                  <Link href={"https://quotes.globeintegrity.com/"}><button type="button" className="commonBtn me-2">See If you Qualify</button></Link>
                   <button type="button" className="blueBtn">Watch Video <Image src={images.videoIcon} alt="icon" className="ms-1 mb-1" /></button>
                 </div>
               </div>
@@ -237,7 +241,7 @@ return (
                     </div>
                   </div>
                 ))}
-                <button className="commonBtn">Get Started</button>
+                <Link href={"https://quotes.globeintegrity.com/"}><button className="commonBtn">Get Started</button></Link>
               </div>
             </div>
           </div>
@@ -348,7 +352,7 @@ return (
                   </div>
                 </div>
               </div>
-              <button className="commonBtn mx-auto d-block">Continue</button>
+              <Link href={"https://quotes.globeintegrity.com/"}><button className="commonBtn mx-auto d-block">Continue</button></Link>
             </div>
           </div>
         </div>
@@ -400,7 +404,7 @@ return (
               <div className="col-lg-8">
                 <h2 className="heading54 mb-3">Find a local insurance  <span className="sky">agent</span></h2>
                 <p className="agentDetail"><span className="telWhiteOuter"><Image src={images.telWhite} alt="icon" className="telWhite" /></span>Call Us: +1 8447874652</p>
-                <button className="commonBtn">Get a Quote</button>
+                <Link href={"https://quotes.globeintegrity.com/"}><button className="commonBtn">Get a Quote</button></Link>
               </div>
             </div>
           </div>
