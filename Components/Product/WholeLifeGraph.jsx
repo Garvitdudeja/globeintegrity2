@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
@@ -64,7 +65,7 @@ const WholeLifeGraph = () => {
                                 <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
                                 <p className='sub18 text-white mb-5'>A guaranteed death benefit will be provided, which can grow over time depending on policy dividends.</p>
 
-                                <button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button>
+                                <Link href={"https://quotes.globeintegrity.com/"}><button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button></Link>
                             </div>
 
                             <div className='col-lg-8'>

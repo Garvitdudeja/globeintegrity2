@@ -89,7 +89,7 @@ const data = useMemo(() => generateData(premium), [premium]);
                                     className="custom-range"
                                 />
                                 </div>
-                                <button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button>
+                                <Link href={"https://quotes.globeintegrity.com/"}><button className='commonBtnBig w-100 mw-100 mb-4'>GET AN ESTIMATE</button></Link>
                                 <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
                                 <p className='sub18 text-white'>A death benefit will be associated with the policy based on an individual's age and health.</p>
                                 </div>
@@ -165,7 +165,7 @@ Steady returns and long-</p>
                             <div className='stedyCardTop'>
                             <h1 className='heading54'>Steady returns and long-<br />lasting protection</h1>
                             <p className='sub24 mb-4'>Want some extra cash but don't want to sell your stocks or take out money from your retirement or your house? We offer IUL policies that offer a predictable growth trajectory for a portion of your premiums to use for retirement while offering protection that lasts a lifetime.</p>
-                            <button type='button' className='commonBtnBig'>GET AN ESTIMATE</button>
+                            <Link href={"https://quotes.globeintegrity.com/"}><button type='button' className='commonBtnBig'>GET AN ESTIMATE</button></Link>
                             </div>
                         </div>
                         <div className='col-md-4 orderOne mb-5 md-md-0'>

@@ -69,7 +69,7 @@ const ProductTerm = () => {
                             <div className='termsVsCard'>
                                 <h1 className='heading54'>Term vs. Permanent</h1>
                                 <p className='sub24 mb-4'>Have a newborn or a mortgage that you need to protect? Term life insurance can offer the most affordable temporary protection for a high coverage amount, while permanent insurance offers lifetime coverage and additional health and savings benefits.</p>
-                                <button type='button' className='commonBtnBig'>GET A Quote</button>
+                                <Link href={"https://quotes.globeintegrity.com/"}><button type='button' className='commonBtnBig'>GET A Quote</button></Link>
                             </div>
                         </div>
                         <div className='col-lg-6 mb-4 lg-mb-0'>
@@ -108,7 +108,7 @@ const ProductTerm = () => {
                             <div className='stedyCardTop'>
                                 <h1 className='heading54'>Max coverage for a <br /> temporary period of time</h1>
                                 <p className='sub24 mb-4 w-75'>We offer term life insurance that provides max coverage for 10, 20, or 30 years allowing you to protect your loved ones from a financial burden in case you pass. The benefits are temporary and don't provide any potential for tax-efficient growth unlike our other products.</p>
-                                <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
+                                <Link href={"https://quotes.globeintegrity.com/"}><button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button></Link>
                             </div>
                         </div>
                         <div className='col-md-4 orderOne'>

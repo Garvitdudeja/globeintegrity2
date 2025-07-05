@@ -339,7 +339,7 @@ const Uvl = () => {
                                     <li>Make a Down Payment on a Home</li>
                                     <li>Fund a Child’s Education</li>
                                 </ul>
-                                <button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button>
+                                <Link href={"https://quotes.globeintegrity.com/"}><button type='button' className='commonBtnBig text-uppercase'>GET A Quote</button></Link>
                             </div>
                         </div>
                         <div className='col-md-4 orderOne'>
