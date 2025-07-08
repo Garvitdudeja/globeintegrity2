@@ -230,7 +230,7 @@ const Uvl = () => {
         <>
             <Hero heading={"Variable Universal Life Insurance"} description={"Life insurance that's as flexible as you are. Imagine that."}
                 button={"GET AN ESTIMATE"} image={images.child} />
-            <KeyBenifits data={benifits}/>
+            <KeyBenifits data={benifits}
             <section className='premiumGraph'>
                 <div className='container-fluid'>
                     <div className='row justify-content-center'>
