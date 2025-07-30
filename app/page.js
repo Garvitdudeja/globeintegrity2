@@ -149,7 +149,7 @@ return (
                   <h2 className="heading54">Build tax-free<br /> wealth.<span className="sky"> Protect your<br /> future.</span></h2>
                   <p className="sub16">Whether you&apos;re planning for retirement or protecting your family, Globe Integrity gives you the strategy and security to do both in one policy.</p>
                   <Link href={"https://quotes.globeintegrity.com/"}><button type="button" className="commonBtn me-2">See If you Qualify</button></Link>
-                  <button type="button" className="blueBtn">Watch Video <Image src={images.videoIcon} alt="icon" className="ms-1 mb-1" /></button>
+                  {/* <button type="button" className="blueBtn">Watch Video <Image src={images.videoIcon} alt="icon" className="ms-1 mb-1" /></button> */}
                 </div>
               </div>
             </div>

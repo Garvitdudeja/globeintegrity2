@@ -599,9 +599,10 @@ const Calculator = () => {
               <div className="calcFooter">
                 <div className="row">
                     <div className="col-lg-6">
-                        <p>© 2021 by Globe Integrity. All rights reserved. Globe Integrity operates in California as Globe Integrity Life Insurance Services (CA license # 6004158).
-                        <br/>
-                        <br/>
+                      {/* © 2021 by Globe Integrity. All rights reserved. Globe Integrity operates in California as Globe Integrity Life Insurance Services (CA license # 6004158). */}
+                        <p>
+                        {/* <br/>
+                        <br/> */}
                         This webpage is for educational purposes only, and is not a recommendation to purchase, sell, hold, or roll over any asset and does not account for any investment, tax, or financial condition of any specific person.
                         <br/>
                         <br/>
@@ -617,13 +618,14 @@ const Calculator = () => {
                     <div className="col-lg-6">
                         <p>
                          Taxable income could exceed the amount of proceeds actually available. Surrenders are generally taxable to the extent they exceed the remaining investment in the policy.
-                        <br/>
-                        <br/>
-                        Securities offered through The Leaders Group, Inc. Member FINRA/SIPC 26 W Dry Creek Circle, Suite 800, Littleton, CO 80120, 303-797-9080. Globe Integrity Life Insurance Company is not affiliated within The Leaders Group, Inc. Globe Integrity Life Insurance Company offers variable life insurance policies underwritten by Nationwide Mutual Insurance Company and Equitable Financial Life Insurance Company of America.
+                        {/* <br/>
+                        <br/> */}
+                        {/* Securities offered through The Leaders Group, Inc. Member FINRA/SIPC 26 W Dry Creek Circle, Suite 800, Littleton, CO 80120, 303-797-9080. Globe Integrity Life Insurance Company is not affiliated within The Leaders Group, Inc. Globe Integrity Life Insurance Company offers variable life insurance policies underwritten by Nationwide Mutual Insurance Company and Equitable Financial Life Insurance Company of America.
                                                 Accessing policy cash value through loans and surrenders may cause a permanent reduction of policy cash values and death benefit and negate any guarantees against lapse that may be provided under your policy. Surrender charges may apply to the policy and loans may be subject to interest charges. Although loans are generally not taxable, there may be tax consequences if the policy lapses, or is surrendered or exchanged with an outstanding loan. Taxable income could exceed the amount of proceeds actually available. Surrenders are generally taxable to the extent they exceed the remaining investment in the policy.
                         <br/>
                         <br/>
-                        Check the background of your financial professional or broker/dealer with FINRA BrokerCheck.</p>
+                        Check the background of your financial professional or broker/dealer with FINRA BrokerCheck. */}
+                        </p>
                     </div>
                 </div>
               </div>
