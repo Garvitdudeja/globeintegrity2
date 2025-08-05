@@ -56,11 +56,11 @@ const WholeLifeGraph = () => {
 
                                 <h3 className='sub18 text-white'>WHOLE LIFE CASH VALUE</h3>
                                 <p className='sub24 text-white fw-bold'>${wholeLifeValue.toLocaleString()}</p>
-                                <p className='sub20 text-white mb-4'>{wholeLifeIRR}% IRR for {years} years</p>
+                                {/* <p className='sub20 text-white mb-4'>{wholeLifeIRR}% IRR for {years} years</p> */}
 
-                                <p className='sub20 text-white'>S&P 500 TAXABLE ACCOUNT*</p>
+                                {/* <p className='sub20 text-white'>S&P 500 TAXABLE ACCOUNT*</p>
                                 <p className='sub24 text-white fw-bold'>${taxableAccountValue.toLocaleString()}</p>
-                                <h3 className='sub18 text-white mb-4'>{taxableIRR}% IRR for {years} years</h3>
+                                <h3 className='sub18 text-white mb-4'>{taxableIRR}% IRR for {years} years</h3> */}
 
                                 <h3 className='sub18 text-white'>DEATH BENEFIT</h3>
                                 <p className='sub18 text-white mb-5'>A guaranteed death benefit will be provided, which can grow over time depending on policy dividends.</p>
