@@ -4,41 +4,164 @@ import { CiCircleInfo } from "react-icons/ci";
 import Select from "react-select";
 
 const options = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
 ];
 const marital = [
-  { value: "single", label: "Single" },
-  { value: "married", label: "Married" },
-  { value: "divorced", label: "Divorced" },
-  { value: "separated", label: "Separated" },
-  { value: "widowed", label: "Widowed" },
+  { value: "Single", label: "Single" },
+  { value: "Married", label: "Married" },
+  { value: "Divorced", label: "Divorced" },
+  { value: "Separated", label: "Separated" },
+  { value: "Widowed", label: "Widowed" },
 ];
 const risk = [
-  { value: "low", label: "Low" },
-  { value: "medium", label: "Medium" },
-  { value: "high", label: "High" },
+  { value: "Low", label: "Low" },
+  { value: "Medium", label: "Medium" },
+  { value: "High", label: "High" },
 ];
 const childrenOptions = Array.from({ length: 101 }, (_, i) => ({
   value: i,
   label: i.toString(),
 }));
-const Calculator = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
 
-  // only style the placeholder gray, leave everything else default
+// Custom Select Component matching the original styles
+const CustomSelect = ({ options, value, onChange, placeholder, styles }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const selectedOption = options.find(opt => opt.value === value);
+  
+  return (
+    <div style={{ position: 'relative', width: '100%' }}>
+      <div
+        style={{
+          ...styles.control(null, { isFocused: false }),
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span style={selectedOption ? styles.singleValue() : styles.placeholder()}>
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <svg style={{ width: '20px', height: '20px', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+      {isOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          right: 0,
+          backgroundColor: 'white',
+          border: '1px solid #2d3269',
+          borderTop: 'none',
+          maxHeight: '240px',
+          overflowY: 'auto',
+          zIndex: 1000
+        }}>
+          {options.map((option) => (
+            <div
+              key={option.value}
+              style={{
+                padding: '12px',
+                cursor: 'pointer',
+                fontSize: '18px',
+                borderBottom: '1px solid #f0f0f0'
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
+              onClick={() => {
+                onChange(option.value);
+                setIsOpen(false);
+              }}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Calculator = () => {
+  const [data, setData] = useState({
+    dateOfBirth: "",
+    gender: "",
+    zipCode: "",
+    maritalStatus: "",
+    children: "",
+    annualIncome: "",
+    existingCoverage: "",
+    savings: "",
+    retirementSavings: "",
+    riskTolerance: "",
+    yearsBeforeCashOut: ""
+  });
+
+  const handleChange = (key, value) => {
+    console.log("Updating", key, "with value:", value);
+    setData(prev => ({ ...prev, [key]: value }));
+  };
+
+  // Calculate progress based on filled fields
+  const calculateProgress = () => {
+    const totalFields = Object.keys(data).length;
+    const filledFields = Object.values(data).filter(value => value !== "").length;
+    return Math.round((filledFields / totalFields) * 100);
+  };
+
+  const progress = calculateProgress();
+
+  // Shared select styles
   const selectStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      minHeight: "64px",
+      height: "64px",
+      width: "100%",
+      borderRadius: "0",
+      borderColor: "#2d3269",
+      boxShadow: "none",
+      "&:hover": {
+        borderColor: "#2d3269",
+      },
+      border:"1px solid #2d3269",
+      "padding-inline": "10px",
+      fontSize: "18px",
+      color: "#2d3269",
+      cursor: "pointer",
+    }),
+    container: provided => ({
+      ...provided,
+      width: "100%",
+    }),
+    valueContainer: provided => ({
+      ...provided,
+      height: "64px",
+      padding: "0 12px",
+    }),
+    input: provided => ({
+      ...provided,
+      margin: "0px",
+    }),
     placeholder: provided => ({
       ...provided,
-      color: "#6c757d", // Bootstrap’s secondary gray
+      color: "#adb5bd",
+      lineHeight: "64px",
+      fontSize: "18px",
     }),
-    singleValue: (provided, state) => ({
+    singleValue: provided => ({
       ...provided,
-      color: state.selectProps.menuIsOpen ? provided.color : "#212529", // dark text once selected
+      lineHeight: "64px",
+      fontSize: "18px",
+      color: "#2d3269",
     }),
   };
 
-  const [selectedChildren, setSelectedChildren] = useState(null);
   return (
     <section className="calculator py-4">
       <div className="container-fluid">
@@ -73,7 +196,12 @@ const Calculator = () => {
                   Date Of Birth
                 </div>
                 <div className="calcInput">
-                  <input type="text" placeholder="01/01/1911" />
+                  <input 
+                    type="date" 
+                    placeholder="01/01/1911" 
+                    value={data.dateOfBirth}
+                    onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="calcFormControl">
@@ -94,51 +222,12 @@ const Calculator = () => {
                   Gender
                 </div>
                 <div className="calcInput">
-                  <Select
-                    value={selectedOption}
-                    onChange={setSelectedOption}
+                  <CustomSelect
+                    value={data.gender}
+                    onChange={(value) => handleChange("gender", value)}
                     options={options}
                     placeholder="Gender"
-                    styles={{
-                      control: (provided, state) => ({
-                        ...provided,
-                        minHeight: "64px",
-                        height: "64px",
-                        width: "100%",
-                        borderRadius: "0",
-                        borderColor: "#2d3269",
-                        boxShadow: state.isFocused ? "none" : "none",
-                        "&:hover": {
-                          borderColor: "#2d3269",
-                        },
-                        fontSize: "18px",
-                        color: "#2d3269",
-                      }),
-                      container: provided => ({
-                        ...provided,
-                        width: "100%",
-                      }),
-                      valueContainer: provided => ({
-                        ...provided,
-                        height: "64px",
-                        padding: "0 12px",
-                      }),
-                      input: provided => ({
-                        ...provided,
-                        margin: "0px",
-                      }),
-                      placeholder: provided => ({
-                        ...provided,
-                        color: "#adb5bd",
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                      singleValue: provided => ({
-                        ...provided,
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                    }}
+                    styles={selectStyles}
                   />
                 </div>
               </div>
@@ -161,7 +250,12 @@ const Calculator = () => {
                   Zip Code
                 </div>
                 <div className="calcInput">
-                  <input type="text" placeholder="12345" />
+                  <input 
+                    type="text" 
+                    placeholder="12345" 
+                    value={data.zipCode}
+                    onChange={(e) => handleChange("zipCode", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="calcHeading my-5">
@@ -186,51 +280,12 @@ const Calculator = () => {
                   Marital status
                 </div>
                 <div className="calcInput">
-                  <Select
-                    value={selectedOption}
-                    onChange={setSelectedOption}
+                  <CustomSelect
+                    value={data.maritalStatus}
+                    onChange={(value) => handleChange("maritalStatus", value)}
                     options={marital}
                     placeholder="Marital status"
-                    styles={{
-                      control: (provided, state) => ({
-                        ...provided,
-                        minHeight: "64px",
-                        height: "64px",
-                        width: "100%",
-                        borderRadius: "0",
-                        borderColor: "#2d3269",
-                        boxShadow: state.isFocused ? "none" : "none",
-                        "&:hover": {
-                          borderColor: "#2d3269",
-                        },
-                        fontSize: "18px",
-                        color: "#2d3269",
-                      }),
-                      container: provided => ({
-                        ...provided,
-                        width: "100%",
-                      }),
-                      valueContainer: provided => ({
-                        ...provided,
-                        height: "64px",
-                        padding: "0 12px",
-                      }),
-                      input: provided => ({
-                        ...provided,
-                        margin: "0px",
-                      }),
-                      placeholder: provided => ({
-                        ...provided,
-                        color: "#adb5bd",
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                      singleValue: provided => ({
-                        ...provided,
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                    }}
+                    styles={selectStyles}
                   />
                 </div>
               </div>
@@ -255,52 +310,12 @@ const Calculator = () => {
                   Number of Children Under 18
                 </div>
                 <div className="calcInput">
-                  <Select
-                    value={selectedChildren}
-                    onChange={setSelectedChildren}
+                  <CustomSelect
+                    value={data.children}
+                    onChange={(value) => handleChange("children", value)}
                     options={childrenOptions}
                     placeholder="Children"
-                    styles={{
-                      control: (provided, state) => ({
-                        ...provided,
-                        minHeight: "64px",
-                        height: "64px",
-                        width: "100%",
-                        borderRadius: "0",
-                        borderColor: "#2d3269",
-                        boxShadow: "none",
-                        "&:hover": {
-                          borderColor: "#2d3269",
-                        },
-                        fontSize: "18px",
-                        color: "#2d3269",
-                        cursor: "pointer",
-                      }),
-                      container: provided => ({
-                        ...provided,
-                        width: "100%",
-                      }),
-                      valueContainer: provided => ({
-                        ...provided,
-                        height: "64px",
-                        padding: "0 12px",
-                      }),
-                      input: provided => ({
-                        ...provided,
-                        margin: "0px",
-                      }),
-                      placeholder: provided => ({
-                        ...provided,
-                        color: "#adb5bd",
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                      singleValue: provided => ({
-                        ...provided,
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                    }}
+                    styles={selectStyles}
                   />
                 </div>
               </div>
@@ -322,7 +337,12 @@ const Calculator = () => {
                   Your Annual Income
                 </div>
                 <div className="calcInput">
-                  <input type="text" placeholder="$75,000" />
+                  <input 
+                    type="number" 
+                    placeholder="$75,000" 
+                    value={data.annualIncome}
+                    onChange={(e) => handleChange("annualIncome", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="calcFormControl">
@@ -345,7 +365,12 @@ const Calculator = () => {
                   Existing Life Insurance Coverage
                 </div>
                 <div className="calcInput">
-                  <input type="text" placeholder="$50,000" />
+                  <input 
+                    type="number" 
+                    placeholder="$50,000" 
+                    value={data.existingCoverage}
+                    onChange={(e) => handleChange("existingCoverage", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="calcFormControl">
@@ -369,7 +394,12 @@ const Calculator = () => {
                   Total Savings + Liquid Assets
                 </div>
                 <div className="calcInput">
-                  <input type="text" placeholder="$18,700" />
+                  <input 
+                    type="number" 
+                    placeholder="$18,700" 
+                    value={data.savings}
+                    onChange={(e) => handleChange("savings", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="calcFormControl">
@@ -394,7 +424,12 @@ const Calculator = () => {
                   Total Retirement Savings
                 </div>
                 <div className="calcInput">
-                  <input type="text" placeholder="$5,000" />
+                  <input 
+                    type="number" 
+                    placeholder="$5,000" 
+                    value={data.retirementSavings}
+                    onChange={(e) => handleChange("retirementSavings", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="calcHeading my-5">
@@ -420,52 +455,12 @@ const Calculator = () => {
                   Risk Tolerance
                 </div>
                 <div className="calcInput">
-                  <Select
-                    value={selectedChildren}
-                    onChange={setSelectedChildren}
+                  <CustomSelect
+                    value={data.riskTolerance}
+                    onChange={(value) => handleChange("riskTolerance", value)}
                     options={risk}
                     placeholder="Choose"
-                    styles={{
-                      control: (provided, state) => ({
-                        ...provided,
-                        minHeight: "64px",
-                        height: "64px",
-                        width: "100%",
-                        borderRadius: "0",
-                        borderColor: "#2d3269",
-                        boxShadow: "none",
-                        "&:hover": {
-                          borderColor: "#2d3269",
-                        },
-                        fontSize: "18px",
-                        color: "#2d3269",
-                        cursor: "pointer",
-                      }),
-                      container: provided => ({
-                        ...provided,
-                        width: "100%",
-                      }),
-                      valueContainer: provided => ({
-                        ...provided,
-                        height: "64px",
-                        padding: "0 12px",
-                      }),
-                      input: provided => ({
-                        ...provided,
-                        margin: "0px",
-                      }),
-                      placeholder: provided => ({
-                        ...provided,
-                        color: "#adb5bd",
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                      singleValue: provided => ({
-                        ...provided,
-                        lineHeight: "64px",
-                        fontSize: "18px",
-                      }),
-                    }}
+                    styles={selectStyles}
                   />
                 </div>
               </div>
@@ -491,7 +486,12 @@ const Calculator = () => {
                   Years Before You Will Use Your Cash Value
                 </div>
                 <div className="calcInput">
-                  <input type="number" placeholder="10" />
+                  <input 
+                    type="number" 
+                    placeholder="10" 
+                    value={data.yearsBeforeCashOut}
+                    onChange={(e) => handleChange("yearsBeforeCashOut", e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -513,14 +513,16 @@ const Calculator = () => {
                       </span>
                       <div className="progress">
                         <div
-                          className="progress-bar w-50"
+                          className="progress-bar"
                           role="progressbar"
                           aria-label="Basic example"
-                          aria-valuenow="60"
+                          aria-valuenow={progress}
                           aria-valuemin="0"
                           aria-valuemax="100"
+                          style={{ width: `${progress}%` }}
                         ></div>
                       </div>
+                      <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
                     </div>
                   </div>
                 </div>
@@ -540,14 +542,16 @@ const Calculator = () => {
                       </span>
                       <div className="progress">
                         <div
-                          className="progress-bar w-50"
+                          className="progress-bar"
                           role="progressbar"
                           aria-label="Basic example"
-                          aria-valuenow="60"
+                          aria-valuenow={progress}
                           aria-valuemin="0"
                           aria-valuemax="100"
+                          style={{ width: `${progress}%` }}
                         ></div>
                       </div>
+                      <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
                     </div>
                   </div>
                 </div>
@@ -567,7 +571,7 @@ const Calculator = () => {
                         POLICY TYPE
                       </h4>
                           <p className="sub18">
-                            Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you’re alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately.
+                            Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately.
 
                           </p>
                         </div>
@@ -585,24 +589,23 @@ const Calculator = () => {
                     </span>
                     <div className="progress">
                       <div
-                        className="progress-bar w-50"
+                        className="progress-bar"
                         role="progressbar"
                         aria-label="Basic example"
-                        aria-valuenow="60"
+                        aria-valuenow={progress}
                         aria-valuemin="0"
                         aria-valuemax="100"
+                        style={{ width: `${progress}%` }}
                       ></div>
                     </div>
+                    <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
                   </div>
                 </div>
               </div>
               <div className="calcFooter">
                 <div className="row">
                     <div className="col-lg-6">
-                      {/* © 2021 by Globe Integrity. All rights reserved. Globe Integrity operates in California as Globe Integrity Life Insurance Services (CA license # 6004158). */}
                         <p>
-                        {/* <br/>
-                        <br/> */}
                         This webpage is for educational purposes only, and is not a recommendation to purchase, sell, hold, or roll over any asset and does not account for any investment, tax, or financial condition of any specific person.
                         <br/>
                         <br/>
@@ -618,13 +621,6 @@ const Calculator = () => {
                     <div className="col-lg-6">
                         <p>
                          Taxable income could exceed the amount of proceeds actually available. Surrenders are generally taxable to the extent they exceed the remaining investment in the policy.
-                        {/* <br/>
-                        <br/> */}
-                        {/* Securities offered through The Leaders Group, Inc. Member FINRA/SIPC 26 W Dry Creek Circle, Suite 800, Littleton, CO 80120, 303-797-9080. Globe Integrity Life Insurance Company is not affiliated within The Leaders Group, Inc. Globe Integrity Life Insurance Company offers variable life insurance policies underwritten by Nationwide Mutual Insurance Company and Equitable Financial Life Insurance Company of America.
-                                                Accessing policy cash value through loans and surrenders may cause a permanent reduction of policy cash values and death benefit and negate any guarantees against lapse that may be provided under your policy. Surrender charges may apply to the policy and loans may be subject to interest charges. Although loans are generally not taxable, there may be tax consequences if the policy lapses, or is surrendered or exchanged with an outstanding loan. Taxable income could exceed the amount of proceeds actually available. Surrenders are generally taxable to the extent they exceed the remaining investment in the policy.
-                        <br/>
-                        <br/>
-                        Check the background of your financial professional or broker/dealer with FINRA BrokerCheck. */}
                         </p>
                     </div>
                 </div>
