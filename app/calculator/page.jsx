@@ -1,7 +1,7 @@
 "use client";
+import CustomSelect from "@/Components/Calculator/CustomSelect";
 import React, { useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
-import Select from "react-select";
 
 const options = [
   { value: "Male", label: "Male" },
@@ -24,68 +24,7 @@ const childrenOptions = Array.from({ length: 101 }, (_, i) => ({
   label: i.toString(),
 }));
 
-// Custom Select Component matching the original styles
-const CustomSelect = ({ options, value, onChange, placeholder, styles }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const selectedOption = options.find(opt => opt.value === value);
-  
-  return (
-    <div style={{ position: 'relative', width: '100%' }}>
-      <div
-        style={{
-          ...styles.control(null, { isFocused: false }),
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span style={selectedOption ? styles.singleValue() : styles.placeholder()}>
-          {selectedOption ? selectedOption.label : placeholder}
-        </span>
-        <svg style={{ width: '20px', height: '20px', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-      {isOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          backgroundColor: 'white',
-          border: '1px solid #2d3269',
-          borderTop: 'none',
-          maxHeight: '240px',
-          overflowY: 'auto',
-          zIndex: 1000
-        }}>
-          {options.map((option) => (
-            <div
-              key={option.value}
-              style={{
-                padding: '12px',
-                cursor: 'pointer',
-                fontSize: '18px',
-                borderBottom: '1px solid #f0f0f0'
-              }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f9fa'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
-              onClick={() => {
-                onChange(option.value);
-                setIsOpen(false);
-              }}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+
 
 const Calculator = () => {
   const [data, setData] = useState({
@@ -102,10 +41,104 @@ const Calculator = () => {
     yearsBeforeCashOut: ""
   });
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState({
+    yourIncome: "",
+    childrenCount: "",
+    totalDebt: "",
+    existingCoverage: "",
+    liquidAssets: "",
+    retirementSavings: "",
+    burialCosts: "10000"
+  });
+
   const handleChange = (key, value) => {
     console.log("Updating", key, "with value:", value);
     setData(prev => ({ ...prev, [key]: value }));
   };
+
+  const handleModalChange = (key, value) => {
+    setModalData(prev => ({ ...prev, [key]: value }));
+  };
+
+  const openModal = () => {
+    // Pre-populate modal with existing form data
+    setModalData({
+      yourIncome: data.annualIncome,
+      childrenCount: data.children,
+      totalDebt: "",
+      existingCoverage: data.existingCoverage,
+      liquidAssets: data.savings,
+      retirementSavings: data.retirementSavings,
+      burialCosts: "10000"
+    });
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const resetModalValues = () => {
+    setModalData({
+      yourIncome: "",
+      childrenCount: "",
+      totalDebt: "",
+      existingCoverage: "",
+      liquidAssets: "",
+      retirementSavings: "",
+      burialCosts: "10000"
+    });
+  };
+
+  const parseNumber = (value) => {
+    if (!value) return 0;
+    // Remove $ and commas, then parse
+    const cleaned = value.toString().replace(/[\$,]/g, '');
+    return parseFloat(cleaned) || 0;
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const calculateCoverageItems = () => {
+    const income = parseNumber(modalData.yourIncome);
+    const children = parseNumber(modalData.childrenCount);
+    const debt = parseNumber(modalData.totalDebt);
+    const existing = parseNumber(modalData.existingCoverage);
+    const liquid = parseNumber(modalData.liquidAssets);
+    const retirement = parseNumber(modalData.retirementSavings);
+    const burial = parseNumber(modalData.burialCosts);
+
+    const incomeReplacement = income * 10; // 10x income rule
+    const collegeTuition = children * 50000; // $50k per child
+    const payOffDebts = debt;
+    const subtractExisting = -existing;
+    const subtractLiquid = -liquid;
+    const subtractRetirement = -retirement;
+    const burialCosts = burial;
+
+    const totalCoverage = incomeReplacement + collegeTuition + payOffDebts + subtractExisting + subtractLiquid + subtractRetirement + burialCosts;
+
+    return {
+      incomeReplacement,
+      collegeTuition,
+      payOffDebts,
+      subtractExisting,
+      subtractLiquid,
+      subtractRetirement,
+      burialCosts,
+      totalCoverage: Math.max(0, totalCoverage)
+    };
+  };
+
+  const coverageItems = calculateCoverageItems();
 
   // Calculate progress based on filled fields
   const calculateProgress = () => {
@@ -506,6 +539,13 @@ const Calculator = () => {
                       <p className="sub16 fw-normal mb-0">
                         To see your result, please answer questions to the left.
                       </p>
+                      <button 
+                        className="btn btn-primary mt-3 w-100"
+                        onClick={openModal}
+                        style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
+                      >
+                        Show Me The Math
+                      </button>
                     </div>
                     <div className="mt-auto">
                       <span className="sub16 mb-2 d-block fw-normal">
@@ -628,6 +668,340 @@ const Calculator = () => {
             </div>
           </div>
         </div>
+
+        {/* Coverage Need Modal */}
+        {showModal && (
+          <div 
+            className="modal fade show" 
+            style={{ 
+              display: 'block', 
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 1050
+            }}
+          >
+            <div className="modal-dialog modal-lg" style={{ maxWidth: '800px', margin: '30px auto' }}>
+              <div className="modal-content">
+                <div className="modal-header" style={{ borderBottom: '1px solid #dee2e6', padding: '1rem 1.5rem' }}>
+                  <h4 className="modal-title" style={{ color: '#2d3269', fontWeight: 'bold' }}>Coverage Need Calculator</h4>
+                  <button 
+                    type="button" 
+                    className="btn-close" 
+                    onClick={closeModal}
+                    style={{ 
+                      background: 'none', 
+                      border: 'none', 
+                      fontSize: '24px',
+                      lineHeight: 1,
+                      color: '#000',
+                      opacity: 0.5
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                <div className="modal-body" style={{ padding: '1.5rem' }}>
+                  <div className="row">
+                    {/* Left Column - Inputs */}
+                    <div className="col-md-7">
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          Your Income
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="$11,111"
+                          value={modalData.yourIncome}
+                          onChange={(e) => handleModalChange('yourIncome', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            border: '2px solid #2d3269',
+                            borderRadius: '0',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          How many children do you have?
+                        </label>
+                        <CustomSelect
+                          value={modalData.childrenCount}
+                          onChange={(value) => handleModalChange('childrenCount', value)}
+                          options={childrenOptions}
+                          placeholder="3"
+                          styles={{
+                            control: (provided, state) => ({
+                              ...provided,
+                              minHeight: "48px",
+                              height: "48px",
+                              width: "100%",
+                              borderRadius: "0",
+                              border: "2px solid #2d3269",
+                              boxShadow: "none",
+                              fontSize: "16px",
+                              color: "#2d3269",
+                              cursor: "pointer",
+                            }),
+                            placeholder: provided => ({
+                              ...provided,
+                              color: "#999",
+                              fontSize: "16px",
+                            }),
+                            singleValue: provided => ({
+                              ...provided,
+                              fontSize: "16px",
+                              color: "#2d3269",
+                            }),
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          Total Household Debt (cars, credit cards, mortgage, etc.)
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="$11,111"
+                          value={modalData.totalDebt}
+                          onChange={(e) => handleModalChange('totalDebt', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            border: '2px solid #2d3269',
+                            borderRadius: '0',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          Existing Coverage
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="$11,111"
+                          value={modalData.existingCoverage}
+                          onChange={(e) => handleModalChange('existingCoverage', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            border: '2px solid #2d3269',
+                            borderRadius: '0',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          Liquid Assets
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="$1"
+                          value={modalData.liquidAssets}
+                          onChange={(e) => handleModalChange('liquidAssets', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            border: '2px solid #2d3269',
+                            borderRadius: '0',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          Retirement Savings
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="$111"
+                          value={modalData.retirementSavings}
+                          onChange={(e) => handleModalChange('retirementSavings', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            border: '2px solid #2d3269',
+                            borderRadius: '0',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
+                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
+                          Burial Costs
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="$10,000"
+                          value={modalData.burialCosts}
+                          onChange={(e) => handleModalChange('burialCosts', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            border: '2px solid #2d3269',
+                            borderRadius: '0',
+                            fontSize: '16px'
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right Column - Calculations */}
+                    <div className="col-md-5">
+                      <div style={{ 
+                        backgroundColor: '#f8f9fa', 
+                        padding: '1rem', 
+                        borderRadius: '8px',
+                        border: '1px solid #e9ecef'
+                      }}>
+                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>Income Replacement</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
+                              {formatCurrency(coverageItems.incomeReplacement)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>College Tuition</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
+                              {formatCurrency(coverageItems.collegeTuition)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>Pay off Debts</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
+                              {formatCurrency(coverageItems.payOffDebts)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#dc3545', fontWeight: '500' }}>Subtract Existing Coverage</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#dc3545' }}>
+                              {formatCurrency(coverageItems.subtractExisting)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#dc3545', fontWeight: '500' }}>Subtract Liquid Assets</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#dc3545' }}>
+                              {formatCurrency(coverageItems.subtractLiquid)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#dc3545', fontWeight: '500' }}>Subtract Retirement Savings</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#dc3545' }}>
+                              {formatCurrency(coverageItems.subtractRetirement)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '1.5rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>Burial Costs</span>
+                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
+                              {formatCurrency(coverageItems.burialCosts)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ 
+                          backgroundColor: '#2d3269', 
+                          color: 'white', 
+                          padding: '1rem', 
+                          borderRadius: '4px',
+                          textAlign: 'center'
+                        }}>
+                          <div style={{ marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '14px', opacity: 0.9 }}>Total Coverage Need:</span>
+                          </div>
+                          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                            {formatCurrency(coverageItems.totalCoverage)}
+                          </div>
+                        </div>
+
+                        <div style={{ 
+                          marginTop: '1rem',
+                          padding: '0.75rem', 
+                          backgroundColor: '#e9ecef',
+                          borderRadius: '4px',
+                          textAlign: 'center'
+                        }}>
+                          <span style={{ fontSize: '14px', fontWeight: '600', color: '#495057' }}>
+                            TOTAL RECOMMENDED COVERAGE
+                          </span>
+                          <CiCircleInfo style={{ width: '16px', height: '16px', marginLeft: '4px', color: '#6c757d' }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-footer" style={{ borderTop: '1px solid #dee2e6', padding: '1rem 1.5rem' }}>
+                  <button 
+                    type="button" 
+                    className="btn btn-outline-secondary me-2"
+                    onClick={resetModalValues}
+                    style={{ 
+                      borderColor: '#6c757d',
+                      color: '#6c757d',
+                      padding: '12px 24px',
+                      borderRadius: '25px',
+                      fontWeight: '600'
+                    }}
+                  >
+                    RESET VALUES
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-success"
+                    onClick={closeModal}
+                    style={{ 
+                      backgroundColor: '#28a745',
+                      borderColor: '#28a745',
+                      padding: '12px 36px',
+                      borderRadius: '25px',
+                      fontWeight: '600'
+                    }}
+                  >
+                    DONE
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
