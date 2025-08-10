@@ -1,5 +1,6 @@
 "use client";
 import CustomSelect from "@/Components/Calculator/CustomSelect";
+import InfoTooltip from "@/Components/Calculator/infoTooltip";
 import React, { useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 
@@ -213,19 +214,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">Date of Birth</h4>
-                      <p className="sub18">
-                        Age is a big factor in what life insurance products are
-                        a good fit for you and how much they will cost.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Date of Birth"} description={"Age is a big factor in what life insurance products are a good fit for you and how much they will cost."}/>
                   Date Of Birth
                 </div>
                 <div className="calcInput">
@@ -239,19 +228,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">Gender</h4>
-                      <p className="sub18">
-                        Insurance carriers have different cost models for men
-                        and women so it's helpful for us to know this.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Gender"} description={"Insurance carriers have different cost models for men and women so it's helpful for us to know this."}/>
                   Gender
                 </div>
                 <div className="calcInput">
@@ -266,20 +243,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">Zip Code</h4>
-                      <p className="sub18">
-                        Life insurance is regulated at the state level, so
-                        different products may be available to you depending on
-                        where you live.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Zip Code"} description={"Life insurance is regulated at the state level, so different products may be available to you depending on where you live."}/>
                   Zip Code
                 </div>
                 <div className="calcInput">
@@ -297,19 +261,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">Marital status</h4>
-                      <p className="sub18">
-                        This helps us figure out who will need financial support
-                        if you were to pass away.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Marital status"} description={"This helps us figure out who will need financial support if you were to pass away."}/>
                   Marital status
                 </div>
                 <div className="calcInput">
@@ -324,22 +276,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">
-                        Number of Children Under 18
-                      </h4>
-                      <p className="sub18">
-                        If you've got kids, it's wise to ensure you have enough
-                        income replacement and college expenses factored into
-                        your coverage amount.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Number of Children Under 18"} description={"If you've got kids, it's wise to ensure you have enough income replacement and college expenses factored into your coverage amount."}/>
                   Number of Children Under 18
                 </div>
                 <div className="calcInput">
@@ -354,19 +291,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">Your Annual Income</h4>
-                      <p className="sub18">
-                        This helps us know how much income will need to be
-                        replaced if you were to pass away.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Your Annual Income"} description={"This helps us know how much income will need to be replaced if you were to pass away."}/>
                   Your Annual Income
                 </div>
                 <div className="calcInput">
@@ -380,21 +305,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">
-                        Existing Life Insurance Coverage
-                      </h4>
-                      <p className="sub18">
-                        Include any existing life insurance coverage you have
-                        purchased for yourself.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Existing Life Insurance Coverage"} description={"Include any existing life insurance coverage you have purchased for yourself."}/>
                   Existing Life Insurance Coverage
                 </div>
                 <div className="calcInput">
@@ -408,22 +319,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">
-                        Total Savings + Liquid Assets
-                      </h4>
-                      <p className="sub18">
-                        This is all the money you have in cash, savings,
-                        checking, or securities that you could access
-                        immediately if needed.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Total Savings + Liquid Assets"} description={"This is all the money you have in cash, savings, checking, or securities that you could access immediately if needed."}/>
                   Total Savings + Liquid Assets
                 </div>
                 <div className="calcInput">
@@ -437,23 +333,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">
-                        Total Retirement Savings
-                      </h4>
-                      <p className="sub18">
-                        This is all the money you have set aside specifically
-                        for retirement. Hopefully this is mostly in a 401(k),
-                        IRA, Roth IRA, or some other tax-deferred or
-                        tax-advantaged account.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Total Retirement Savings"} description={" This is all the money you have set aside specifically for retirement. Hopefully this is mostly in a 401(k), IRA, Roth IRA, or some other tax-deferred or tax-advantaged account."}/>
                   Total Retirement Savings
                 </div>
                 <div className="calcInput">
@@ -471,20 +351,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">Risk Tolerance</h4>
-                      <p className="sub18">
-                        Be honest here. High risk tolerance means you are
-                        comfortable with potentially losing money on an
-                        investment.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Risk Tolerance"} description={"Be honest here. High risk tolerance means you are comfortable with potentially losing money on an investment."}/>
                   Risk Tolerance
                 </div>
                 <div className="calcInput">
@@ -499,23 +366,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl border-0 mb-3 pb-0">
                 <div className="calcLabel">
-                  <div className="infoIconWrapper">
-                    <CiCircleInfo
-                      style={{ width: "18px", height: "18px" }}
-                      className="infoIcon"
-                    />
-                    <div className="tooltipBox">
-                      <h4 className="heading28 fw-bold">
-                        Years Before You Will Use Your Cash Value
-                      </h4>
-                      <p className="sub18">
-                        This is all the money you have set aside specifically
-                        for retirement. Hopefully this is mostly in a 401(k),
-                        IRA, Roth IRA, or some other tax-deferred or
-                        tax-advantaged account.
-                      </p>
-                    </div>
-                  </div>
+                  <InfoTooltip title={"Years Before You Will Use Your Cash Value"} description={"This is all the money you have set aside specifically for retirement. Hopefully this is mostly in a 401(k), IRA, Roth IRA, or some other tax-deferred or tax-advantaged account."}/>
                   Years Before You Will Use Your Cash Value
                 </div>
                 <div className="calcInput">
@@ -600,23 +451,7 @@ const Calculator = () => {
                 <div className="row align-items-center">
                   <div className="col-lg-6">
                     <div className="calcLabel">
-                      <div className="infoIconWrapper">
-                        policy type
-                        <CiCircleInfo
-                          style={{ width: "18px", height: "18px" }}
-                          className="infoIcon"
-                        />
-                        <div className="tooltipBox">
-                        <h4 className="heading28 fw-bold">
-                        POLICY TYPE
-                      </h4>
-                          <p className="sub18">
-                            Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately.
-
-                          </p>
-                        </div>
-                      </div>
-                      
+                      <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."}/>
                     </div>
                     <h4 className="">Which policy type should you consider?</h4>
                     <p className="sub16 fw-normal mb-0">
