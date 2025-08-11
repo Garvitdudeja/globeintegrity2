@@ -1,8 +1,8 @@
 "use client";
+import CoverageModal from "@/Components/Calculator/CoverageModal";
 import CustomSelect from "@/Components/Calculator/CustomSelect";
 import InfoTooltip from "@/Components/Calculator/infoTooltip";
 import React, { useState } from "react";
-import { CiCircleInfo } from "react-icons/ci";
 
 const options = [
   { value: "Male", label: "Male" },
@@ -24,6 +24,16 @@ const childrenOptions = Array.from({ length: 101 }, (_, i) => ({
   value: i,
   label: i.toString(),
 }));
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
+export { childrenOptions, formatCurrency }
 
 
 
@@ -41,6 +51,7 @@ const Calculator = () => {
     riskTolerance: "",
     yearsBeforeCashOut: ""
   });
+  const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
 
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({
@@ -99,14 +110,6 @@ const Calculator = () => {
     return parseFloat(cleaned) || 0;
   };
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
 
   const calculateCoverageItems = () => {
     const income = parseNumber(modalData.yourIncome);
@@ -150,6 +153,16 @@ const Calculator = () => {
 
   const progress = calculateProgress();
 
+  const coverageProgress = () => {
+    const coverageFeilds = ["dateOfBirth", "zipCode", "gender", "maritalStatus", "children", "annualIncome", "existingCoverage", "retirementSavings", "savings"];
+    const totalFields = coverageFeilds.length;
+    const filledFields = coverageFeilds.filter(value => data[value] !== "").length;
+    return Math.round((filledFields / totalFields) * 100);
+  }
+
+
+
+
   // Shared select styles
   const selectStyles = {
     control: (provided, state) => ({
@@ -163,7 +176,7 @@ const Calculator = () => {
       "&:hover": {
         borderColor: "#2d3269",
       },
-      border:"1px solid #2d3269",
+      border: "1px solid #2d3269",
       "padding-inline": "10px",
       fontSize: "18px",
       color: "#2d3269",
@@ -214,13 +227,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Date of Birth"} description={"Age is a big factor in what life insurance products are a good fit for you and how much they will cost."}/>
+                  <InfoTooltip title={"Date of Birth"} description={"Age is a big factor in what life insurance products are a good fit for you and how much they will cost."} />
                   Date Of Birth
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="date" 
-                    placeholder="01/01/1911" 
+                  <input
+                    type="date"
+                    placeholder="01/01/1911"
                     value={data.dateOfBirth}
                     onChange={(e) => handleChange("dateOfBirth", e.target.value)}
                   />
@@ -228,7 +241,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Gender"} description={"Insurance carriers have different cost models for men and women so it's helpful for us to know this."}/>
+                  <InfoTooltip title={"Gender"} description={"Insurance carriers have different cost models for men and women so it's helpful for us to know this."} />
                   Gender
                 </div>
                 <div className="calcInput">
@@ -243,13 +256,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Zip Code"} description={"Life insurance is regulated at the state level, so different products may be available to you depending on where you live."}/>
+                  <InfoTooltip title={"Zip Code"} description={"Life insurance is regulated at the state level, so different products may be available to you depending on where you live."} />
                   Zip Code
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="text" 
-                    placeholder="12345" 
+                  <input
+                    type="text"
+                    placeholder="12345"
                     value={data.zipCode}
                     onChange={(e) => handleChange("zipCode", e.target.value)}
                   />
@@ -261,7 +274,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Marital status"} description={"This helps us figure out who will need financial support if you were to pass away."}/>
+                  <InfoTooltip title={"Marital status"} description={"This helps us figure out who will need financial support if you were to pass away."} />
                   Marital status
                 </div>
                 <div className="calcInput">
@@ -276,7 +289,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Number of Children Under 18"} description={"If you've got kids, it's wise to ensure you have enough income replacement and college expenses factored into your coverage amount."}/>
+                  <InfoTooltip title={"Number of Children Under 18"} description={"If you've got kids, it's wise to ensure you have enough income replacement and college expenses factored into your coverage amount."} />
                   Number of Children Under 18
                 </div>
                 <div className="calcInput">
@@ -291,13 +304,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Your Annual Income"} description={"This helps us know how much income will need to be replaced if you were to pass away."}/>
+                  <InfoTooltip title={"Your Annual Income"} description={"This helps us know how much income will need to be replaced if you were to pass away."} />
                   Your Annual Income
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="number" 
-                    placeholder="$75,000" 
+                  <input
+                    type="number"
+                    placeholder="$75,000"
                     value={data.annualIncome}
                     onChange={(e) => handleChange("annualIncome", e.target.value)}
                   />
@@ -305,13 +318,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Existing Life Insurance Coverage"} description={"Include any existing life insurance coverage you have purchased for yourself."}/>
+                  <InfoTooltip title={"Existing Life Insurance Coverage"} description={"Include any existing life insurance coverage you have purchased for yourself."} />
                   Existing Life Insurance Coverage
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="number" 
-                    placeholder="$50,000" 
+                  <input
+                    type="number"
+                    placeholder="$50,000"
                     value={data.existingCoverage}
                     onChange={(e) => handleChange("existingCoverage", e.target.value)}
                   />
@@ -319,13 +332,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Total Savings + Liquid Assets"} description={"This is all the money you have in cash, savings, checking, or securities that you could access immediately if needed."}/>
+                  <InfoTooltip title={"Total Savings + Liquid Assets"} description={"This is all the money you have in cash, savings, checking, or securities that you could access immediately if needed."} />
                   Total Savings + Liquid Assets
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="number" 
-                    placeholder="$18,700" 
+                  <input
+                    type="number"
+                    placeholder="$18,700"
                     value={data.savings}
                     onChange={(e) => handleChange("savings", e.target.value)}
                   />
@@ -333,13 +346,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Total Retirement Savings"} description={" This is all the money you have set aside specifically for retirement. Hopefully this is mostly in a 401(k), IRA, Roth IRA, or some other tax-deferred or tax-advantaged account."}/>
+                  <InfoTooltip title={"Total Retirement Savings"} description={" This is all the money you have set aside specifically for retirement. Hopefully this is mostly in a 401(k), IRA, Roth IRA, or some other tax-deferred or tax-advantaged account."} />
                   Total Retirement Savings
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="number" 
-                    placeholder="$5,000" 
+                  <input
+                    type="number"
+                    placeholder="$5,000"
                     value={data.retirementSavings}
                     onChange={(e) => handleChange("retirementSavings", e.target.value)}
                   />
@@ -351,7 +364,7 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Risk Tolerance"} description={"Be honest here. High risk tolerance means you are comfortable with potentially losing money on an investment."}/>
+                  <InfoTooltip title={"Risk Tolerance"} description={"Be honest here. High risk tolerance means you are comfortable with potentially losing money on an investment."} />
                   Risk Tolerance
                 </div>
                 <div className="calcInput">
@@ -366,13 +379,13 @@ const Calculator = () => {
               </div>
               <div className="calcFormControl border-0 mb-3 pb-0">
                 <div className="calcLabel">
-                  <InfoTooltip title={"Years Before You Will Use Your Cash Value"} description={"This is all the money you have set aside specifically for retirement. Hopefully this is mostly in a 401(k), IRA, Roth IRA, or some other tax-deferred or tax-advantaged account."}/>
+                  <InfoTooltip title={"Years Before You Will Use Your Cash Value"} description={"This is all the money you have set aside specifically for retirement. Hopefully this is mostly in a 401(k), IRA, Roth IRA, or some other tax-deferred or tax-advantaged account."} />
                   Years Before You Will Use Your Cash Value
                 </div>
                 <div className="calcInput">
-                  <input 
-                    type="number" 
-                    placeholder="10" 
+                  <input
+                    type="number"
+                    placeholder="10"
                     value={data.yearsBeforeCashOut}
                     onChange={(e) => handleChange("yearsBeforeCashOut", e.target.value)}
                   />
@@ -387,18 +400,22 @@ const Calculator = () => {
                   <div className="calcRightInner">
                     <div className="py-5">
                       <h4 className="text-center">Your Total Coverage Need</h4>
-                      <p className="sub16 fw-normal mb-0">
-                        To see your result, please answer questions to the left.
+                      <p className="sub16 fw-normal mb-0 text-center">
+                        {showMathModal ? "Your total need based on your answers. This can be met through both term and permanent policies." : "To see your result, please answer questions to the left."}
                       </p>
-                      <button 
-                        className="btn btn-primary mt-3 w-100"
-                        onClick={openModal}
-                        style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
-                      >
-                        Show Me The Math
-                      </button>
+                      {showMathModal && (
+                        <>
+                        <h3 className="text-center">{formatCurrency(coverageItems?.totalCoverage)}</h3>
+                          <button
+                            className="btn btn-primary mt-3 w-100"
+                            onClick={openModal}
+                            style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
+                          >
+                            Show Me The Math
+                          </button>
+                          </>)}
                     </div>
-                    <div className="mt-auto">
+                    {!showMathModal && <div className="mt-auto">
                       <span className="sub16 mb-2 d-block fw-normal">
                         Progress Until Answer
                       </span>
@@ -407,14 +424,14 @@ const Calculator = () => {
                           className="progress-bar"
                           role="progressbar"
                           aria-label="Basic example"
-                          aria-valuenow={progress}
+                          aria-valuenow={coverageProgress}
                           aria-valuemin="0"
                           aria-valuemax="100"
-                          style={{ width: `${progress}%` }}
+                          style={{ width: `${coverageProgress()}%` }}
                         ></div>
                       </div>
-                      <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
-                    </div>
+                      <span style={{ fontSize: '12px', color: '#6c757d' }}>{coverageProgress()}% complete</span>
+                    </div>}
                   </div>
                 </div>
                 <div className="col-lg-6  mb-4 lg-mb-0">
@@ -451,7 +468,7 @@ const Calculator = () => {
                 <div className="row align-items-center">
                   <div className="col-lg-6">
                     <div className="calcLabel">
-                      <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."}/>
+                      <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."} />
                     </div>
                     <h4 className="">Which policy type should you consider?</h4>
                     <p className="sub16 fw-normal mb-0">
@@ -479,25 +496,25 @@ const Calculator = () => {
               </div>
               <div className="calcFooter">
                 <div className="row">
-                    <div className="col-lg-6">
-                        <p>
-                        This webpage is for educational purposes only, and is not a recommendation to purchase, sell, hold, or roll over any asset and does not account for any investment, tax, or financial condition of any specific person.
-                        <br/>
-                        <br/>
-                        It is possible that coverage will terminate when either no premiums are paid following the initial premium, or subsequent premiums are insufficient to continue coverage.
-                        <br/>
-                        <br/>
-                        Variable Universal Life (VUL) policies are a combination of life insurance and a security that requires Securities and Exchange Commission registration. Actual performance of a VUL policy is dependent on the performance of the underlying investment. VUL policies can be negatively impacted by the performance of the underlying investment options, inadequate funding, and increasing cost of insurance rates. There is no guaranteed rate of interest.
-                        <br/>
-                        <br/>
-                        Accessing policy cash value through loans and surrenders may cause a permanent reduction of policy cash values and death benefit and negate any guarantees against lapse that may be provided under your policy. Surrender charges may apply to the policy and loans may be subject to interest charges. Although loans are generally not taxable, there may be tax consequences if the policy lapses, or is surrendered or exchanged with an outstanding loan.
-                        </p>
-                    </div>
-                    <div className="col-lg-6">
-                        <p>
-                         Taxable income could exceed the amount of proceeds actually available. Surrenders are generally taxable to the extent they exceed the remaining investment in the policy.
-                        </p>
-                    </div>
+                  <div className="col-lg-6">
+                    <p>
+                      This webpage is for educational purposes only, and is not a recommendation to purchase, sell, hold, or roll over any asset and does not account for any investment, tax, or financial condition of any specific person.
+                      <br />
+                      <br />
+                      It is possible that coverage will terminate when either no premiums are paid following the initial premium, or subsequent premiums are insufficient to continue coverage.
+                      <br />
+                      <br />
+                      Variable Universal Life (VUL) policies are a combination of life insurance and a security that requires Securities and Exchange Commission registration. Actual performance of a VUL policy is dependent on the performance of the underlying investment. VUL policies can be negatively impacted by the performance of the underlying investment options, inadequate funding, and increasing cost of insurance rates. There is no guaranteed rate of interest.
+                      <br />
+                      <br />
+                      Accessing policy cash value through loans and surrenders may cause a permanent reduction of policy cash values and death benefit and negate any guarantees against lapse that may be provided under your policy. Surrender charges may apply to the policy and loans may be subject to interest charges. Although loans are generally not taxable, there may be tax consequences if the policy lapses, or is surrendered or exchanged with an outstanding loan.
+                    </p>
+                  </div>
+                  <div className="col-lg-6">
+                    <p>
+                      Taxable income could exceed the amount of proceeds actually available. Surrenders are generally taxable to the extent they exceed the remaining investment in the policy.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -505,338 +522,7 @@ const Calculator = () => {
         </div>
 
         {/* Coverage Need Modal */}
-        {showModal && (
-          <div 
-            className="modal fade show" 
-            style={{ 
-              display: 'block', 
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 1050
-            }}
-          >
-            <div className="modal-dialog modal-lg" style={{ maxWidth: '800px', margin: '30px auto' }}>
-              <div className="modal-content">
-                <div className="modal-header" style={{ borderBottom: '1px solid #dee2e6', padding: '1rem 1.5rem' }}>
-                  <h4 className="modal-title" style={{ color: '#2d3269', fontWeight: 'bold' }}>Coverage Need Calculator</h4>
-                  <button 
-                    type="button" 
-                    className="btn-close" 
-                    onClick={closeModal}
-                    style={{ 
-                      background: 'none', 
-                      border: 'none', 
-                      fontSize: '24px',
-                      lineHeight: 1,
-                      color: '#000',
-                      opacity: 0.5
-                    }}
-                  >
-                    ×
-                  </button>
-                </div>
-                <div className="modal-body" style={{ padding: '1.5rem' }}>
-                  <div className="row">
-                    {/* Left Column - Inputs */}
-                    <div className="col-md-7">
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          Your Income
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="$11,111"
-                          value={modalData.yourIncome}
-                          onChange={(e) => handleModalChange('yourIncome', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            border: '2px solid #2d3269',
-                            borderRadius: '0',
-                            fontSize: '16px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          How many children do you have?
-                        </label>
-                        <CustomSelect
-                          value={modalData.childrenCount}
-                          onChange={(value) => handleModalChange('childrenCount', value)}
-                          options={childrenOptions}
-                          placeholder="3"
-                          styles={{
-                            control: (provided, state) => ({
-                              ...provided,
-                              minHeight: "48px",
-                              height: "48px",
-                              width: "100%",
-                              borderRadius: "0",
-                              border: "2px solid #2d3269",
-                              boxShadow: "none",
-                              fontSize: "16px",
-                              color: "#2d3269",
-                              cursor: "pointer",
-                            }),
-                            placeholder: provided => ({
-                              ...provided,
-                              color: "#999",
-                              fontSize: "16px",
-                            }),
-                            singleValue: provided => ({
-                              ...provided,
-                              fontSize: "16px",
-                              color: "#2d3269",
-                            }),
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          Total Household Debt (cars, credit cards, mortgage, etc.)
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="$11,111"
-                          value={modalData.totalDebt}
-                          onChange={(e) => handleModalChange('totalDebt', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            border: '2px solid #2d3269',
-                            borderRadius: '0',
-                            fontSize: '16px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          Existing Coverage
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="$11,111"
-                          value={modalData.existingCoverage}
-                          onChange={(e) => handleModalChange('existingCoverage', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            border: '2px solid #2d3269',
-                            borderRadius: '0',
-                            fontSize: '16px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          Liquid Assets
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="$1"
-                          value={modalData.liquidAssets}
-                          onChange={(e) => handleModalChange('liquidAssets', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            border: '2px solid #2d3269',
-                            borderRadius: '0',
-                            fontSize: '16px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          Retirement Savings
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="$111"
-                          value={modalData.retirementSavings}
-                          onChange={(e) => handleModalChange('retirementSavings', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            border: '2px solid #2d3269',
-                            borderRadius: '0',
-                            fontSize: '16px'
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', fontWeight: '600' }}>
-                          <CiCircleInfo style={{ width: '18px', height: '18px', marginRight: '8px', color: '#2d3269' }} />
-                          Burial Costs
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="$10,000"
-                          value={modalData.burialCosts}
-                          onChange={(e) => handleModalChange('burialCosts', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            border: '2px solid #2d3269',
-                            borderRadius: '0',
-                            fontSize: '16px'
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Right Column - Calculations */}
-                    <div className="col-md-5">
-                      <div style={{ 
-                        backgroundColor: '#f8f9fa', 
-                        padding: '1rem', 
-                        borderRadius: '8px',
-                        border: '1px solid #e9ecef'
-                      }}>
-                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>Income Replacement</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
-                              {formatCurrency(coverageItems.incomeReplacement)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>College Tuition</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
-                              {formatCurrency(coverageItems.collegeTuition)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>Pay off Debts</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
-                              {formatCurrency(coverageItems.payOffDebts)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#dc3545', fontWeight: '500' }}>Subtract Existing Coverage</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#dc3545' }}>
-                              {formatCurrency(coverageItems.subtractExisting)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#dc3545', fontWeight: '500' }}>Subtract Liquid Assets</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#dc3545' }}>
-                              {formatCurrency(coverageItems.subtractLiquid)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#dc3545', fontWeight: '500' }}>Subtract Retirement Savings</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#dc3545' }}>
-                              {formatCurrency(coverageItems.subtractRetirement)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: '1.5rem', paddingBottom: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', color: '#2d3269', fontWeight: '500' }}>Burial Costs</span>
-                            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#2d3269' }}>
-                              {formatCurrency(coverageItems.burialCosts)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div style={{ 
-                          backgroundColor: '#2d3269', 
-                          color: 'white', 
-                          padding: '1rem', 
-                          borderRadius: '4px',
-                          textAlign: 'center'
-                        }}>
-                          <div style={{ marginBottom: '0.5rem' }}>
-                            <span style={{ fontSize: '14px', opacity: 0.9 }}>Total Coverage Need:</span>
-                          </div>
-                          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                            {formatCurrency(coverageItems.totalCoverage)}
-                          </div>
-                        </div>
-
-                        <div style={{ 
-                          marginTop: '1rem',
-                          padding: '0.75rem', 
-                          backgroundColor: '#e9ecef',
-                          borderRadius: '4px',
-                          textAlign: 'center'
-                        }}>
-                          <span style={{ fontSize: '14px', fontWeight: '600', color: '#495057' }}>
-                            TOTAL RECOMMENDED COVERAGE
-                          </span>
-                          <CiCircleInfo style={{ width: '16px', height: '16px', marginLeft: '4px', color: '#6c757d' }} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer" style={{ borderTop: '1px solid #dee2e6', padding: '1rem 1.5rem' }}>
-                  <button 
-                    type="button" 
-                    className="btn btn-outline-secondary me-2"
-                    onClick={resetModalValues}
-                    style={{ 
-                      borderColor: '#6c757d',
-                      color: '#6c757d',
-                      padding: '12px 24px',
-                      borderRadius: '25px',
-                      fontWeight: '600'
-                    }}
-                  >
-                    RESET VALUES
-                  </button>
-                  <button 
-                    type="button" 
-                    className="btn btn-success"
-                    onClick={closeModal}
-                    style={{ 
-                      backgroundColor: '#28a745',
-                      borderColor: '#28a745',
-                      padding: '12px 36px',
-                      borderRadius: '25px',
-                      fontWeight: '600'
-                    }}
-                  >
-                    DONE
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        <CoverageModal showModal={showModal} closeModal={closeModal} modalData={modalData} handleModalChange={handleModalChange} coverageItems={coverageItems} resetModalValues={resetModalValues} />
       </div>
     </section>
   );
