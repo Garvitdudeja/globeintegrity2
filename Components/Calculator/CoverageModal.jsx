@@ -52,8 +52,8 @@ const CoverageModal = ({showModal, closeModal, modalData, handleModalChange, cov
                         <input
                           type="text"
                           placeholder="$11,111"
-                          value={modalData.yourIncome}
-                          onChange={(e) => handleModalChange('yourIncome', e.target.value)}
+                          value={modalData.annualIncome}
+                          onChange={(e) => handleModalChange('annualIncome', e.target.value)}
                           style={{
                             width: '100%',
                             padding: '12px',
@@ -70,8 +70,8 @@ const CoverageModal = ({showModal, closeModal, modalData, handleModalChange, cov
                           How many children do you have?
                         </label>
                         <CustomSelect
-                          value={modalData.childrenCount}
-                          onChange={(value) => handleModalChange('childrenCount', value)}
+                          value={modalData.children}
+                          onChange={(value) => handleModalChange('children', value)}
                           options={childrenOptions}
                           placeholder="3"
                           styles={{
@@ -82,6 +82,7 @@ const CoverageModal = ({showModal, closeModal, modalData, handleModalChange, cov
                               width: "100%",
                               borderRadius: "0",
                               border: "2px solid #2d3269",
+                              "padding-inline": "10px",
                               boxShadow: "none",
                               fontSize: "16px",
                               color: "#2d3269",
@@ -109,8 +110,8 @@ const CoverageModal = ({showModal, closeModal, modalData, handleModalChange, cov
                         <input
                           type="text"
                           placeholder="$11,111"
-                          value={modalData.totalDebt}
-                          onChange={(e) => handleModalChange('totalDebt', e.target.value)}
+                          value={modalData.debt}
+                          onChange={(e) => handleModalChange('debt', e.target.value)}
                           style={{
                             width: '100%',
                             padding: '12px',
@@ -149,8 +150,8 @@ const CoverageModal = ({showModal, closeModal, modalData, handleModalChange, cov
                         <input
                           type="text"
                           placeholder="$1"
-                          value={modalData.liquidAssets}
-                          onChange={(e) => handleModalChange('liquidAssets', e.target.value)}
+                          value={modalData.savings}
+                          onChange={(e) => handleModalChange('savings', e.target.value)}
                           style={{
                             width: '100%',
                             padding: '12px',

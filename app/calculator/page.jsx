@@ -49,7 +49,9 @@ const Calculator = () => {
     savings: "",
     retirementSavings: "",
     riskTolerance: "",
-    yearsBeforeCashOut: ""
+    yearsBeforeCashOut: "",
+    debt: 0,
+    burialCosts: 0,
   });
   const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
 
@@ -112,13 +114,13 @@ const Calculator = () => {
 
 
   const calculateCoverageItems = () => {
-    const income = parseNumber(modalData.yourIncome);
-    const children = parseNumber(modalData.childrenCount);
-    const debt = parseNumber(modalData.totalDebt);
-    const existing = parseNumber(modalData.existingCoverage);
-    const liquid = parseNumber(modalData.liquidAssets);
-    const retirement = parseNumber(modalData.retirementSavings);
-    const burial = parseNumber(modalData.burialCosts);
+    const income = parseNumber(data.annualIncome);
+    const children = parseNumber(data.children);
+    const debt = parseNumber(data.debt);
+    const existing = parseNumber(data.existingCoverage);
+    const liquid = parseNumber(data.savings);
+    const retirement = parseNumber(data.retirementSavings);
+    const burial = parseNumber(data.burialCosts);
 
     const incomeReplacement = income * 10; // 10x income rule
     const collegeTuition = children * 50000; // $50k per child
@@ -142,7 +144,7 @@ const Calculator = () => {
     };
   };
 
-  const coverageItems = calculateCoverageItems();
+  var coverageItems = calculateCoverageItems();
 
   // Calculate progress based on filled fields
   const calculateProgress = () => {
@@ -157,6 +159,7 @@ const Calculator = () => {
     const coverageFeilds = ["dateOfBirth", "zipCode", "gender", "maritalStatus", "children", "annualIncome", "existingCoverage", "retirementSavings", "savings"];
     const totalFields = coverageFeilds.length;
     const filledFields = coverageFeilds.filter(value => data[value] !== "").length;
+    coverageItems = calculateCoverageItems()
     return Math.round((filledFields / totalFields) * 100);
   }
 
@@ -522,7 +525,7 @@ const Calculator = () => {
         </div>
 
         {/* Coverage Need Modal */}
-        <CoverageModal showModal={showModal} closeModal={closeModal} modalData={modalData} handleModalChange={handleModalChange} coverageItems={coverageItems} resetModalValues={resetModalValues} />
+        <CoverageModal showModal={showModal} closeModal={closeModal} modalData={data} handleModalChange={handleChange} coverageItems={coverageItems} resetModalValues={resetModalValues} />
       </div>
     </section>
   );
