@@ -50,8 +50,8 @@ const Calculator = () => {
     retirementSavings: "",
     riskTolerance: "",
     yearsBeforeCashOut: "",
-    debt: 0,
-    burialCosts: 0,
+    debt: "",
+    burialCosts: "",
   });
   const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
 
@@ -148,7 +148,7 @@ const Calculator = () => {
 
   // Calculate progress based on filled fields
   const calculateProgress = () => {
-    const totalFields = Object.keys(data).length;
+    const totalFields = Object.keys(data).length - 2;
     const filledFields = Object.values(data).filter(value => value !== "").length;
     return Math.round((filledFields / totalFields) * 100);
   };
@@ -408,7 +408,7 @@ const Calculator = () => {
                       </p>
                       {showMathModal && (
                         <>
-                        <h3 className="text-center">{formatCurrency(coverageItems?.totalCoverage)}</h3>
+                          <h3 className="text-center">{formatCurrency(coverageItems?.totalCoverage)}</h3>
                           <button
                             className="btn btn-primary mt-3 w-100"
                             onClick={openModal}
@@ -416,7 +416,7 @@ const Calculator = () => {
                           >
                             Show Me The Math
                           </button>
-                          </>)}
+                        </>)}
                     </div>
                     {!showMathModal && <div className="mt-auto">
                       <span className="sub16 mb-2 d-block fw-normal">
@@ -427,7 +427,7 @@ const Calculator = () => {
                           className="progress-bar"
                           role="progressbar"
                           aria-label="Basic example"
-                          aria-valuenow={coverageProgress}
+                          aria-valuenow={coverageProgress()}
                           aria-valuemin="0"
                           aria-valuemax="100"
                           style={{ width: `${coverageProgress()}%` }}
@@ -444,10 +444,15 @@ const Calculator = () => {
                         Permanent Coverage to Start With
                       </h4>
                       <p className="sub16 fw-normal mb-0">
-                        To see your result, please answer questions to the left.
+                        {progress == 100 ? <>{(data.annualIncome < 50000 || data?.savings < 12500 ) && <p>We do not recommend you purchase a permanent life insurance policy until:
+                          <ul>
+                            {data?.annualIncome < 50000 && <li>Your annual income is greater than $50,000</li>}
+                            {data?.savings < 12500 && <li>You have 3 months of income in liquid assets</li>}
+                          </ul>
+                        </p>}</> : "To see your result, please answer questions to the left."}
                       </p>
                     </div>
-                    <div className="mt-auto">
+                    {progress !== 100 && <div className="mt-auto">
                       <span className="sub16 mb-2 d-block fw-normal">
                         Progress Until Answer
                       </span>
@@ -463,7 +468,7 @@ const Calculator = () => {
                         ></div>
                       </div>
                       <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
-                    </div>
+                    </div>}
                   </div>
                 </div>
               </div>
