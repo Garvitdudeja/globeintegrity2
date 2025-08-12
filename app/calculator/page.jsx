@@ -444,10 +444,10 @@ const Calculator = () => {
                         Permanent Coverage to Start With
                       </h4>
                       <p className="sub16 fw-normal mb-0">
-                        {progress == 100 ? <>{(data.annualIncome < 50000 || data?.savings < 12500 ) && <p>We do not recommend you purchase a permanent life insurance policy until:
+                        {progress == 100 ? <>{(data.annualIncome < 50000 || data.savings < data?.annualIncome/3*12  ) && <p>We do not recommend you purchase a permanent life insurance policy until:
                           <ul>
                             {data?.annualIncome < 50000 && <li>Your annual income is greater than $50,000</li>}
-                            {data?.savings < 12500 && <li>You have 3 months of income in liquid assets</li>}
+                            {data.savings < data?.annualIncome/3*12 < 12500 && <li>You have 3 months of income in liquid assets</li>}
                           </ul>
                         </p>}</> : "To see your result, please answer questions to the left."}
                       </p>
