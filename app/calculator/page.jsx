@@ -1,8 +1,10 @@
 "use client";
+import calculateIULPremium, { smartFormat } from "@/Components/Calculation/IUL";
+import VULCalculator from "@/Components/Calculation/Vul";
 import CoverageModal from "@/Components/Calculator/CoverageModal";
 import CustomSelect from "@/Components/Calculator/CustomSelect";
 import InfoTooltip from "@/Components/Calculator/infoTooltip";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const options = [
   { value: "Male", label: "Male" },
@@ -53,6 +55,9 @@ const Calculator = () => {
     debt: "",
     burialCosts: "",
   });
+  const CurrencyInput = ['annualIncome','existingCoverage','savings','retirementSavings','debt']
+  const vul = new VULCalculator();
+
   const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
 
   const [showModal, setShowModal] = useState(false);
@@ -66,8 +71,12 @@ const Calculator = () => {
     burialCosts: "10000"
   });
 
+
   const handleChange = (key, value) => {
     console.log("Updating", key, "with value:", value);
+    if(CurrencyInput.includes(key)){
+      value = value.replace(/[^0-9]/g, "");
+    }
     setData(prev => ({ ...prev, [key]: value }));
   };
 
@@ -148,7 +157,7 @@ const Calculator = () => {
 
   // Calculate progress based on filled fields
   const calculateProgress = () => {
-    const totalFields = Object.keys(data).length - 2;
+    const totalFields = Object.keys(data).length - 1;
     const filledFields = Object.values(data).filter(value => value !== "").length;
     return Math.round((filledFields / totalFields) * 100);
   };
@@ -156,7 +165,7 @@ const Calculator = () => {
   const progress = calculateProgress();
 
   const coverageProgress = () => {
-    const coverageFeilds = ["dateOfBirth", "zipCode", "gender", "maritalStatus", "children", "annualIncome", "existingCoverage", "retirementSavings", "savings"];
+    const coverageFeilds = ["debt", "dateOfBirth", "zipCode", "gender", "maritalStatus", "children", "annualIncome", "existingCoverage", "retirementSavings", "savings"];
     const totalFields = coverageFeilds.length;
     const filledFields = coverageFeilds.filter(value => data[value] !== "").length;
     coverageItems = calculateCoverageItems()
@@ -312,10 +321,25 @@ const Calculator = () => {
                 </div>
                 <div className="calcInput">
                   <input
-                    type="number"
+                    type="text"
                     placeholder="$75,000"
-                    value={data.annualIncome}
+                    value={formatCurrency(data.annualIncome) == "$0" ? null :formatCurrency(data.annualIncome)}
                     onChange={(e) => handleChange("annualIncome", e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="calcFormControl">
+                <div className="calcLabel">
+                  <InfoTooltip title={"Your Annual Income"} description={"This helps us know how much income will need to be replaced if you were to pass away."} />
+                  Total Outstanding Debts + Loans
+
+                </div>
+                <div className="calcInput">
+                  <input
+                    type="text"
+                    placeholder="$50,000"
+                    value={formatCurrency(data.debt) == "$0" ? null : formatCurrency(data.debt)}
+                    onChange={(e) => handleChange("debt", e.target.value)}
                   />
                 </div>
               </div>
@@ -326,9 +350,9 @@ const Calculator = () => {
                 </div>
                 <div className="calcInput">
                   <input
-                    type="number"
+                    type="text"
                     placeholder="$50,000"
-                    value={data.existingCoverage}
+                    value={formatCurrency(data.existingCoverage) == "$0" ? null : formatCurrency(data.existingCoverage)}
                     onChange={(e) => handleChange("existingCoverage", e.target.value)}
                   />
                 </div>
@@ -340,9 +364,9 @@ const Calculator = () => {
                 </div>
                 <div className="calcInput">
                   <input
-                    type="number"
+                    type="text"
                     placeholder="$18,700"
-                    value={data.savings}
+                    value={formatCurrency(data.savings) == "$0" ? null : formatCurrency(data.savings)}
                     onChange={(e) => handleChange("savings", e.target.value)}
                   />
                 </div>
@@ -354,9 +378,9 @@ const Calculator = () => {
                 </div>
                 <div className="calcInput">
                   <input
-                    type="number"
+                    type="text"
                     placeholder="$5,000"
-                    value={data.retirementSavings}
+                    value={formatCurrency(data.retirementSavings) == "$0" ? null : formatCurrency(data.retirementSavings)}
                     onChange={(e) => handleChange("retirementSavings", e.target.value)}
                   />
                 </div>
@@ -444,10 +468,10 @@ const Calculator = () => {
                         Permanent Coverage to Start With
                       </h4>
                       <p className="sub16 fw-normal mb-0">
-                        {progress == 100 ? <>{(data.annualIncome < 50000 || data.savings < data?.annualIncome/3*12  ) && <p>We do not recommend you purchase a permanent life insurance policy until:
+                        {progress == 100 ? <>{(data.annualIncome < 50000 || data.savings < data?.annualIncome / 3 * 12) && <p>We do not recommend you purchase a permanent life insurance policy until:
                           <ul>
                             {data?.annualIncome < 50000 && <li>Your annual income is greater than $50,000</li>}
-                            {data.savings < data?.annualIncome/3*12 < 12500 && <li>You have 3 months of income in liquid assets</li>}
+                            {data.savings < data?.annualIncome / 3 * 12 < 12500 && <li>You have 3 months of income in liquid assets</li>}
                           </ul>
                         </p>}</> : "To see your result, please answer questions to the left."}
                       </p>
@@ -474,32 +498,99 @@ const Calculator = () => {
               </div>
               <div className="policyType mb-4">
                 <div className="row align-items-center">
-                  <div className="col-lg-6">
-                    <div className="calcLabel">
-                      <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."} />
+                  {progress !== 100 ? <>
+                    <div className="col-lg-6">
+                      <div className="calcLabel">
+                        <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."} />
+                      </div>
+                      <h4 className="">Which policy type should you consider?</h4>
+                      <p className="sub16 fw-normal mb-0">
+                        To see your result, please answer questions to the left.
+                      </p>
                     </div>
-                    <h4 className="">Which policy type should you consider?</h4>
-                    <p className="sub16 fw-normal mb-0">
-                      To see your result, please answer questions to the left.
-                    </p>
-                  </div>
-                  <div className="col-lg-6">
-                    <span className="sub16 mb-2 d-block fw-normal">
-                      Progress Until Answer
-                    </span>
-                    <div className="progress">
-                      <div
-                        className="progress-bar"
-                        role="progressbar"
-                        aria-label="Basic example"
-                        aria-valuenow={progress}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style={{ width: `${progress}%` }}
-                      ></div>
+                    <div className="col-lg-6">
+                      <span className="sub16 mb-2 d-block fw-normal">
+                        Progress Until Answer
+                      </span>
+                      <div className="progress">
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          aria-label="Basic example"
+                          aria-valuenow={progress}
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style={{ width: `${progress}%` }}
+                        ></div>
+                      </div>
+                      <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
+                    </div></> : <>
+                    <div className="col-lg-6">Globe Integrity Recommends
+                      <h3>Indexed Universal Life</h3>
+                      <p>Safe and Steady Growth</p>
+                      <br />An “Indexed Universal Life” (IUL) policy offers cash value growth that is tied to an index fund. It has a high ceiling (often 8%), and a floor (often 0%) which protects against loss. Best of all, you can use the money while you are alive!
                     </div>
-                    <span style={{ fontSize: '12px', color: '#6c757d' }}>{progress}% complete</span>
-                  </div>
+                    <div className="col-lg-6">
+                      <div className="calcFormControl">
+                        <div className="calcLabel">
+                          <InfoTooltip title={"Monthly Premium"} description={"This is the estimated amount you would pay every month for this policy type with the face value shown above"} />
+                          Monthly Premium
+                        </div>
+                        <div className="calcInput">
+                          <input
+                            type="text"
+                            placeholder="12345"
+                            value={(calculateIULPremium(data).monthlyPremium)}
+                            disabled={true}
+                          />
+                        </div>
+                      </div>
+                      <div className="calcFormControl">
+                        <div className="calcLabel">
+                          <InfoTooltip title={"Estimated Cash Value by Age 65"} description={"This is the estimated cash value you will have accumulated by age 65. See our disclaimer for information on the assumed annual return rate for this policy type."} />
+                          Estimated Cash Value by Age 65
+                        </div>
+                        <div className="calcInput">
+                          <input
+                            type="text"
+                            placeholder="12345"
+                            value={smartFormat(calculateIULPremium(data).estimatedCashValue)}
+                            onChange={(e) => handleChange("zipCode", e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="calcFormControl">
+                        <div className="calcLabel">
+                          <InfoTooltip title={"Policy Face Value"} description={"This is the insurance coverage that comes with your policy. If you pass away while the policy is active, the insurance company will pay this amount to your beneficiaries minus any outstanding policy loans and interest."} />
+                          Policy Face Value
+                        </div>
+                        <div className="calcInput">
+                          <input
+                            type="text"
+                            placeholder="12345"
+                            value={smartFormat(calculateIULPremium(data).policyFaceValue)}
+                            onChange={(e) => handleChange("zipCode", e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="calcFormControl">
+                        <div className="calcLabel">
+                          <InfoTooltip title={"Total Coverage by Age 65"} description={"This is the insurance coverage that comes with your policy. If you pass away while the policy is active, the insurance company will pay this amount to your beneficiaries minus any outstanding policy loans and interest."} />
+                          Total Coverage by Age 65
+                        </div>
+                        <div className="calcInput">
+                          <h3>{smartFormat(calculateIULPremium(data).totalCoverage)}</h3>
+                        </div>
+                      </div>
+                                  <button
+                            className="btn btn-primary mt-3 w-100"
+                            style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
+                          >
+                            Explore IUL
+                          </button>
+                    </div>
+
+                  </>}
                 </div>
               </div>
               <div className="calcFooter">
