@@ -4,6 +4,7 @@ import VULCalculator from "@/Components/Calculation/Vul";
 import CoverageModal from "@/Components/Calculator/CoverageModal";
 import CustomSelect from "@/Components/Calculator/CustomSelect";
 import InfoTooltip from "@/Components/Calculator/infoTooltip";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const options = [
@@ -55,7 +56,7 @@ const Calculator = () => {
     debt: "",
     burialCosts: "",
   });
-  const CurrencyInput = ['annualIncome','existingCoverage','savings','retirementSavings','debt']
+  const CurrencyInput = ['annualIncome', 'existingCoverage', 'savings', 'retirementSavings', 'debt']
   const vul = new VULCalculator();
 
   const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
@@ -74,7 +75,7 @@ const Calculator = () => {
 
   const handleChange = (key, value) => {
     console.log("Updating", key, "with value:", value);
-    if(CurrencyInput.includes(key)){
+    if (CurrencyInput.includes(key)) {
       value = value.replace(/[^0-9]/g, "");
     }
     setData(prev => ({ ...prev, [key]: value }));
@@ -323,7 +324,7 @@ const Calculator = () => {
                   <input
                     type="text"
                     placeholder="$75,000"
-                    value={formatCurrency(data.annualIncome) == "$0" ? null :formatCurrency(data.annualIncome)}
+                    value={formatCurrency(data.annualIncome) == "$0" ? null : formatCurrency(data.annualIncome)}
                     onChange={(e) => handleChange("annualIncome", e.target.value)}
                   />
                 </div>
@@ -582,12 +583,14 @@ const Calculator = () => {
                           <h3>{smartFormat(calculateIULPremium(data).totalCoverage)}</h3>
                         </div>
                       </div>
-                                  <button
-                            className="btn btn-primary mt-3 w-100"
-                            style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
-                          >
-                            Explore IUL
-                          </button>
+                      <Link href={`https://quotes.globeintegrity.com?dob=${data.dateOfBirth}&gender=${data.gender}&zipCode=${data.zipCode}&maritalStatus=${data.maritalStatus}&householdIncome=${data.annualIncome}&risk=${data.riskTolerance}`}>
+                        <button
+                          className="btn btn-primary mt-3 w-100"
+                          style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
+                        >
+                          Explore IUL
+                        </button>
+                      </Link>
                     </div>
 
                   </>}
