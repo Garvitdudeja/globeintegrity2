@@ -24,7 +24,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head />
+      <head >
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16453676009"></script>
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16453676009');
+            `,
+          }}
+        />
+      </head>
       <body>
         {/* ✅ Place it here inside <body> so it runs client-side */}
         <BootstrapClient />

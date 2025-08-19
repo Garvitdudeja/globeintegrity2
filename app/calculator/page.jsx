@@ -163,6 +163,19 @@ const Calculator = () => {
     return Math.round((filledFields / totalFields) * 100);
   };
 
+  const handleDateInput = (e) => {
+    let input = e.target.value.replace(/\D/g, "").slice(0, 8); // Max 8 digits
+
+    let formatted = input;
+    if (input.length >= 3 && input.length <= 4) {
+      formatted = input.slice(0, 2) + "/" + input.slice(2);
+    } else if (input.length > 4) {
+      formatted = input.slice(0, 2) + "/" + input.slice(2, 4) + "/" + input.slice(4);
+    }
+
+    handleChange('dateOfBirth', formatted);
+  };
+
   const progress = calculateProgress();
 
   const coverageProgress = () => {
@@ -245,10 +258,12 @@ const Calculator = () => {
                 </div>
                 <div className="calcInput">
                   <input
-                    type="date"
-                    placeholder="01/01/1911"
+                    type="text"
+                    id="date"
+                    placeholder="MM/DD/YYYY"
+                    maxLength={10}
                     value={data.dateOfBirth}
-                    onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+                    onChange={handleDateInput}
                   />
                 </div>
               </div>
