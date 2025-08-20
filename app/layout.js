@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head >
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16453676009"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-TFGCS5C"></script>
 
         <script
           dangerouslySetInnerHTML={{
@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'AW-16453676009');
+              gtag('config', 'GTM-TFGCS5C');
             `,
           }}
         />
