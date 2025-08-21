@@ -67,7 +67,7 @@
 }
 @media(max-width: 1023){
         .bannerInner1{
-        background-image: none!important;
+        background-image: none !important;
     }
 }
 @media(max-width: 992px){
