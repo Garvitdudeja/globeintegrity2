@@ -5,6 +5,7 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "./bootstrap-client"; // ✅ Correct import
+import { useEffect } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
