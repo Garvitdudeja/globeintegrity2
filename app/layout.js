@@ -4,7 +4,8 @@ import "./responsive.css";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import BootstrapClient from "./bootstrap-client"; // ✅ Correct import
+import BootstrapClient from "./bootstrap-client";
+import GTMClient from "@/Components/GTMclient";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +26,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        {/* ✅ Place it here inside <body> so it runs client-side */}
         <BootstrapClient />
-
+        <GTMClient /> {/* ✅ Runs only on client */}
         <Header />
         {children}
         <Footer />
