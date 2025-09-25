@@ -27,7 +27,8 @@ const FooterData = [
       title: "Contact",
       items: [
         { title: "support@globeintegrity.com", link: "mailto:support@globeintegrity.com" },
-        { title: "1-855-687-4300", link: "tel:+18554969338" },
+        { title: "+1-844-787-4652", link: "tel:+18447874652" },
+        
       ],
     },
   ],
