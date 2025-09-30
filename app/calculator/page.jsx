@@ -5,6 +5,7 @@ import CoverageModal from "@/Components/Calculator/CoverageModal";
 import CustomSelect from "@/Components/Calculator/CustomSelect";
 import InfoTooltip from "@/Components/Calculator/infoTooltip";
 import Link from "next/link";
+import LeadCaptureModal from "@/Components/Calculator/LeadCaptureModal";
 import React, { useEffect, useState } from "react";
 
 const options = [
@@ -62,6 +63,7 @@ const Calculator = () => {
   const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
 
   const [showModal, setShowModal] = useState(false);
+  const [showLeadModal, setShowLeadModal] = useState(false);
   const [modalData, setModalData] = useState({
     yourIncome: "",
     childrenCount: "",
@@ -101,6 +103,38 @@ const Calculator = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const openLeadModal = () => setShowLeadModal(true);
+  const closeLeadModal = () => setShowLeadModal(false);
+
+  const submitLead = async (lead) => {
+    const payload = {
+      first_name: lead.firstName,
+      last_name: lead.lastName,
+      email: lead.email,
+      phone: lead.phone,
+      product: 'IUL',
+      context: {
+        dob: data.dateOfBirth,
+        gender: data.gender,
+        zipCode: data.zipCode,
+        maritalStatus: data.maritalStatus,
+        householdIncome: data.annualIncome,
+        risk: data.riskTolerance
+      }
+    };
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: payload })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err?.error || 'Failed to submit.');
+    }
+    closeLeadModal();
+    return res.json();
   };
 
   const resetModalValues = () => {
@@ -598,14 +632,13 @@ const Calculator = () => {
                           <h3>{smartFormat(calculateIULPremium(data).totalCoverage)}</h3>
                         </div>
                       </div>
-                      <Link href={`https://quotes.globeintegrity.com?dob=${data.dateOfBirth}&gender=${data.gender}&zipCode=${data.zipCode}&maritalStatus=${data.maritalStatus}&householdIncome=${data.annualIncome}&risk=${data.riskTolerance}`}>
-                        <button
-                          className="btn btn-primary mt-3 w-100"
-                          style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
-                        >
-                          Explore IUL
-                        </button>
-                      </Link>
+                      <button
+                        className="btn btn-primary mt-3 w-100"
+                        onClick={openLeadModal}
+                        style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
+                      >
+                        Explore IUL
+                      </button>
                     </div>
 
                   </>}
@@ -640,6 +673,7 @@ const Calculator = () => {
 
         {/* Coverage Need Modal */}
         <CoverageModal showModal={showModal} closeModal={closeModal} modalData={data} handleModalChange={handleChange} coverageItems={coverageItems} resetModalValues={resetModalValues} />
+        <LeadCaptureModal show={showLeadModal} onClose={closeLeadModal} onSubmit={submitLead} preset={data} />
       </div>
     </section>
   );
