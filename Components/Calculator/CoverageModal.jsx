@@ -17,10 +17,10 @@ const CoverageModal = ({showModal, closeModal, modalData, handleModalChange, cov
               left: 0,
               width: '100%',
               height: '100%',
-              zIndex: 1050
+              zIndex: 1000001
             }}
           >
-            <div className="modal-dialog modal-lg" style={{ maxWidth: '800px', margin: '30px auto' }}>
+            <div className="modal-dialog modal-lg" style={{ maxWidth: '800px', margin: '30px auto', zIndex: 1000002 }}>
               <div className="modal-content">
                 <div className="modal-header" style={{ borderBottom: '1px solid #dee2e6', padding: '1rem 1.5rem' }}>
                   <h4 className="modal-title" style={{ color: '#2d3269', fontWeight: 'bold' }}>Coverage Need Calculator</h4>

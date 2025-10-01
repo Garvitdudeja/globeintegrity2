@@ -2,11 +2,11 @@
 import calculateIULPremium, { smartFormat } from "@/Components/Calculation/IUL";
 import VULCalculator from "@/Components/Calculation/Vul";
 import CoverageModal from "@/Components/Calculator/CoverageModal";
+import UserInfoModal from "@/Components/Calculator/UserInfoModal";
 import CustomSelect from "@/Components/Calculator/CustomSelect";
 import InfoTooltip from "@/Components/Calculator/infoTooltip";
-import Link from "next/link";
-import LeadCaptureModal from "@/Components/Calculator/LeadCaptureModal";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const options = [
   { value: "Male", label: "Male" },
@@ -63,7 +63,7 @@ const Calculator = () => {
   const showMathModal = data.dateOfBirth && data.zipCode && data?.gender && data?.maritalStatus && data?.children && data?.annualIncome && data?.existingCoverage && data?.retirementSavings && data?.savings
 
   const [showModal, setShowModal] = useState(false);
-  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [showUserInfoModal, setShowUserInfoModal] = useState(false);
   const [modalData, setModalData] = useState({
     yourIncome: "",
     childrenCount: "",
@@ -105,36 +105,39 @@ const Calculator = () => {
     setShowModal(false);
   };
 
-  const openLeadModal = () => setShowLeadModal(true);
-  const closeLeadModal = () => setShowLeadModal(false);
+  const openUserInfoModal = () => {
+    setShowUserInfoModal(true);
+  };
 
-  const submitLead = async (lead) => {
-    const payload = {
-      first_name: lead.firstName,
-      last_name: lead.lastName,
-      email: lead.email,
-      phone: lead.phone,
-      product: 'IUL',
-      context: {
-        dob: data.dateOfBirth,
-        gender: data.gender,
-        zipCode: data.zipCode,
-        maritalStatus: data.maritalStatus,
-        householdIncome: data.annualIncome,
-        risk: data.riskTolerance
+  const closeUserInfoModal = () => {
+    setShowUserInfoModal(false);
+  };
+
+  const handleUserInfoSubmit = async (userData) => {
+    try {
+      const recommendation = calculateIULPremium(data);
+      const payload = {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        form: {
+          ...data,
+        },
+        recommendation,
+      };
+
+      const res = await axios.post('/api/submit', { data: payload });
+      if (res.status >= 200 && res.status < 300) {
+        alert('Thank you! Your request has been submitted. We will contact you within 24 hours.');
+      } else {
+        alert('Submission received a non-success response. Please try again.');
       }
-    };
-    const res = await fetch('/api/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: payload })
-    });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err?.error || 'Failed to submit.');
+    } catch (error) {
+      console.error('Submission failed:', error);
+      alert('Sorry, something went wrong submitting your request. Please try again.');
+      throw error;
     }
-    closeLeadModal();
-    return res.json();
   };
 
   const resetModalValues = () => {
@@ -548,7 +551,7 @@ const Calculator = () => {
               </div>
               <div className="policyType mb-4">
                 <div className="row align-items-center">
-                  {progress !== 100 ? <>
+                  {progress === 100 ? <>
                     <div className="col-lg-6">
                       <div className="calcLabel">
                         <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."} />
@@ -634,8 +637,8 @@ const Calculator = () => {
                       </div>
                       <button
                         className="btn btn-primary mt-3 w-100"
-                        onClick={openLeadModal}
                         style={{ backgroundColor: '#2d3269', borderColor: '#2d3269' }}
+                        onClick={openUserInfoModal}
                       >
                         Explore IUL
                       </button>
@@ -673,7 +676,13 @@ const Calculator = () => {
 
         {/* Coverage Need Modal */}
         <CoverageModal showModal={showModal} closeModal={closeModal} modalData={data} handleModalChange={handleChange} coverageItems={coverageItems} resetModalValues={resetModalValues} />
-        <LeadCaptureModal show={showLeadModal} onClose={closeLeadModal} onSubmit={submitLead} preset={data} />
+        
+        {/* User Info Modal */}
+        <UserInfoModal 
+          showModal={showUserInfoModal} 
+          closeModal={closeUserInfoModal} 
+          onSubmit={handleUserInfoSubmit} 
+        />
       </div>
     </section>
   );
