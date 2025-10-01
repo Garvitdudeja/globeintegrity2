@@ -7,6 +7,7 @@ import CustomSelect from "@/Components/Calculator/CustomSelect";
 import InfoTooltip from "@/Components/Calculator/infoTooltip";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const options = [
   { value: "Male", label: "Male" },
@@ -42,6 +43,7 @@ export { childrenOptions, formatCurrency }
 
 
 const Calculator = () => {
+  const router = useRouter();
   const [data, setData] = useState({
     dateOfBirth: "",
     gender: "",
@@ -127,9 +129,9 @@ const Calculator = () => {
         recommendation,
       };
 
-      const res = await axios.post('/api/submit', { data: payload });
+      const res = await axios.post('/api/calculator-submit', { data: payload });
       if (res.status >= 200 && res.status < 300) {
-        alert('Thank you! Your request has been submitted. We will contact you within 24 hours.');
+        router.push('/thankyou');
       } else {
         alert('Submission received a non-success response. Please try again.');
       }
@@ -551,7 +553,7 @@ const Calculator = () => {
               </div>
               <div className="policyType mb-4">
                 <div className="row align-items-center">
-                  {progress === 100 ? <>
+                  {progress !== 100 ? <>
                     <div className="col-lg-6">
                       <div className="calcLabel">
                         <InfoTooltip title={"POLICY TYPE"} description={"Some policy are first and foremost a way to protect your loved ones when you pass away. Some policy types also offer you a chance to build tax-efficient wealth that can be used while you're alive. These elements of protection and tax-efficient wealth building are a great place to start when comparing products. Because they are very distinct functions, we will approach each element separately."} />
