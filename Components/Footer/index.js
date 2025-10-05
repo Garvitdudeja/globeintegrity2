@@ -33,22 +33,13 @@ const FooterData = [
     },
   ],
   [
-    // {
-    //   title: "Company",
-    //   items: [
-    //     { title: "About Us", link: "#" },
-    //     { title: "Join the Team", link: "#" },
-    //     { title: "Partner Program", link: "#" },
-    //   ],
-    // },
-    // {
-    //   title: "Legal",
-    //   items: [
-    //     { title: "Privacy Policy", link: "#" },
-    //     { title: "Terms & Conditions", link: "#" },
-    //     { title: "Licenses", link: "#" },
-    //   ],
-    // },
+    {
+      title: "Legal",
+      items: [
+        { title: "Privacy Policy", link: "/privacy-policy" },
+        { title: "Terms & Conditions", link: "/terms-and-conditions" },
+      ],
+    },
     {
       title: "Social",
       type: "social",
