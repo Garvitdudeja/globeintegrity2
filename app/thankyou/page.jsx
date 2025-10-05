@@ -12,8 +12,8 @@ const ThankYou = () => {
         <div className="row justify-content-center">
           <div className="col-xl-12">
             <div className="bannerInner bannerInner1">
-              <div className="row">
-                <div className="col-lg-6">
+              <div className="row align-items-center">
+                <div className="col-lg-6 col-md-8 col-sm-10 mx-auto mx-lg-0">
                   <h2 className="heading54">Thank<span className="sky"> You!</span></h2>
                   <p className="sub16">What will happen next.</p>
                   <ul className="list-unstyled mt-3 ps-3">
@@ -31,7 +31,7 @@ const ThankYou = () => {
                     </li>
                   </ul>
                   <Link href="/">
-                    <button type="button" className="commonBtn me-2">Go to</button>
+                    <button type="button" className="commonBtn me-2">Go to home</button>
                   </Link>
                 </div>
               </div>

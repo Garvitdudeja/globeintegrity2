@@ -65,9 +65,20 @@
         padding-inline: 52px !important;
     }
 }
-@media(max-width: 1023){
+@media(max-width: 1023px){
         .bannerInner1{
         background-image: none !important;
+    }
+    .bannerInner1 .row {
+        flex-direction: column;
+    }
+    .bannerInner1 .col-lg-6:first-child {
+        order: 1;
+        text-align: center;
+    }
+    .bannerInner1 .col-lg-6:last-child {
+        order: 2;
+        margin-top: 2rem;
     }
 }
 @media(max-width: 992px){
@@ -221,7 +232,7 @@
     margin-bottom: 20px;
 }
 }
-@media(max-width:768){
+@media(max-width: 768px){
     .stedyCard {
         display: none;
     }
@@ -246,6 +257,39 @@
     }
     .header .logo img{
         max-width: 11.25rem;
+    }
+    /* Thank You Page Responsive */
+    .bannerInner1 {
+        padding: 2rem 1rem !important;
+        text-align: center;
+    }
+    .bannerInner1 .heading54 {
+        font-size: 2.5rem !important;
+        margin-bottom: 1rem;
+    }
+    .bannerInner1 .sky {
+        font-size: 2.5rem !important;
+    }
+    .bannerInner1 .sub16 {
+        font-size: 1.1rem !important;
+        margin-bottom: 1.5rem;
+    }
+    .bannerInner1 ul {
+        text-align: left;
+        max-width: 400px;
+        margin: 0 auto 2rem auto;
+    }
+    .bannerInner1 ul li {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    .bannerInner1 .commonBtn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+    .family-image {
+        max-width: 300px !important;
+        margin: 0 auto;
     }
 }
 @media(max-width:768){
@@ -322,6 +366,44 @@ nav {
 .header .logo img {
     width: 148.98px;
     height: 37.17px;
+}
+/* Thank You Page Mobile Styles */
+.bannerInner1 {
+    padding: 1.5rem 0.75rem !important;
+    text-align: center;
+}
+.bannerInner1 .heading54 {
+    font-size: 2rem !important;
+    margin-bottom: 0.75rem;
+    max-width: none !important;
+}
+.bannerInner1 .sky {
+    font-size: 2rem !important;
+}
+.bannerInner1 .sub16 {
+    font-size: 1rem !important;
+    margin-bottom: 1.25rem;
+    max-width: none !important;
+}
+.bannerInner1 ul {
+    text-align: left;
+    max-width: 100%;
+    margin: 0 auto 1.5rem auto;
+    padding-left: 0;
+}
+.bannerInner1 ul li {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+.bannerInner1 .commonBtn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    width: auto;
+}
+.family-image {
+    max-width: 250px !important;
+    margin: 0 auto;
 }
 .customer {
     padding-block: 2.1875rem;
